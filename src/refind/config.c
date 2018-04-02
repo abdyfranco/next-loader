@@ -886,7 +886,7 @@ static VOID AddSubmenu(LOADER_ENTRY *Entry, REFIT_FILE *File, REFIT_VOLUME *Volu
    Entry->me.SubScreen = SubScreen;
 } // VOID AddSubmenu()
 
-// Adds the options from a SINGLE refind.conf stanza to a new loader entry and returns
+// Adds the options from a SINGLE the configuration file stanza to a new loader entry and returns
 // that entry. The calling function is then responsible for adding the entry to the
 // list of entries.
 static LOADER_ENTRY * AddStanzaEntries(REFIT_FILE *File, REFIT_VOLUME *Volume, CHAR16 *Title) {
@@ -980,7 +980,7 @@ static LOADER_ENTRY * AddStanzaEntries(REFIT_FILE *File, REFIT_VOLUME *Volume, C
    return(Entry);
 } // static VOID AddStanzaEntries()
 
-// Read the user-configured menu entries from refind.conf and add or delete
+// Read the user-configured menu entries from the configuration file and add or delete
 // entries based on the contents of that file....
 VOID ScanUserConfigured(CHAR16 *FileName)
 {

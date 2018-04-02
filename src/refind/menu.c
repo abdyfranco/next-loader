@@ -1052,10 +1052,11 @@ static VOID DrawMainMenuEntry(REFIT_MENU_ENTRY *Entry, BOOLEAN selected, UINTN X
       Background = egCropImage(GlobalConfig.ScreenBackground, XPos, YPos,
                                SelectionImages[Entry->Row]->Width, SelectionImages[Entry->Row]->Height);
       egComposeImage(Background, SelectionImages[Entry->Row], 0, 0);
-      BltImageCompositeBadge(Background, Entry->Image, Entry->BadgeImage, XPos, YPos);
+      // BltImageCompositeBadge(Background, Entry->Image, Entry->BadgeImage, XPos, YPos);
+      BltImageCompositeBadge(Background, Entry->BadgeImage, NULL, XPos, YPos);
    } else { // Image not selected; copy background
-      egDrawImageWithTransparency(Entry->Image, Entry->BadgeImage, XPos, YPos,
-                                  SelectionImages[Entry->Row]->Width, SelectionImages[Entry->Row]->Height);
+      // egDrawImageWithTransparency(Entry->Image, Entry->BadgeImage, XPos, YPos, SelectionImages[Entry->Row]->Width, SelectionImages[Entry->Row]->Height);
+      egDrawImageWithTransparency(Entry->BadgeImage, NULL, XPos, YPos, SelectionImages[Entry->Row]->Width, SelectionImages[Entry->Row]->Height);
    } // if/else
 } // VOID DrawMainMenuEntry()
 
@@ -1683,7 +1684,7 @@ static VOID HideTag(REFIT_MENU_ENTRY *ChosenEntry) {
                 RescanAll(TRUE);
             } else {
                 DisplaySimpleMessage(L"Cannot Hide Entry for Manual Boot Stanza",
-                                     L"You must edit refind.conf to remove this entry.");
+                                     L"You must edit the configuration file to remove this entry.");
             }
             break;
         case TAG_LEGACY:
@@ -1700,7 +1701,7 @@ static VOID HideTag(REFIT_MENU_ENTRY *ChosenEntry) {
         case TAG_CSR_ROTATE:
         case TAG_HIDDEN:
             DisplaySimpleMessage(L"Unable to Comply",
-                                 L"To hide an internal tool, edit the 'showtools' line in refind.conf");
+                                 L"To hide an internal tool, edit the 'showtools' line in the configuration file.");
             break;
         case TAG_TOOL:
             HideItemMenu.Title = L"Hide Tool Tag";

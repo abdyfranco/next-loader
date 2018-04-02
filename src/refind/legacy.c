@@ -775,10 +775,10 @@ VOID WarnIfLegacyProblems(VOID) {
       } while ((i < NUM_SCAN_OPTIONS) && (!found));
 
       if (found) {
-         Print(L"NOTE: refind.conf's 'scanfor' line specifies scanning for one or more legacy\n");
-         Print(L"(BIOS) boot options; however, this is not possible because your computer lacks\n");
-         Print(L"the necessary Compatibility Support Module (CSM) support or that support is\n");
-         Print(L"disabled in your firmware.\n");
+         Print(L"NOTE: In the loader configuration file, the 'scanfor' line specifies scanning for\n");
+         Print(L"one or more legacy (BIOS) boot options; however, this is not possible because your\n");
+         Print(L"computer lacks the necessary Compatibility Support Module (CSM) support or that support\n");
+         Print(L"is disabled in your firmware.\n");
          PauseForKey();
       } // if (found)
    } // if no legacy support

@@ -85,12 +85,9 @@ static BOOLEAN egHasGraphics = FALSE;
 static UINTN egScreenWidth  = 800;
 static UINTN egScreenHeight = 600;
 
-//
-// Screen handling
-//
 
-// Fetches all the avaialable video modes from the GraphicsOutput module
-// compatible with the GOP Graphics card.
+//Jief from Clover
+
 VOID egDumpGOPVideoModes(VOID)
 {
     EFI_STATUS  Status;
@@ -146,8 +143,10 @@ VOID egDumpGOPVideoModes(VOID)
 
 }
 
-// Sets the selected video mode via GOP protocol, and reconnects simple
-// text out drivers.
+//
+// Sets mode via GOP protocol, and reconnects simple text out drivers
+//
+
 static EFI_STATUS GopSetModeAndReconnectTextOut(IN UINT32 ModeNumber)
 {
     //UINTN       HandleCount;
@@ -191,7 +190,6 @@ static EFI_STATUS GopSetModeAndReconnectTextOut(IN UINT32 ModeNumber)
     return Status;
 }
 
-// Make the necessary system calls to identify the set the current graphics mode.
 EFI_STATUS egSetMode(INT32 Next)
 {
   EFI_STATUS  Status = EFI_UNSUPPORTED;
@@ -226,8 +224,6 @@ EFI_STATUS egSetMode(INT32 Next)
   return Status;
 }
 
-// Set the maximum resolution supported by the Graphics Card and the connected
-// monitor.
 EFI_STATUS egSetMaxResolution()
 {
   EFI_STATUS  Status = EFI_UNSUPPORTED;
@@ -283,6 +279,11 @@ EFI_STATUS egSetMaxResolution()
   return Status;
 }
 
+
+//
+// Screen handling
+//
+
 // Make the necessary system calls to identify the current graphics mode.
 // Stores the results in the file-global variables egScreenWidth,
 // egScreenHeight, and egHasGraphics. The first two of these will be
@@ -325,20 +326,32 @@ VOID egInitScreen(VOID)
 
     // get protocols
     Status = LibLocateProtocol(&ConsoleControlProtocolGuid, (VOID **) &ConsoleControl);
-    if (EFI_ERROR(Status))
+    if (EFI_ERROR(Status)) {
         ConsoleControl = NULL;
+    	Print(L"ConsoleControl !ok\n");
+    }else{
+    	Print(L"ConsoleControl ok\n");
+    }
 
     Status = LibLocateProtocol(&UgaDrawProtocolGuid, (VOID **) &UgaDraw);
-    if (EFI_ERROR(Status))
+    if (EFI_ERROR(Status)) {
         UgaDraw = NULL;
+    	Print(L"UgaDraw !ok\n");
+    }else{
+    	Print(L"UgaDraw ok\n");
+    }
 
     Status = LibLocateProtocol(&GraphicsOutputProtocolGuid, (VOID **) &GraphicsOutput);
-    if (EFI_ERROR(Status))
+    if (EFI_ERROR(Status)) {
         GraphicsOutput = NULL;
+    	Print(L"GraphicsOutput !ok\n");
+    }else{
+    	Print(L"GraphicsOutput ok\n");
+    }
 
-    // egDetermineScreenSize();
-    
-    // Get the screen size
+//    egDetermineScreenSize();
+
+    // get screen size
     egHasGraphics = FALSE;
     if (GraphicsOutput != NULL) {
         egDumpGOPVideoModes();
@@ -346,17 +359,21 @@ VOID egInitScreen(VOID)
         egScreenWidth = GraphicsOutput->Mode->Info->HorizontalResolution;
         egScreenHeight = GraphicsOutput->Mode->Info->VerticalResolution;
         egHasGraphics = TRUE;
-    } else if (UgaDraw != NULL) {
-      UINT32 Width, Height, Depth, RefreshRate;
+    }
+    //is there anybody ever see UGA protocol???
+    else if (UgaDraw != NULL) {
+    	UINT32 Width, Height, Depth, RefreshRate;
+      //Print(L"you are lucky guy having UGA, inform please projectosx!\n");
         Status = UgaDraw->GetMode(UgaDraw, &Width, &Height, &Depth, &RefreshRate);
         if (EFI_ERROR(Status)) {
-            UgaDraw = NULL;  // Graphics not available
+            UgaDraw = NULL;   // graphics not available
         } else {
             egScreenWidth  = Width;
             egScreenHeight = Height;
             egHasGraphics = TRUE;
         }
     }
+
 }
 
 // Convert a graphics mode (in *ModeWidth) to a width and height (returned in
@@ -391,7 +408,7 @@ BOOLEAN egSetScreenSize(IN OUT UINTN *ScreenWidth, IN OUT UINTN *ScreenHeight) {
    EFI_STATUS                            Status = EFI_SUCCESS;
    EFI_GRAPHICS_OUTPUT_MODE_INFORMATION  *Info;
    UINTN                                 Size;
-   UINT32                                ModeNum = 0, CurrentModeNum;
+   UINT32                                ModeNum = 0;
    UINT32                                UGAWidth, UGAHeight, UGADepth, UGARefreshRate;
    BOOLEAN                               ModeSet = FALSE;
 
@@ -399,12 +416,9 @@ BOOLEAN egSetScreenSize(IN OUT UINTN *ScreenWidth, IN OUT UINTN *ScreenHeight) {
       return FALSE;
 
    if (GraphicsOutput != NULL) { // GOP mode (UEFI)
-      // CurrentModeNum = GraphicsOutput->Mode->Mode;
       if (*ScreenHeight == 0) { // User specified a mode number (stored in *ScreenWidth); use it directly
          ModeNum = (UINT32) *ScreenWidth;
-         if (ModeNum != CurrentModeNum) {
-            ModeSet = TRUE;
-         } else if (egGetResFromMode(ScreenWidth, ScreenHeight) &&
+         if (egGetResFromMode(ScreenWidth, ScreenHeight) &&
              (refit_call2_wrapper(GraphicsOutput->SetMode, GraphicsOutput, ModeNum) == EFI_SUCCESS)) {
             ModeSet = TRUE;
          }
@@ -416,10 +430,9 @@ BOOLEAN egSetScreenSize(IN OUT UINTN *ScreenWidth, IN OUT UINTN *ScreenHeight) {
          do {
             Status = refit_call4_wrapper(GraphicsOutput->QueryMode, GraphicsOutput, ModeNum, &Size, &Info);
             if ((Status == EFI_SUCCESS) && (Size >= sizeof(*Info) && (Info != NULL)) &&
-                (Info->HorizontalResolution == *ScreenWidth) && (Info->VerticalResolution == *ScreenHeight) &&
-                ((ModeNum == CurrentModeNum) ||
-                 (refit_call2_wrapper(GraphicsOutput->SetMode, GraphicsOutput, ModeNum) == EFI_SUCCESS))) {
-               ModeSet = TRUE;
+                (Info->HorizontalResolution == *ScreenWidth) && (Info->VerticalResolution == *ScreenHeight)) {
+               Status = refit_call2_wrapper(GraphicsOutput->SetMode, GraphicsOutput, ModeNum);
+               ModeSet = (Status == EFI_SUCCESS);
             } // if
          } while ((++ModeNum < GraphicsOutput->Mode->MaxMode) && !ModeSet);
       } // if/else
@@ -435,10 +448,6 @@ BOOLEAN egSetScreenSize(IN OUT UINTN *ScreenWidth, IN OUT UINTN *ScreenHeight) {
             Status = refit_call4_wrapper(GraphicsOutput->QueryMode, GraphicsOutput, ModeNum, &Size, &Info);
             if ((Status == EFI_SUCCESS) && (Info != NULL)) {
                Print(L"Mode %d: %d x %d\n", ModeNum, Info->HorizontalResolution, Info->VerticalResolution);
-               if (ModeNum == CurrentModeNum) {
-                   egScreenWidth = Info->HorizontalResolution;
-                   egScreenHeight = Info->VerticalResolution;
-               } // if
             } // else
          } while (++ModeNum < GraphicsOutput->Mode->MaxMode);
          PauseForKey();
@@ -663,9 +672,8 @@ VOID egDrawImageArea(IN EG_IMAGE *Image,
 // Display a message in the center of the screen, surrounded by a box of the
 // specified color. For the moment, uses graphics calls only. (It still works
 // in text mode on GOP/UEFI systems, but not on UGA/EFI 1.x systems.)
-VOID egDisplayMessage(IN CHAR16 *Text, EG_PIXEL *BGColor, UINTN PositionCode) {
+VOID egDisplayMessage(IN CHAR16 *Text, EG_PIXEL *BGColor) {
    UINTN BoxWidth, BoxHeight;
-   static UINTN Position = 1;
    EG_IMAGE *Box;
 
    if ((Text != NULL) && (BGColor != NULL)) {
@@ -676,42 +684,20 @@ VOID egDisplayMessage(IN CHAR16 *Text, EG_PIXEL *BGColor, UINTN PositionCode) {
          BoxWidth = egScreenWidth;
       Box = egCreateFilledImage(BoxWidth, BoxHeight, FALSE, BGColor);
       egRenderText(Text, Box, 7, BoxHeight / 4, (BGColor->r + BGColor->g + BGColor->b) / 3);
-      switch (PositionCode) {
-          case CENTER:
-              Position = (egScreenHeight - BoxHeight) / 2;
-              break;
-          case BOTTOM:
-              Position = egScreenHeight - (BoxHeight * 2);
-              break;
-          case TOP:
-              Position = 1;
-              break;
-          default: // NEXTLINE
-              Position += BoxHeight + (BoxHeight / 10);
-              break;
-      } // switch()
-      egDrawImage(Box, (egScreenWidth - BoxWidth) / 2, Position);
-      if ((PositionCode == CENTER) || (Position >= egScreenHeight - (BoxHeight * 5)))
-          Position = 1;
+      egDrawImage(Box, (egScreenWidth - BoxWidth) / 2, (egScreenHeight - BoxHeight) / 2);
    } // if non-NULL inputs
 } // VOID egDisplayMessage()
 
 // Copy the current contents of the display into an EG_IMAGE....
 // Returns pointer if successful, NULL if not.
 EG_IMAGE * egCopyScreen(VOID) {
-   return egCopyScreenArea(0, 0, egScreenWidth, egScreenHeight);
-} // EG_IMAGE * egCopyScreen()
-
-// Copy the current contents of the specified display area into an EG_IMAGE....
-// Returns pointer if successful, NULL if not.
-EG_IMAGE * egCopyScreenArea(UINTN XPos, UINTN YPos, UINTN Width, UINTN Height) {
    EG_IMAGE *Image = NULL;
 
    if (!egHasGraphics)
       return NULL;
 
-   // allocate a buffer for the screen area
-   Image = egCreateImage(Width, Height, FALSE);
+   // allocate a buffer for the whole screen
+   Image = egCreateImage(egScreenWidth, egScreenHeight, FALSE);
    if (Image == NULL) {
       return NULL;
    }
@@ -719,13 +705,13 @@ EG_IMAGE * egCopyScreenArea(UINTN XPos, UINTN YPos, UINTN Width, UINTN Height) {
    // get full screen image
    if (GraphicsOutput != NULL) {
       refit_call10_wrapper(GraphicsOutput->Blt, GraphicsOutput, (EFI_GRAPHICS_OUTPUT_BLT_PIXEL *)Image->PixelData,
-                           EfiBltVideoToBltBuffer, XPos, YPos, 0, 0, Image->Width, Image->Height, 0);
+                           EfiBltVideoToBltBuffer, 0, 0, 0, 0, Image->Width, Image->Height, 0);
    } else if (UgaDraw != NULL) {
       refit_call10_wrapper(UgaDraw->Blt, UgaDraw, (EFI_UGA_PIXEL *)Image->PixelData, EfiUgaVideoToBltBuffer,
-                           XPos, YPos, 0, 0, Image->Width, Image->Height, 0);
+                           0, 0, 0, 0, Image->Width, Image->Height, 0);
    }
    return Image;
-} // EG_IMAGE * egCopyScreenArea()
+} // EG_IMAGE * egCopyScreen()
 
 //
 // Make a screenshot

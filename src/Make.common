@@ -161,13 +161,13 @@ endif
 
 # GNU-EFI compilation path uses .o files for compiled object code
 %.o: %.c
-  $(CC) $(CFLAGS) $(ARCH_CFLAGS) $(GNUEFI_CFLAGS) $(LOCAL_GNUEFI_CFLAGS) \
-        -D__MAKEWITH_GNUEFI -c $< -o $@
+	$(CC) $(CFLAGS) $(ARCH_CFLAGS) $(GNUEFI_CFLAGS) $(LOCAL_GNUEFI_CFLAGS) \
+	      -D__MAKEWITH_GNUEFI -c $< -o $@
 
 # TianoCore compilation path uses .obj files for compiled object code
 %.obj: %.c
-  $(CC) $(CFLAGS) $(ARCH_CFLAGS) $(TIANO_INCLUDE_DIRS) -DNO_BUILTIN_VA_FUNCS \
-        -D__MAKEWITH_TIANO -c $< -o $@
+	$(CC) $(CFLAGS) $(ARCH_CFLAGS) $(TIANO_INCLUDE_DIRS) -DNO_BUILTIN_VA_FUNCS \
+	      -D__MAKEWITH_TIANO -c $< -o $@
 
 # rules for EFI applications
 
@@ -183,13 +183,13 @@ endif
 ifneq (,$(filter %.a,$(TARGET)))
 
 $(TARGET): $(OBJS)
-  $(AR) cq $@ $(OBJS)
+	$(AR) cq $@ $(OBJS)
 
 endif
 
 # utility rules
 
 #clean:
-# rm -f $(TARGET) *~ *.so $(OBJS) *.efi *.obj refind_*.txt refind_*.dll *.lib
+#	rm -f $(TARGET) *~ *.so $(OBJS) *.efi *.obj refind_*.txt refind_*.dll *.lib
 
 # EOF

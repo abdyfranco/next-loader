@@ -14,8 +14,8 @@
   BASE_NAME                     = refind
   FILE_GUID                     = B8448DD1-B146-41B7-9D66-98B3A0A404D3
   MODULE_TYPE                   = UEFI_APPLICATION
-  EDK_RELEASE_VERSION		        = 0x00020000
-  EFI_SPECIFICATION_VERSION	    = 0x00010000
+  EDK_RELEASE_VERSION		= 0x00020000
+  EFI_SPECIFICATION_VERSION	= 0x00010000
   VERSION_STRING                = 1.0
   ENTRY_POINT                   = efi_main
 
@@ -60,12 +60,12 @@
   libeg/text.c
 
 [Packages]
-  StdLib/StdLib.dec
   MdePkg/MdePkg.dec
   MdeModulePkg/MdeModulePkg.dec
   IntelFrameworkPkg/IntelFrameworkPkg.dec
   IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
-  RefindPkg/RefindPkg.dec
+# Uncomment the below when compiling with OS X
+#  StdLib/StdLib.dec
 
 [Packages.XCODE]
   StdLib/StdLib.dec
@@ -167,12 +167,10 @@
 
 [BuildOptions.IA32]
   XCODE:*_*_*_CC_FLAGS = -Os  -DEFI32 -D__MAKEWITH_TIANO
-  # XCODE:*_*_*_CC_FLAGS = -Os
   GCC:*_*_*_CC_FLAGS = -Os -DEFI32 -D__MAKEWITH_TIANO
 
 [BuildOptions.X64]
   XCODE:*_*_*_CC_FLAGS = -Os  -DEFIX64 -D__MAKEWITH_TIANO
-  # XCODE:*_*_*_CC_FLAGS = -Os -D__MAKEWITH_TIANO -DREFIND_VERSION='L"0.10.3+GOPScreen"' -DEFIX64
   GCC:*_*_*_CC_FLAGS = -Os -DEFIX64 -D__MAKEWITH_TIANO
 
 [BuildOptions.AARCH64]

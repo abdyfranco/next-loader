@@ -152,10 +152,10 @@ EFI_GUID gFreedesktopRootGuid = { 0x69dad710, 0x2ce4, 0x4e3c, { 0xb1, 0x6c, 0x21
 static REFIT_MENU_ENTRY MenuEntryAbout    = { L"About", TAG_ABOUT, 1, 0, 'A', NULL, NULL, NULL };
 static REFIT_MENU_ENTRY MenuEntryReset    = { L"Reboot Computer", TAG_REBOOT, 1, 0, 'R', NULL, NULL, NULL };
 static REFIT_MENU_ENTRY MenuEntryShutdown = { L"Shut Down Computer", TAG_SHUTDOWN, 1, 0, 'U', NULL, NULL, NULL };
-REFIT_MENU_ENTRY MenuEntryReturn          = { L"Return to Main Menu", TAG_RETURN, 1, 0, 0, NULL, NULL, NULL };
+REFIT_MENU_ENTRY MenuEntryReturn   = { L"Return to Main Menu", TAG_RETURN, 1, 0, 0, NULL, NULL, NULL };
 static REFIT_MENU_ENTRY MenuEntryExit     = { L"Exit", TAG_EXIT, 1, 0, 0, NULL, NULL, NULL };
 static REFIT_MENU_ENTRY MenuEntryManageHidden = { L"Manage Hidden Tags Menu", TAG_HIDDEN, 1, 0, 0, NULL, NULL, NULL };
-static REFIT_MENU_ENTRY MenuEntryFirmware  = { L"Reboot to Computer Setup Utility", TAG_FIRMWARE, 1, 0, 0, NULL, NULL, NULL };
+static REFIT_MENU_ENTRY MenuEntryFirmware = { L"Reboot to Computer Setup Utility", TAG_FIRMWARE, 1, 0, 0, NULL, NULL, NULL };
 static REFIT_MENU_ENTRY MenuEntryRotateCsr = { L"Change SIP Policy", TAG_CSR_ROTATE, 1, 0, 0, NULL, NULL, NULL };
 
 REFIT_MENU_SCREEN MainMenu       = { L"Main Menu", NULL, 0, NULL, 0, NULL, 0, L"Automatic boot",
@@ -270,14 +270,14 @@ static VOID AboutrEFInd(VOID)
                                               ST->FirmwareRevision & ((1 << 16) - 1)));
         AddMenuInfoLine(&AboutMenu, PoolPrint(L" Screen Output: %s", egScreenDescription()));
         AddMenuInfoLine(&AboutMenu, L"");
-#if defined(__MAKEWITH_GNUEFI)
+/*#if defined(__MAKEWITH_GNUEFI)
         AddMenuInfoLine(&AboutMenu, L"Built with GNU-EFI");
 #else
-        AddMenuInfoLine(&AboutMenu, L"Built with TianoCore EDK2");
-#endif
-        AddMenuInfoLine(&AboutMenu, L"");
-        AddMenuInfoLine(&AboutMenu, L"For more information, see the Next Loader Web site:");
-        AddMenuInfoLine(&AboutMenu, L"https://github.com/abdyfranco/next-loader/");
+        AddMenuInfoLine(&AboutMenu, L"Built with Love TianoCore EDK2");
+#endif*/
+        // AddMenuInfoLine(&AboutMenu, L"");
+        // AddMenuInfoLine(&AboutMenu, L"For more information, see the rEFInd Web site:");
+        // AddMenuInfoLine(&AboutMenu, L"http://www.rodsbooks.com/refind/");
         AddMenuEntry(&AboutMenu, &MenuEntryReturn);
     }
 
