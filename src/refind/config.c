@@ -753,10 +753,17 @@ VOID ReadConfig(CHAR16 *FileName)
            } // for (graphics_on tokens)
 
         } else if (MyStriCmp(TokenList[0], L"font") && (TokenCount == 2)) {
-           egLoadFont(TokenList[1]);
+            egLoadFont(TokenList[1]);
+
+        } else if (MyStriCmp(TokenList[0], L"switch_badge_os_icons") && (TokenCount == 2)) {
+          if (MyStriCmp(TokenList[1], L"true")) {
+            GlobalConfig.SwitchBadgeIcons = TRUE;
+          } else {
+            GlobalConfig.SwitchBadgeIcons = FALSE;
+          }
 
         } else if (MyStriCmp(TokenList[0], L"scan_all_linux_kernels")) {
-           GlobalConfig.ScanAllLinux = HandleBoolean(TokenList, TokenCount);
+            GlobalConfig.ScanAllLinux = HandleBoolean(TokenList, TokenCount);
 
         } else if (MyStriCmp(TokenList[0], L"fold_linux_kernels")) {
             GlobalConfig.FoldLinuxKernels = HandleBoolean(TokenList, TokenCount);
@@ -765,10 +772,10 @@ VOID ReadConfig(CHAR16 *FileName)
             HandleStrings(TokenList, TokenCount, &(GlobalConfig.ExtraKernelVersionStrings));
 
         } else if (MyStriCmp(TokenList[0], L"max_tags")) {
-           HandleInt(TokenList, TokenCount, &(GlobalConfig.MaxTags));
+            HandleInt(TokenList, TokenCount, &(GlobalConfig.MaxTags));
 
         } else if (MyStriCmp(TokenList[0], L"enable_and_lock_vmx")) {
-           GlobalConfig.EnableAndLockVMX = HandleBoolean(TokenList, TokenCount);
+            GlobalConfig.EnableAndLockVMX = HandleBoolean(TokenList, TokenCount);
 
         } else if (MyStriCmp(TokenList[0], L"spoof_osx_version")) {
             HandleString(TokenList, TokenCount, &(GlobalConfig.SpoofOSXVersion));

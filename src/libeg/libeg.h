@@ -55,6 +55,7 @@ typedef struct {
 
 // Some colors for EG_IMAGE
 #define COLOR_LIGHTBLUE {255, 175, 100, 0}
+#define COLOR_GRAY {176, 176, 176, 0}
 #define COLOR_RED {0, 0, 200, 0}
 
 typedef struct {

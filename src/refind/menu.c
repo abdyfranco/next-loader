@@ -1052,11 +1052,9 @@ static VOID DrawMainMenuEntry(REFIT_MENU_ENTRY *Entry, BOOLEAN selected, UINTN X
       Background = egCropImage(GlobalConfig.ScreenBackground, XPos, YPos,
                                SelectionImages[Entry->Row]->Width, SelectionImages[Entry->Row]->Height);
       egComposeImage(Background, SelectionImages[Entry->Row], 0, 0);
-      // BltImageCompositeBadge(Background, Entry->Image, Entry->BadgeImage, XPos, YPos);
-      BltImageCompositeBadge(Background, Entry->BadgeImage, NULL, XPos, YPos);
+      BltImageCompositeBadge(Background, Entry->Image, Entry->BadgeImage, XPos, YPos);
    } else { // Image not selected; copy background
-      // egDrawImageWithTransparency(Entry->Image, Entry->BadgeImage, XPos, YPos, SelectionImages[Entry->Row]->Width, SelectionImages[Entry->Row]->Height);
-      egDrawImageWithTransparency(Entry->BadgeImage, NULL, XPos, YPos, SelectionImages[Entry->Row]->Width, SelectionImages[Entry->Row]->Height);
+      egDrawImageWithTransparency(Entry->Image, Entry->BadgeImage, XPos, YPos, SelectionImages[Entry->Row]->Width, SelectionImages[Entry->Row]->Height);
    } // if/else
 } // VOID DrawMainMenuEntry()
 

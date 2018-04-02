@@ -323,6 +323,7 @@ typedef struct {
    BOOLEAN          EnableMouse;
    BOOLEAN          EnableTouch;
    BOOLEAN          HiddenTags;
+   BOOLEAN          SwitchBadgeIcons;
    UINTN            RequestedScreenWidth;
    UINTN            RequestedScreenHeight;
    UINTN            BannerBottomEdge;

@@ -732,29 +732,29 @@ static VOID ScanVolumeBootcode(REFIT_VOLUME *Volume, BOOLEAN *Bootable)
 // Set default volume badge icon based on /.VolumeBadge.{icns|png} file or disk kind
 VOID SetVolumeBadgeIcon(REFIT_VOLUME *Volume)
 {
-   if (GlobalConfig.HideUIFlags & HIDEUI_FLAG_BADGES)
-      return;
+    if (GlobalConfig.HideUIFlags & HIDEUI_FLAG_BADGES)
+       return;
 
-   if (Volume->VolBadgeImage == NULL) {
-      Volume->VolBadgeImage = egLoadIconAnyType(Volume->RootDir, L"", L".VolumeBadge", GlobalConfig.IconSizes[ICON_SIZE_BADGE]);
-   }
+    if (Volume->VolBadgeImage == NULL) {
+       Volume->VolBadgeImage = egLoadIconAnyType(Volume->RootDir, L"", L".VolumeBadge", GlobalConfig.IconSizes[ICON_SIZE_BADGE]);
+    }
 
-   if (Volume->VolBadgeImage == NULL) {
-      switch (Volume->DiskKind) {
-          case DISK_KIND_INTERNAL:
-             Volume->VolBadgeImage = BuiltinIcon(BUILTIN_ICON_VOL_INTERNAL);
-             break;
-          case DISK_KIND_EXTERNAL:
-             Volume->VolBadgeImage = BuiltinIcon(BUILTIN_ICON_VOL_EXTERNAL);
-             break;
-          case DISK_KIND_OPTICAL:
-             Volume->VolBadgeImage = BuiltinIcon(BUILTIN_ICON_VOL_OPTICAL);
-             break;
-          case DISK_KIND_NET:
-             Volume->VolBadgeImage = BuiltinIcon(BUILTIN_ICON_VOL_NET);
-             break;
-      } // switch()
-   }
+    if (Volume->VolBadgeImage == NULL) {
+       switch (Volume->DiskKind) {
+           case DISK_KIND_INTERNAL:
+              Volume->VolBadgeImage = BuiltinIcon(BUILTIN_ICON_VOL_INTERNAL);
+              break;
+           case DISK_KIND_EXTERNAL:
+              Volume->VolBadgeImage = BuiltinIcon(BUILTIN_ICON_VOL_EXTERNAL);
+              break;
+           case DISK_KIND_OPTICAL:
+              Volume->VolBadgeImage = BuiltinIcon(BUILTIN_ICON_VOL_OPTICAL);
+              break;
+           case DISK_KIND_NET:
+              Volume->VolBadgeImage = BuiltinIcon(BUILTIN_ICON_VOL_NET);
+              break;
+       } // switch()
+    }
 } // VOID SetVolumeBadgeIcon()
 
 // Return a string representing the input size in IEEE-1541 units.

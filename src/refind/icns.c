@@ -106,6 +106,12 @@ EG_IMAGE * LoadOSIcon(IN CHAR16 *OSIconName OPTIONAL, IN CHAR16 *FallbackIconNam
     if (GlobalConfig.TextOnly)      // skip loading if it's not used anyway
         return NULL;
 
+    // Show the volume icon instead of the os icon if swtich badges are enabled
+    if (GlobalConfig.SwitchBadgeIcons) {
+       SPrint(BaseName, 255, L"vol_%s", OSIconName);
+       Image = egFindIcon(BaseName, GlobalConfig.IconSizes[ICON_SIZE_BIG]);
+    }
+
     // First, try to find an icon from the OSIconName list....
     while (((CutoutName = FindCommaDelimited(OSIconName, Index++)) != NULL) && (Image == NULL)) {
        SPrint(BaseName, 255, L"%s_%s", BootLogo ? L"boot" : L"os", CutoutName);

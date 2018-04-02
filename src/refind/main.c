@@ -154,7 +154,7 @@ static REFIT_MENU_ENTRY MenuEntryReset    = { L"Reboot Computer", TAG_REBOOT, 1,
 static REFIT_MENU_ENTRY MenuEntryShutdown = { L"Shut Down Computer", TAG_SHUTDOWN, 1, 0, 'U', NULL, NULL, NULL };
 REFIT_MENU_ENTRY MenuEntryReturn   = { L"Return to Main Menu", TAG_RETURN, 1, 0, 0, NULL, NULL, NULL };
 static REFIT_MENU_ENTRY MenuEntryExit     = { L"Exit", TAG_EXIT, 1, 0, 0, NULL, NULL, NULL };
-static REFIT_MENU_ENTRY MenuEntryManageHidden = { L"Manage Hidden Tags Menu", TAG_HIDDEN, 1, 0, 0, NULL, NULL, NULL };
+static REFIT_MENU_ENTRY MenuEntryManageHidden = { L"Manage Options Menu", TAG_HIDDEN, 1, 0, 0, NULL, NULL, NULL };
 static REFIT_MENU_ENTRY MenuEntryFirmware = { L"Reboot to Computer Setup Utility", TAG_FIRMWARE, 1, 0, 0, NULL, NULL, NULL };
 static REFIT_MENU_ENTRY MenuEntryRotateCsr = { L"Change SIP Policy", TAG_CSR_ROTATE, 1, 0, 0, NULL, NULL, NULL };
 
@@ -171,6 +171,7 @@ REFIT_CONFIG GlobalConfig = { /* TextOnly = */ FALSE,
                               /* EnableMouse = */ FALSE,
                               /* EnableTouch = */ FALSE,
                               /* HiddenTags = */ TRUE,
+                              /* SwitchBadgeIcons = */ FALSE,
                               /* RequestedScreenWidth = */ 0,
                               /* RequestedScreenHeight = */ 0,
                               /* BannerBottomEdge = */ 0,
@@ -230,7 +231,7 @@ struct LOADER_LIST {
 // misc functions
 //
 
-static VOID AboutrEFInd(VOID)
+static VOID AboutLoader(VOID)
 {
     CHAR16     *FirmwareVendor;
     UINT32     CsrStatus;
@@ -282,7 +283,7 @@ static VOID AboutrEFInd(VOID)
     }
 
     RunMenu(&AboutMenu, NULL);
-} /* VOID AboutrEFInd() */
+} /* VOID AboutLoader() */
 
 static VOID WarnSecureBootError(CHAR16 *Name, BOOLEAN Verbose) {
     if (Name == NULL)
@@ -1119,8 +1120,13 @@ VOID SetLoaderDefaults(LOADER_ENTRY *Entry, CHAR16 *LoaderPath, REFIT_VOLUME *Vo
     if ((ShortcutLetter >= 'a') && (ShortcutLetter <= 'z'))
         ShortcutLetter = ShortcutLetter - 'a' + 'A'; // convert lowercase to uppercase
     Entry->me.ShortcutLetter = ShortcutLetter;
-    if (Entry->me.Image == NULL)
+    if (Entry->me.Image == NULL) {
         Entry->me.Image = LoadOSIcon(OSIconName, L"unknown", FALSE);
+
+        if (GlobalConfig.SwitchBadgeIcons) {
+            Entry->me.Image = LoadOSIcon((Volume->DiskKind == DISK_KIND_OPTICAL) ? L"optical" : ((Volume->DiskKind == DISK_KIND_EXTERNAL) ? L"external" : (Volume->DiskKind == DISK_KIND_NET) ? L"net" : L"internal"), L"unknown", TRUE);
+        }
+    }
     MyFreePool(PathOnly);
 } // VOID SetLoaderDefaults()
 
@@ -1777,11 +1783,11 @@ static VOID ScanForBootloaders(BOOLEAN ShowMessage) {
     UINTN    i;
     CHAR8    s;
     BOOLEAN  ScanForLegacy = FALSE;
-    EG_PIXEL BGColor = COLOR_LIGHTBLUE;
+    EG_PIXEL BGColor = COLOR_GRAY;
     CHAR16   *HiddenTags;
 
     if (ShowMessage)
-        egDisplayMessage(L"Scanning for boot loaders; please wait....", &BGColor, CENTER);
+        egDisplayMessage(L"Loading startup manager...", &BGColor, CENTER);
 
     // Determine up-front if we'll be scanning for legacy loaders....
     for (i = 0; i < NUM_SCAN_OPTIONS; i++) {
@@ -2172,7 +2178,7 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
     REFIT_MENU_ENTRY   *ChosenEntry;
     UINTN              MenuExit, i;
     CHAR16             *SelectionName = NULL;
-    EG_PIXEL           BGColor = COLOR_LIGHTBLUE;
+    EG_PIXEL           BGColor = COLOR_GRAY;
 
     // bootstrap
     InitializeLib(ImageHandle, SystemTable);
@@ -2220,7 +2226,7 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
 
     if (GlobalConfig.ScanDelay > 0) {
        if (GlobalConfig.ScanDelay > 1)
-          egDisplayMessage(L"Pausing before disk scan; please wait....", &BGColor, CENTER);
+          egDisplayMessage(L"Scanning disk drives...", &BGColor, CENTER);
        for (i = 0; i < GlobalConfig.ScanDelay; i++)
           refit_call1_wrapper(BS->Stall, 1000000);
        BltClearScreen(TRUE);
@@ -2255,7 +2261,7 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
                 break;
 
             case TAG_ABOUT:    // About rEFInd
-                AboutrEFInd();
+                AboutLoader();
                 break;
 
             case TAG_LOADER:   // Boot OS via .EFI loader

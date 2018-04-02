@@ -488,6 +488,10 @@ static LEGACY_ENTRY * AddLegacyEntry(IN CHAR16 *LoaderTitle, IN REFIT_VOLUME *Vo
                               ((Volume->DiskKind == DISK_KIND_EXTERNAL) ? L"USB" : L"HD");
     Entry->Enabled         = TRUE;
 
+    if (GlobalConfig.SwitchBadgeIcons) {
+        Entry->me.Image = LoadOSIcon((Volume->DiskKind == DISK_KIND_OPTICAL) ? L"optical" : ((Volume->DiskKind == DISK_KIND_EXTERNAL) ? L"external" : L"internal"), L"unknown", TRUE);
+    }
+
     // create the submenu
     SubScreen = AllocateZeroPool(sizeof(REFIT_MENU_SCREEN));
     SubScreen->Title = AllocateZeroPool(256 * sizeof(CHAR16));
@@ -541,12 +545,16 @@ static LEGACY_ENTRY * AddLegacyEntryUEFI(BDS_COMMON_OPTION *BdsOption, IN UINT16
     Entry->me.Tag          = TAG_LEGACY_UEFI;
     Entry->me.Row          = 0;
     Entry->me.ShortcutLetter = ShortcutLetter;
-    Entry->me.Image        = LoadOSIcon(L"legacy", L"legacy", TRUE);
+    Entry->me.Image        = LoadOSIcon(L"legacy", L"unknown", TRUE);
     Entry->LoadOptions     = (DiskType == BBS_CDROM) ? L"CD" :
                              ((DiskType == BBS_USB) ? L"USB" : L"HD");
     Entry->me.BadgeImage   = GetDiskBadge(DiskType);
     Entry->BdsOption       = BdsOption;
     Entry->Enabled         = TRUE;
+
+    if (GlobalConfig.SwitchBadgeIcons) {
+        Entry->me.Image = LoadOSIcon((DiskType == BBS_CDROM) ? L"optical" : ((DiskType == BBS_USB) ? L"external" : L"internal"), L"unknown", TRUE);
+    }
 
     // create the submenu
     SubScreen = AllocateZeroPool(sizeof(REFIT_MENU_SCREEN));
