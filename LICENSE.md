@@ -675,6 +675,6 @@ Public License instead of this License.  But first, please read
 
                             Additional Notice
   The preceding license terms apply to the modifications to the program made in
-forking the project as rEFInd and by extension Next Loader.
-The original rEFIt program is covered by the rEFIt license, See the file
-LICENSE.md in the source folder for more details of the rEFIt license.
+forking the project as rEFInd and by extension Next Loader. The original rEFIt
+program is covered by the rEFIt license, See the file LICENSE.md in the
+source folder for more details of the rEFIt license.
