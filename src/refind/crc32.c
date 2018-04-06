@@ -39,6 +39,7 @@
  *
  * CRC32 code derived from work by Gary S. Brown.
  */
+
 /*
  * Modified slightly for use on EFI by Rod Smith
  */

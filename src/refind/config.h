@@ -43,6 +43,15 @@
  * 
  */
 
+/*
+ * Modifications copyright (c) 2017-2018 Abdy Franco
+ * 
+ * Modifications distributed under the terms of the GNU General Public
+ * License (GPL) version 3 (GPLv3), a copy of which must be distributed
+ * with this source code or binaries made from it.
+ * 
+ */
+
 #ifndef __CONFIG_H_
 #define __CONFIG_H_
 
@@ -72,10 +81,14 @@ typedef struct {
 // Note: Below is combined with MOK_NAMES and FWUPDATE_NAMES to make default
 #if defined (EFIX64)
 #define DONT_SCAN_FILES L"shim.efi,shim-fedora.efi,shim-centos.efi,shimx64.efi,PreLoader.efi,TextMode.efi,ebounce.efi,GraphicsConsole.efi,bootmgr.efi,fbx64.efi"
+#elif defined (EFIIPF)
+#define DONT_SCAN_FILES L"shim.efi,shim-fedora.efi,shim-centos.efi,shimx64.efi,PreLoader.efi,TextMode.efi,ebounce.efi,GraphicsConsole.efi,bootmgr.efi,fbia64.efi"
 #elif defined(EFI32)
 #define DONT_SCAN_FILES L"shim.efi,shim-fedora.efi,shim-centos.efi,shimx64.efi,PreLoader.efi,TextMode.efi,ebounce.efi,GraphicsConsole.efi,bootmgr.efi,fbia32.efi"
 #elif defined(EFIAARCH64)
 #define DONT_SCAN_FILES L"shim.efi,shim-fedora.efi,shim-centos.efi,shimx64.efi,PreLoader.efi,TextMode.efi,ebounce.efi,GraphicsConsole.efi,bootmgr.efi,fbaa64.efi"
+#elif defined(EFIARM)
+#define DONT_SCAN_FILES L"shim.efi,shim-fedora.efi,shim-centos.efi,shimx64.efi,PreLoader.efi,TextMode.efi,ebounce.efi,GraphicsConsole.efi,bootmgr.efi,fbarm.efi"
 #else
 #define DONT_SCAN_FILES L"shim.efi,shim-fedora.efi,shim-centos.efi,shimx64.efi,PreLoader.efi,TextMode.efi,ebounce.efi,GraphicsConsole.efi,bootmgr.efi"
 #endif

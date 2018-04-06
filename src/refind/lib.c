@@ -33,6 +33,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 /*
  * Modifications copyright (c) 2012-2017 Roderick W. Smith
  *
@@ -40,6 +41,16 @@
  * License (GPL) version 3 (GPLv3), or (at your option) any later version.
  *
  */
+
+/*
+ * Modifications copyright (c) 2017-2018 Abdy Franco
+ * 
+ * Modifications distributed under the terms of the GNU General Public
+ * License (GPL) version 3 (GPLv3), a copy of which must be distributed
+ * with this source code or binaries made from it.
+ * 
+ */
+
 /*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -753,6 +764,15 @@ VOID SetVolumeBadgeIcon(REFIT_VOLUME *Volume)
            case DISK_KIND_NET:
               Volume->VolBadgeImage = BuiltinIcon(BUILTIN_ICON_VOL_NET);
               break;
+           case DISK_KIND_USB:
+              Volume->VolBadgeImage = BuiltinIcon(BUILTIN_ICON_VOL_USB);
+              break;
+           case DISK_KIND_FIREWIRE:
+              Volume->VolBadgeImage = BuiltinIcon(BUILTIN_ICON_VOL_FIREWARE);
+              break;
+           case DISK_KIND_FIBRECHANNEL:
+              Volume->VolBadgeImage = BuiltinIcon(BUILTIN_ICON_VOL_THUNDERBOLT);
+              break;
        } // switch()
     }
 } // VOID SetVolumeBadgeIcon()
@@ -934,15 +954,22 @@ VOID ScanVolume(REFIT_VOLUME *Volume)
         if (DevicePathType(DevicePath) == MEDIA_DEVICE_PATH) {
            SetPartGuidAndName(Volume, DevicePath);
         }
-        if (DevicePathType(DevicePath) == MESSAGING_DEVICE_PATH &&
-            (DevicePathSubType(DevicePath) == MSG_USB_DP ||
-             DevicePathSubType(DevicePath) == MSG_USB_CLASS_DP ||
-             DevicePathSubType(DevicePath) == MSG_1394_DP ||
-             DevicePathSubType(DevicePath) == MSG_FIBRECHANNEL_DP))
-            Volume->DiskKind = DISK_KIND_EXTERNAL;    // USB/FireWire/FC device -> external
+        if (DevicePathType(DevicePath) == MESSAGING_DEVICE_PATH && DevicePathSubType(DevicePath) == MSG_1394_DP) {
+            Volume->DiskKind = DISK_KIND_FIREWIRE; // USB/FireWire/FC device -> external
+            Bootable = TRUE;
+        }
+        if (DevicePathType(DevicePath) == MESSAGING_DEVICE_PATH && DevicePathSubType(DevicePath) == MSG_FIBRECHANNEL_DP) {
+            Volume->DiskKind = DISK_KIND_FIBRECHANNEL; // FC device -> external
+        }
+        if (DevicePathType(DevicePath) == MESSAGING_DEVICE_PATH && DevicePathSubType(DevicePath) == MSG_USB_DP) {
+            Volume->DiskKind = DISK_KIND_USB; // USB-> external
+        }
+        if (DevicePathType(DevicePath) == MESSAGING_DEVICE_PATH && DevicePathSubType(DevicePath) == MSG_USB_CLASS_DP) {
+            Volume->DiskKind = DISK_KIND_EXTERNAL; // USB-kind-> external
+        }
         if (DevicePathType(DevicePath) == MEDIA_DEVICE_PATH &&
             DevicePathSubType(DevicePath) == MEDIA_CDROM_DP) {
-            Volume->DiskKind = DISK_KIND_OPTICAL;     // El Torito entry -> optical disk
+            Volume->DiskKind = DISK_KIND_OPTICAL; // El Torito entry -> optical disk
             Bootable = TRUE;
         }
 

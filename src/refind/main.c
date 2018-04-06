@@ -33,6 +33,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 /*
  * Modifications copyright (c) 2012-2017 Roderick W. Smith
  *
@@ -40,6 +41,16 @@
  * License (GPL) version 3 (GPLv3), or (at your option) any later version.
  *
  */
+
+/*
+ * Modifications copyright (c) 2017-2018 Abdy Franco
+ * 
+ * Modifications distributed under the terms of the GNU General Public
+ * License (GPL) version 3 (GPLv3), a copy of which must be distributed
+ * with this source code or binaries made from it.
+ * 
+ */
+
 /*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -124,6 +135,15 @@ EFI_GUID gFreedesktopRootGuid = { 0x44479540, 0xf297, 0x41b2, { 0x9a, 0xf7, 0xd1
 #define FALLBACK_BASENAME       L"bootaa64.efi"
 #define EFI_STUB_ARCH           0xaa64
 EFI_GUID gFreedesktopRootGuid = { 0xb921b045, 0x1df0, 0x41c3, { 0xaf, 0x44, 0x4c, 0x6f, 0x28, 0x0d, 0x3f, 0xae }};
+#elif defined (EFIARM)
+#define SHELL_NAMES             L"\\EFI\\tools\\shell.efi,\\EFI\\tools\\shellarm.efi,\\shell.efi,\\shellarm.efi"
+#define GPTSYNC_NAMES           L"\\EFI\\tools\\gptsync.efi,\\EFI\\tools\\gptsync_arm.efi"
+#define GDISK_NAMES             L"\\EFI\\tools\\gdisk.efi,\\EFI\\tools\\gdisk_arm.efi"
+#define NETBOOT_NAMES           L"\\EFI\\tools\\ipxe.efi"
+#define MEMTEST_NAMES           L"memtest86.efi,memtest86_arm.efi,memtest86arm.efi,bootarm.efi"
+#define FALLBACK_FULLNAME       L"EFI\\BOOT\\bootarm.efi"
+#define FALLBACK_BASENAME       L"bootarm.efi"
+EFI_GUID gFreedesktopRootGuid = { 0x69dad710, 0x2ce4, 0x4e3c, { 0xb1, 0x6c, 0x21, 0xa1, 0xd4, 0x9a, 0xbe, 0xd3 }};
 #else
 #define SHELL_NAMES             L"\\EFI\\tools\\shell.efi,\\shell.efi"
 #define GPTSYNC_NAMES           L"\\EFI\\tools\\gptsync.efi"
@@ -243,7 +263,6 @@ static VOID AboutLoader(VOID)
         AddMenuInfoLine(&AboutMenu, L"Copyright (c) 2006-2010 Christoph Pfisterer");
         AddMenuInfoLine(&AboutMenu, L"Copyright (c) 2012-2017 Roderick W. Smith");
         AddMenuInfoLine(&AboutMenu, L"Copyright (c) 2017-2018 Abdy Franco");
-        AddMenuInfoLine(&AboutMenu, L"Portions Copyright (c) NVM Express, Inc.");
         AddMenuInfoLine(&AboutMenu, L"Portions Copyright (c) Intel Corporation and others");
         AddMenuInfoLine(&AboutMenu, L"Distributed under the terms of the GNU GPLv3 license");
         AddMenuInfoLine(&AboutMenu, L"");
@@ -252,11 +271,17 @@ static VOID AboutLoader(VOID)
 #if defined(EFI32)
         AddMenuInfoLine(&AboutMenu, PoolPrint(L" Platform: x86 (32 bit); Secure Boot %s",
                                               secure_mode() ? L"active" : L"inactive"));
+#elif defined(EFIIPF)
+        AddMenuInfoLine(&AboutMenu, PoolPrint(L" Platform: IPF (64 bit); Secure Boot %s",
+                                              secure_mode() ? L"active" : L"inactive"));
 #elif defined(EFIX64)
         AddMenuInfoLine(&AboutMenu, PoolPrint(L" Platform: x86_64 (64 bit); Secure Boot %s",
                                               secure_mode() ? L"active" : L"inactive"));
 #elif defined(EFIAARCH64)
         AddMenuInfoLine(&AboutMenu, PoolPrint(L" Platform: ARM (64 bit); Secure Boot %s",
+                                              secure_mode() ? L"active" : L"inactive"));
+#elif defined(EFIARM)
+        AddMenuInfoLine(&AboutMenu, PoolPrint(L" Platform: ARM (32 bit); Secure Boot %s",
                                               secure_mode() ? L"active" : L"inactive"));
 #else
         AddMenuInfoLine(&AboutMenu, L" Platform: unknown");
@@ -271,14 +296,11 @@ static VOID AboutLoader(VOID)
                                               ST->FirmwareRevision & ((1 << 16) - 1)));
         AddMenuInfoLine(&AboutMenu, PoolPrint(L" Screen Output: %s", egScreenDescription()));
         AddMenuInfoLine(&AboutMenu, L"");
-/*#if defined(__MAKEWITH_GNUEFI)
+#if defined(__MAKEWITH_GNUEFI)
         AddMenuInfoLine(&AboutMenu, L"Built with GNU-EFI");
 #else
-        AddMenuInfoLine(&AboutMenu, L"Built with Love TianoCore EDK2");
-#endif*/
-        // AddMenuInfoLine(&AboutMenu, L"");
-        // AddMenuInfoLine(&AboutMenu, L"For more information, see the rEFInd Web site:");
-        // AddMenuInfoLine(&AboutMenu, L"http://www.rodsbooks.com/refind/");
+        AddMenuInfoLine(&AboutMenu, L"Built with TianoCore EDK2");
+#endif
         AddMenuEntry(&AboutMenu, &MenuEntryReturn);
     }
 
@@ -301,7 +323,6 @@ static VOID WarnSecureBootError(CHAR16 *Name, BOOLEAN Verbose) {
         Print(L"   %s has already been signed.\n", Name);
         Print(L" * Use a MOK utility to register %s (\"enroll its hash\") without\n", Name);
         Print(L"   signing it.\n");
-        Print(L"\nSee http://www.rodsbooks.com/refind/secureboot.html for more information\n");
         PauseForKey();
     } // if
 } // VOID WarnSecureBootError()
@@ -1730,14 +1751,26 @@ EG_IMAGE * GetDiskBadge(IN UINTN DiskType) {
     EG_IMAGE * Badge = NULL;
 
     switch (DiskType) {
-        case BBS_HARDDISK:
+        case BBS_FLOPPY: // Floppy Disk Badge
+            Badge = BuiltinIcon(BUILTIN_ICON_VOL_FLOPPY);
+            break;
+        case BBS_HARDDISK: // Internal Drive Badge
             Badge = BuiltinIcon(BUILTIN_ICON_VOL_INTERNAL);
             break;
-        case BBS_USB:
+        case BBS_CDROM: // Optical Badge
+            Badge = BuiltinIcon(BUILTIN_ICON_VOL_OPTICAL);
+            break;
+        case BBS_PCMCIA: // External Badge
             Badge = BuiltinIcon(BUILTIN_ICON_VOL_EXTERNAL);
             break;
-        case BBS_CDROM:
-            Badge = BuiltinIcon(BUILTIN_ICON_VOL_OPTICAL);
+        case BBS_USB: // USB Drive Badge
+            Badge = BuiltinIcon(BUILTIN_ICON_VOL_USB);
+            break;
+        case BBS_EMBED_NETWORK: // Network Badge
+            Badge = BuiltinIcon(BUILTIN_ICON_VOL_NET);
+            break;
+        case BBS_BEV_DEVICE: // Wi-Fi Badge
+            Badge = BuiltinIcon(BUILTIN_ICON_VOL_WIFI);
             break;
     } // switch()
     return Badge;
@@ -2158,7 +2191,7 @@ static VOID SetConfigFilename(EFI_HANDLE ImageHandle) {
             if (FileExists(SelfDir, FileName)) {
                 GlobalConfig.ConfigFilename = FileName;
             } else {
-                Print(L"Specified configuration file (%s) doesn't exist; using\n'refind.conf' default\n", FileName);
+                Print(L"Specified configuration file (%s) doesn't exist; using\n'loader.conf' default\n", FileName);
                 MyFreePool(FileName);
             } // if/else
         } // if

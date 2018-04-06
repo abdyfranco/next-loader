@@ -1,7 +1,10 @@
-0.11.3 (??/??/2017):
+0.11.2-lb1 (4/4/2018):
 --------------------
 
-- Added icon for Void Linux.
+- Added GOP Support.
+- Added the ability to use the badge as the main icon.
+- Added NVMe Driver from TianoCore.
+- Added support for NVMe booting using the redirection method.
 
 0.11.2 (10/22/2017):
 --------------------

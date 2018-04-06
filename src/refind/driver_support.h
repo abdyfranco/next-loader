@@ -17,6 +17,15 @@
  *
  */
 
+/*
+ * Modifications copyright (c) 2017-2018 Abdy Franco
+ * 
+ * Modifications distributed under the terms of the GNU General Public
+ * License (GPL) version 3 (GPLv3), a copy of which must be distributed
+ * with this source code or binaries made from it.
+ * 
+ */
+
 #ifndef _DRIVER_SUPPORT
 #define _DRIVER_SUPPORT
 

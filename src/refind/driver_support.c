@@ -1,7 +1,4 @@
 /*
- * Functions related to drivers. Original copyright notices below....
- */
-/*
  * Copyright (c) 2006 - 2011, Intel Corporation. All rights reserved.<BR>
  * This program and the accompanying materials are licensed and made available under
  * the terms and conditions of the BSD License that accompanies this distribution.
@@ -12,6 +9,7 @@
  * WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
  *
  */
+
 /*
  * refit/main.c
  * Main code for the boot menu
@@ -47,6 +45,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 /*
  * Modifications copyright (c) 2012-2017 Roderick W. Smith
  *
@@ -54,6 +53,16 @@
  * License (GPL) version 3 (GPLv3), or (at your option) any later version.
  *
  */
+
+/*
+ * Modifications copyright (c) 2017-2018 Abdy Franco
+ * 
+ * Modifications distributed under the terms of the GNU General Public
+ * License (GPL) version 3 (GPLv3), a copy of which must be distributed
+ * with this source code or binaries made from it.
+ * 
+ */
+
 /*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -77,10 +86,14 @@
 
 #if defined (EFIX64)
 #define DRIVER_DIRS             L"drivers,drivers_x64"
+#elif defined (EFIIPF)
+#define DRIVER_DIRS             L"drivers,drivers_ia64"
 #elif defined (EFI32)
 #define DRIVER_DIRS             L"drivers,drivers_ia32"
 #elif defined (EFIAARCH64)
 #define DRIVER_DIRS             L"drivers,drivers_aa64"
+#elif defined (EFIARM)
+#define DRIVER_DIRS             L"drivers,drivers_arm"
 #else
 #define DRIVER_DIRS             L"drivers"
 #endif

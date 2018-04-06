@@ -33,6 +33,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 /*
  * Modifications copyright (c) 2012-2015 Roderick W. Smith
  *
@@ -40,6 +41,15 @@
  * License (GPL) version 3 (GPLv3), a copy of which must be distributed
  * with this source code or binaries made from it.
  *
+ */
+
+/*
+ * Modifications copyright (c) 2017-2018 Abdy Franco
+ * 
+ * Modifications distributed under the terms of the GNU General Public
+ * License (GPL) version 3 (GPLv3), a copy of which must be distributed
+ * with this source code or binaries made from it.
+ * 
  */
 
 #ifndef __GLOBAL_H_
@@ -159,20 +169,28 @@
 // Names of binaries that can manage MOKs....
 #if defined (EFIX64)
 #define MOK_NAMES               L"MokManager.efi,HashTool.efi,HashTool-signed.efi,KeyTool.efi,KeyTool-signed.efi,mmx64.efi"
+#elif defined (EFIIPF)
+#define MOK_NAMES               L"MokManager.efi,HashTool.efi,HashTool-signed.efi,KeyTool.efi,KeyTool-signed.efi,mmia64.efi"
 #elif defined(EFI32)
 #define MOK_NAMES               L"MokManager.efi,HashTool.efi,HashTool-signed.efi,KeyTool.efi,KeyTool-signed.efi,mmia32.efi"
 #elif defined(EFIAARCH64)
 #define MOK_NAMES               L"MokManager.efi,HashTool.efi,HashTool-signed.efi,KeyTool.efi,KeyTool-signed.efi,mmaa64.efi"
+#elif defined(EFIARM)
+#define MOK_NAMES               L"MokManager.efi,HashTool.efi,HashTool-signed.efi,KeyTool.efi,KeyTool-signed.efi,mmarm.efi"
 #else
 #define MOK_NAMES               L"MokManager.efi,HashTool.efi,HashTool-signed.efi,KeyTool.efi,KeyTool-signed.efi"
 #endif
 // Names of binaries that can update firmware....
 #if defined (EFIX64)
 #define FWUPDATE_NAMES          L"fwupx64.efi"
+#elif defined (EFIIPF)
+#define FWUPDATE_NAMES          L"fwupia64.efi"
 #elif defined(EFI32)
 #define FWUPDATE_NAMES          L"fwupia32.efi"
 #elif defined(EFIAARCH64)
 #define FWUPDATE_NAMES          L"fwupaa64.efi"
+#elif defined(EFIARM)
+#define FWUPDATE_NAMES          L"fwuparm.efi"
 #else
 #define FWUPDATE_NAMES          L"fwup.efi"
 #endif

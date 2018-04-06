@@ -34,6 +34,15 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/*
+ * Modifications copyright (c) 2017-2018 Abdy Franco
+ * 
+ * Modifications distributed under the terms of the GNU General Public
+ * License (GPL) version 3 (GPLv3), a copy of which must be distributed
+ * with this source code or binaries made from it.
+ * 
+ */
+
 #include "global.h"
 #include "lib.h"
 #include "icns.h"
@@ -72,6 +81,12 @@ BUILTIN_ICON BuiltinIconTable[BUILTIN_ICON_COUNT] = {
    { NULL, L"vol_external", ICON_SIZE_BADGE },
    { NULL, L"vol_optical", ICON_SIZE_BADGE },
    { NULL, L"vol_net", ICON_SIZE_BADGE },
+   { NULL, L"vol_usb", ICON_SIZE_BADGE },
+   { NULL, L"vol_thunderbolt", ICON_SIZE_BADGE },
+   { NULL, L"vol_fireware", ICON_SIZE_BADGE },
+   { NULL, L"vol_wifi", ICON_SIZE_BADGE },
+   { NULL, L"vol_time_machine", ICON_SIZE_BADGE },
+   { NULL, L"vol_floppy", ICON_SIZE_BADGE },
    { NULL, L"mouse", ICON_SIZE_MOUSE }
 };
 

@@ -33,6 +33,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 /*
  * Modifications copyright (c) 2012-2015 Roderick W. Smith
  *
@@ -40,6 +41,15 @@
  * License (GPL) version 3 (GPLv3), a copy of which must be distributed
  * with this source code or binaries made from it.
  *
+ */
+
+/*
+ * Modifications copyright (c) 2017-2018 Abdy Franco
+ * 
+ * Modifications distributed under the terms of the GNU General Public
+ * License (GPL) version 3 (GPLv3), a copy of which must be distributed
+ * with this source code or binaries made from it.
+ * 
  */
 
 #ifndef __LIB_H_
@@ -70,10 +80,13 @@ typedef struct {
     EFI_FILE_INFO       *LastFileInfo;
 } REFIT_DIR_ITER;
 
-#define DISK_KIND_INTERNAL  (0)
-#define DISK_KIND_EXTERNAL  (1)
-#define DISK_KIND_OPTICAL   (2)
-#define DISK_KIND_NET       (3)
+#define DISK_KIND_INTERNAL     (0)
+#define DISK_KIND_EXTERNAL     (1)
+#define DISK_KIND_OPTICAL      (2)
+#define DISK_KIND_NET          (3)
+#define DISK_KIND_USB          (4)
+#define DISK_KIND_FIREWIRE     (5)
+#define DISK_KIND_FIBRECHANNEL (6)
 
 #define VOL_UNREADABLE 999
 

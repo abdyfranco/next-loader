@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import sys
-import Image
+from PIL import Image
 
 def enc_backbuffer(backbuffer):
     compdata = []

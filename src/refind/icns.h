@@ -33,8 +33,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 /*
  * Modifications copyright (c) 2012-2015 Roderick W. Smith
+ * 
+ * Modifications distributed under the terms of the GNU General Public
+ * License (GPL) version 3 (GPLv3), a copy of which must be distributed
+ * with this source code or binaries made from it.
+ * 
+ */
+
+/*
+ * Modifications copyright (c) 2017-2018 Abdy Franco
  * 
  * Modifications distributed under the terms of the GNU General Public
  * License (GPL) version 3 (GPLv3), a copy of which must be distributed
@@ -75,8 +85,14 @@ EG_IMAGE * BuiltinIcon(IN UINTN Id);
 #define BUILTIN_ICON_VOL_EXTERNAL          (17)
 #define BUILTIN_ICON_VOL_OPTICAL           (18)
 #define BUILTIN_ICON_VOL_NET               (19)
-#define BUILTIN_ICON_MOUSE                 (20)
-#define BUILTIN_ICON_COUNT                 (21)
+#define BUILTIN_ICON_VOL_USB               (20)
+#define BUILTIN_ICON_VOL_THUNDERBOLT       (21)
+#define BUILTIN_ICON_VOL_FIREWARE          (22)
+#define BUILTIN_ICON_VOL_WIFI              (23)
+#define BUILTIN_ICON_VOL_TIME_MACHINE      (24)
+#define BUILTIN_ICON_VOL_FLOPPY            (25)
+#define BUILTIN_ICON_MOUSE                 (26)
+#define BUILTIN_ICON_COUNT                 (27)
 
 #endif
 

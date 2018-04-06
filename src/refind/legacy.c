@@ -33,6 +33,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 /*
  * Modifications copyright (c) 2012-2015 Roderick W. Smith
  *
@@ -40,6 +41,16 @@
  * License (GPL) version 3 (GPLv3), or (at your option) any later version.
  *
  */
+
+/*
+ * Modifications copyright (c) 2017-2018 Abdy Franco
+ * 
+ * Modifications distributed under the terms of the GNU General Public
+ * License (GPL) version 3 (GPLv3), a copy of which must be distributed
+ * with this source code or binaries made from it.
+ * 
+ */
+
 /*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -484,12 +495,29 @@ static LEGACY_ENTRY * AddLegacyEntry(IN CHAR16 *LoaderTitle, IN REFIT_VOLUME *Vo
     Entry->me.Image        = LoadOSIcon(Volume->OSIconName, L"legacy", FALSE);
     Entry->me.BadgeImage   = Volume->VolBadgeImage;
     Entry->Volume          = Volume;
-    Entry->LoadOptions     = (Volume->DiskKind == DISK_KIND_OPTICAL) ? L"CD" :
-                              ((Volume->DiskKind == DISK_KIND_EXTERNAL) ? L"USB" : L"HD");
+    Entry->LoadOptions     = (Volume->DiskKind == DISK_KIND_OPTICAL) ? L"CD" : (
+                                (
+                                    (Volume->DiskKind == DISK_KIND_EXTERNAL) ||
+                                    (Volume->DiskKind == DISK_KIND_USB) ||
+                                    (Volume->DiskKind == DISK_KIND_FIREWIRE) ||
+                                    (Volume->DiskKind == DISK_KIND_FIBRECHANNEL)
+                                ) ? L"USB" : L"HD");
     Entry->Enabled         = TRUE;
 
     if (GlobalConfig.SwitchBadgeIcons) {
-        Entry->me.Image = LoadOSIcon((Volume->DiskKind == DISK_KIND_OPTICAL) ? L"optical" : ((Volume->DiskKind == DISK_KIND_EXTERNAL) ? L"external" : L"internal"), L"unknown", TRUE);
+        if (Volume->DiskKind == DISK_KIND_OPTICAL) {
+            Entry->me.Image = LoadOSIcon(L"optical", L"unknown", TRUE);
+        } else if (Volume->DiskKind == DISK_KIND_EXTERNAL) {
+            Entry->me.Image = LoadOSIcon(L"external", L"unknown", TRUE);
+        } else if (Volume->DiskKind == DISK_KIND_USB) {
+            Entry->me.Image = LoadOSIcon(L"usb", L"unknown", TRUE);
+        } else if (Volume->DiskKind == DISK_KIND_FIREWIRE) {
+            Entry->me.Image = LoadOSIcon(L"firewire", L"unknown", TRUE);
+        } else if (Volume->DiskKind == DISK_KIND_FIBRECHANNEL) {
+            Entry->me.Image = LoadOSIcon(L"thunderbolt", L"unknown", TRUE);
+        } else {
+            Entry->me.Image = LoadOSIcon(L"internal", L"unknown", TRUE);
+        }
     }
 
     // create the submenu
@@ -553,7 +581,21 @@ static LEGACY_ENTRY * AddLegacyEntryUEFI(BDS_COMMON_OPTION *BdsOption, IN UINT16
     Entry->Enabled         = TRUE;
 
     if (GlobalConfig.SwitchBadgeIcons) {
-        Entry->me.Image = LoadOSIcon((DiskType == BBS_CDROM) ? L"optical" : ((DiskType == BBS_USB) ? L"external" : L"internal"), L"unknown", TRUE);
+        if (DiskType == BBS_CDROM) {
+            Entry->me.Image = LoadOSIcon(L"optical", L"unknown", TRUE);
+        } else if (DiskType == BBS_PCMCIA) {
+            Entry->me.Image = LoadOSIcon(L"external", L"unknown", TRUE);
+        } else if (DiskType == BBS_USB) {
+            Entry->me.Image = LoadOSIcon(L"usb", L"unknown", TRUE);
+        } else if (DiskType == BBS_FLOPPY) {
+            Entry->me.Image = LoadOSIcon(L"floppy", L"unknown", TRUE);
+        } else if (DiskType == BBS_EMBED_NETWORK) {
+            Entry->me.Image = LoadOSIcon(L"net", L"unknown", TRUE);
+        } else if (DiskType == BBS_BEV_DEVICE) {
+            Entry->me.Image = LoadOSIcon(L"wifi", L"unknown", TRUE);
+        } else {
+            Entry->me.Image = LoadOSIcon(L"internal", L"unknown", TRUE);
+        }
     }
 
     // create the submenu
