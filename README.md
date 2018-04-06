@@ -23,7 +23,7 @@ any modern graphics card with GOP support, even working with HiDPi resolutions.
 
 ### Windows Without Boot Camp
 Installs Windows (UEFI-Compatible only) without the need for Boot Camp or an optical drive (in the case
-of Macs with optical drives), now you ca  install Windows in UEFI mode from a bootable USB drive.
+of Macs with optical drives), now you can install Windows in UEFI mode from a bootable USB drive.
 You can install Windows in UEFI mode even on machines that do not support Boot Camp, such as Xserve.
 
 ### Multiple Booting Support
