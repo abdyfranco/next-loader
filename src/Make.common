@@ -71,6 +71,9 @@ TIANO_INCLUDE_DIRS = -I $(TIANOBASE)/MdePkg \
                      -I $(TIANOBASE)/MdePkg/Include \
                      -I $(TIANOBASE)/MdeModulePkg/ \
                      -I $(TIANOBASE)/MdeModulePkg/Include \
+                     -I $(TIANOBASE)/MdeModulePkg/Bus/Pci/NvmExpressDxe \
+                     -I $(TIANOBASE)/MdeModulePkg/Bus/Pci/SataControllerDxe \
+                     -I $(TIANOBASE)/MdeModulePkg/Bus/Usb/UsbMassStorageDxe \
                      -I $(TIANOBASE)/IntelFrameworkPkg/Include \
                      -I $(TIANOBASE)/MdePkg/Include/$(ARCHDIR) \
                      -I .. \

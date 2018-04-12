@@ -101,6 +101,7 @@
 
 // IndustryStandard Includes
 #include <IndustryStandard/Pci.h>
+#include <IndustryStandard/Nvme.h>
 #include <IndustryStandard/SmBus.h>
 #include <IndustryStandard/Acpi.h>
 #include <IndustryStandard/HighPrecisionEventTimerTable.h>
