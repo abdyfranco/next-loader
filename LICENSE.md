@@ -678,3 +678,8 @@ Public License instead of this License.  But first, please read
 forking the project as rEFInd and by extension Next Loader. The original rEFIt
 program is covered by the rEFIt license, See the file LICENSE.md in the
 source folder for more details of the rEFIt license.
+
+  The preceding license terms apply to the modifications to the program made in
+forking the project as Boot Manager. The original QuickBoot program is covered by
+their own license, Please contact the QuickBoot developer for more details of the
+license. <https://buttered-cat.com/support/>
