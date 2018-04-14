@@ -1,0 +1,338 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02ED7EB8171B175600C65987 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02ED7EB7171B175600C65987 /* Cocoa.framework */; };
+		02ED7EC2171B175600C65987 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02ED7EC0171B175600C65987 /* InfoPlist.strings */; };
+		02ED7EC4171B175600C65987 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02ED7EC3171B175600C65987 /* main.m */; };
+		02ED7EC8171B175600C65987 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 02ED7EC6171B175600C65987 /* Credits.rtf */; };
+		02ED7ECB171B175600C65987 /* BDTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02ED7ECA171B175600C65987 /* BDTAppDelegate.m */; };
+		02ED7ECE171B175700C65987 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02ED7ECC171B175700C65987 /* MainMenu.xib */; };
+		02ED7ED8171B179A00C65987 /* BDDisk.m in Sources */ = {isa = PBXBuildFile; fileRef = 02ED7ED5171B179A00C65987 /* BDDisk.m */; };
+		02ED7ED9171B179A00C65987 /* BDDiskArbitrationSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 02ED7ED7171B179A00C65987 /* BDDiskArbitrationSession.m */; };
+		02ED7EDB171B17F800C65987 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02ED7EDA171B17F800C65987 /* DiskArbitration.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		02ED7EB4171B175600C65987 /* ButteredDiskTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ButteredDiskTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		02ED7EB7171B175600C65987 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		02ED7EBA171B175600C65987 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		02ED7EBB171B175600C65987 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		02ED7EBC171B175600C65987 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		02ED7EBF171B175600C65987 /* ButteredDiskTester-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ButteredDiskTester-Info.plist"; sourceTree = "<group>"; };
+		02ED7EC1171B175600C65987 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		02ED7EC3171B175600C65987 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		02ED7EC5171B175600C65987 /* ButteredDiskTester-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ButteredDiskTester-Prefix.pch"; sourceTree = "<group>"; };
+		02ED7EC7171B175600C65987 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		02ED7EC9171B175600C65987 /* BDTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDTAppDelegate.h; sourceTree = "<group>"; };
+		02ED7ECA171B175600C65987 /* BDTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BDTAppDelegate.m; sourceTree = "<group>"; };
+		02ED7ECD171B175700C65987 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		02ED7ED4171B179A00C65987 /* BDDisk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDDisk.h; sourceTree = SOURCE_ROOT; };
+		02ED7ED5171B179A00C65987 /* BDDisk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDDisk.m; sourceTree = SOURCE_ROOT; };
+		02ED7ED6171B179A00C65987 /* BDDiskArbitrationSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDDiskArbitrationSession.h; sourceTree = SOURCE_ROOT; };
+		02ED7ED7171B179A00C65987 /* BDDiskArbitrationSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDDiskArbitrationSession.m; sourceTree = SOURCE_ROOT; };
+		02ED7EDA171B17F800C65987 /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = System/Library/Frameworks/DiskArbitration.framework; sourceTree = SDKROOT; };
+		02ED7EFF171B1C8200C65987 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		02ED7EB1171B175600C65987 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02ED7EDB171B17F800C65987 /* DiskArbitration.framework in Frameworks */,
+				02ED7EB8171B175600C65987 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		02ED7EAB171B175600C65987 = {
+			isa = PBXGroup;
+			children = (
+				02ED7EFF171B1C8200C65987 /* README.md */,
+				02ED7F01171B1C9300C65987 /* ButteredDisk */,
+				02ED7EBD171B175600C65987 /* ButteredDiskTester */,
+				02ED7EB6171B175600C65987 /* Frameworks */,
+				02ED7EB5171B175600C65987 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		02ED7EB5171B175600C65987 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				02ED7EB4171B175600C65987 /* ButteredDiskTester.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		02ED7EB6171B175600C65987 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				02ED7EDA171B17F800C65987 /* DiskArbitration.framework */,
+				02ED7EB7171B175600C65987 /* Cocoa.framework */,
+				02ED7EB9171B175600C65987 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		02ED7EB9171B175600C65987 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				02ED7EBA171B175600C65987 /* AppKit.framework */,
+				02ED7EBB171B175600C65987 /* CoreData.framework */,
+				02ED7EBC171B175600C65987 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		02ED7EBD171B175600C65987 /* ButteredDiskTester */ = {
+			isa = PBXGroup;
+			children = (
+				02ED7EC9171B175600C65987 /* BDTAppDelegate.h */,
+				02ED7ECA171B175600C65987 /* BDTAppDelegate.m */,
+				02ED7ECC171B175700C65987 /* MainMenu.xib */,
+				02ED7EBE171B175600C65987 /* Supporting Files */,
+			);
+			path = ButteredDiskTester;
+			sourceTree = "<group>";
+		};
+		02ED7EBE171B175600C65987 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				02ED7EBF171B175600C65987 /* ButteredDiskTester-Info.plist */,
+				02ED7EC0171B175600C65987 /* InfoPlist.strings */,
+				02ED7EC3171B175600C65987 /* main.m */,
+				02ED7EC5171B175600C65987 /* ButteredDiskTester-Prefix.pch */,
+				02ED7EC6171B175600C65987 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		02ED7F01171B1C9300C65987 /* ButteredDisk */ = {
+			isa = PBXGroup;
+			children = (
+				02ED7ED4171B179A00C65987 /* BDDisk.h */,
+				02ED7ED5171B179A00C65987 /* BDDisk.m */,
+				02ED7ED6171B179A00C65987 /* BDDiskArbitrationSession.h */,
+				02ED7ED7171B179A00C65987 /* BDDiskArbitrationSession.m */,
+			);
+			name = ButteredDisk;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		02ED7EB3171B175600C65987 /* ButteredDiskTester */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 02ED7ED1171B175700C65987 /* Build configuration list for PBXNativeTarget "ButteredDiskTester" */;
+			buildPhases = (
+				02ED7EB0171B175600C65987 /* Sources */,
+				02ED7EB1171B175600C65987 /* Frameworks */,
+				02ED7EB2171B175600C65987 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ButteredDiskTester;
+			productName = ButteredDiskTester;
+			productReference = 02ED7EB4171B175600C65987 /* ButteredDiskTester.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		02ED7EAC171B175600C65987 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = BDT;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Buttered Cat Software";
+			};
+			buildConfigurationList = 02ED7EAF171B175600C65987 /* Build configuration list for PBXProject "ButteredDiskTester" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 02ED7EAB171B175600C65987;
+			productRefGroup = 02ED7EB5171B175600C65987 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				02ED7EB3171B175600C65987 /* ButteredDiskTester */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		02ED7EB2171B175600C65987 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02ED7EC2171B175600C65987 /* InfoPlist.strings in Resources */,
+				02ED7EC8171B175600C65987 /* Credits.rtf in Resources */,
+				02ED7ECE171B175700C65987 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		02ED7EB0171B175600C65987 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02ED7EC4171B175600C65987 /* main.m in Sources */,
+				02ED7ECB171B175600C65987 /* BDTAppDelegate.m in Sources */,
+				02ED7ED8171B179A00C65987 /* BDDisk.m in Sources */,
+				02ED7ED9171B179A00C65987 /* BDDiskArbitrationSession.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		02ED7EC0171B175600C65987 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				02ED7EC1171B175600C65987 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		02ED7EC6171B175600C65987 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				02ED7EC7171B175600C65987 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		02ED7ECC171B175700C65987 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				02ED7ECD171B175700C65987 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		02ED7ECF171B175700C65987 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		02ED7ED0171B175700C65987 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		02ED7ED2171B175700C65987 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ButteredDiskTester/ButteredDiskTester-Prefix.pch";
+				INFOPLIST_FILE = "ButteredDiskTester/ButteredDiskTester-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		02ED7ED3171B175700C65987 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ButteredDiskTester/ButteredDiskTester-Prefix.pch";
+				INFOPLIST_FILE = "ButteredDiskTester/ButteredDiskTester-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		02ED7EAF171B175600C65987 /* Build configuration list for PBXProject "ButteredDiskTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				02ED7ECF171B175700C65987 /* Debug */,
+				02ED7ED0171B175700C65987 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		02ED7ED1171B175700C65987 /* Build configuration list for PBXNativeTarget "ButteredDiskTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				02ED7ED2171B175700C65987 /* Debug */,
+				02ED7ED3171B175700C65987 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 02ED7EAC171B175600C65987 /* Project object */;
+}
