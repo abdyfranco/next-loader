@@ -1,7 +1,7 @@
 Requirements
 ============
 
-To compile rEFInd, you'll need the following:
+To compile Next Loader, you'll need the following:
 
 * A Linux installation. Note that this installation does NOT need to be
   EFI-based. It can use IA32 (aka x86, i386, or other things), X64 (aka
@@ -12,9 +12,9 @@ To compile rEFInd, you'll need the following:
   machine. (I describe some unsupported non-Linux build options later.)
 
 * A standard set of Linux development tools, based on GCC. (I've tried
-  using Clang 3.4 under Ubuntu, with partial success. The main rEFInd
+  using Clang 3.4 under Ubuntu, with partial success. The main Next Loader
   binary, gptsync, and some drivers compile successfully; but only gptsync
-  runs normally. The drivers I've tried and the main rEFInd binary crash.)
+  runs normally. The drivers I've tried and the main Next Loader binary crash.)
 
 * One of the following:
 
@@ -23,13 +23,13 @@ To compile rEFInd, you'll need the following:
     "frozen" forms (UDK2010, UDK2014, and so on); however, the term "EDK2"
     is often used in reference to the TianoCore toolkit generally. To
     simplify matters, I officially support only one UDK version at any given
-    moment. Currently (rEFInd 0.10.9), rEFInd compiles with UDK2014; but a
+    moment. Currently (Next Loader 0.10.9), Next Loader compiles with UDK2014; but a
     UDK2017 release is expected soon, so I've been making changes in an
-    effort to make rEFInd compatible with this soon-to-be-released version.
+    effort to make Next Loader compatible with this soon-to-be-released version.
     See below for TianoCore setup instructions.
 
   * The GNU-EFI package (http://sourceforge.net/projects/gnu-efi/). You can
-    install this from a package called "gnu-efi"; however, rEFInd relies on
+    install this from a package called "gnu-efi"; however, Next Loader relies on
     features that were added sometime between version 3.0s and 3.0u, so I
     recommend using 3.0u or later. The latest versions of GNU-EFI have
     abandoned the trailing letter and switched to a more traditional
@@ -54,7 +54,7 @@ TianoCore.
 Preparing Your Development Kit
 ==============================
 
-If you're using Linux, GNU-EFI is the easiest way to compile rEFInd. I
+If you're using Linux, GNU-EFI is the easiest way to compile Next Loader. I
 don't describe GNU-EFI's setup here because it's likely to be fairly easy.
 If your distribution provides a recent enough version, you should be able
 to install a package called gnu-efi and be done with it. If not, you'll
@@ -64,7 +64,7 @@ if you need help. If you're using GNU-EFI, you can skip the rest of this
 section.
 
 You might want to use the TianoCore toolkit if you have problems with
-GNU-EFI or if you want to build rEFInd on a non-Linux platform.
+GNU-EFI or if you want to build Next Loader on a non-Linux platform.
 Unfortunately, the TianoCore toolkit is weird by Linux programming
 standards. It's also quite large -- it's intended as a means to develop a
 complete EFI firmware implementation, so it contains much more code than is
@@ -92,7 +92,7 @@ you'll need to be root to do this in the specified location):
    using. For UDK2014, follow these steps:
 
    A. Type "mkdir /usr/local/UDK2014". You can use another directory, but
-      the rEFInd Makefile assumes this location. You'll need to edit the
+      the Next Loader Makefile assumes this location. You'll need to edit the
       TIANOBASE variable in the top-level Makefile if you install somewhere
       else.
 
@@ -126,7 +126,7 @@ you'll need to be root to do this in the specified location):
    C. Type "cd edk2-vUDK2017" to change into the extracted directory.
 
 9. Type "source edksetup.sh BaseTools". This sets up some environment
-   variables, so subsequent steps (NOT including compiling rEFInd or its
+   variables, so subsequent steps (NOT including compiling Next Loader or its
    drivers) must be typed in the shell you use for this step.
 
 10. Edit Conf/target.txt and change the following:
@@ -184,64 +184,64 @@ you'll need to be root to do this in the specified location):
     Gentoo).
 
 If you installed in a location other than the one I've specified, you must
-edit the TIANOBASE variable in the top-level Makefile in the rEFInd source
+edit the TIANOBASE variable in the top-level Makefile in the Next Loader source
 package. Once the toolkit is installed, you can build the filesystem
-drivers or rEFInd, as described below.
+drivers or Next Loader, as described below.
 
 
-Compiling rEFInd the Unix/Linux Way
+Compiling Next Loader the Unix/Linux Way
 ===================================
 
-With your development system set up, you can compile rEFInd as follows:
+With your development system set up, you can compile Next Loader as follows:
 
-1. Download and uncompress the rEFInd source code archive. (If you're
+1. Download and uncompress the Next Loader source code archive. (If you're
    reading this file, you've probably already done this task.)
 
 2. Open a Linux shell prompt
 
 3. Change into the archive's main directory. You should see several files
    including this BUILDING.txt file and several subdirectories such as
-   "refind", "libeg", "mok", "filesystems", and "include".
+   "loader", "libeg", "mok", "filesystems", and "include".
 
 4. If you want to build with the TianoCore toolkit and you installed in
    a location other than the one specified in "Preparing Your Development
-   Kit," you must edit Makefile in the main rEFInd directory: change the
+   Kit," you must edit Makefile in the main Next Loader directory: change the
    TIANOBASE and/or EDK2BASE variables to point to your toolkit's location.
    The TIANOBASE variable is used with the "tiano" target (which can be used
    with UDK2014, but not later versions) and EDK2BASE is used with the
    "edk2" target, which is useful with all versions of TianoCore, with some
    caveats (described later).
 
-5. Type "make" to build rEFInd and gptsync, or "make fs" to build the
+5. Type "make" to build Next Loader and gptsync, or "make fs" to build the
    filesystem drivers. The Makefile checks for the TianoCore toolkit and
    tries to use it if it's present. Additional "make" targets enable you to
-   fine-tune how rEFInd is built and what components are built, as described
-   shortly. With any luck, rEFInd will compile without error, leaving the
-   "refind_ia32.efi", "refind_x64.efi", or "refind_aa64.efi" file, depending
-   on your platform, in the "refind" subdirectory. This same step builds the
+   fine-tune how Next Loader is built and what components are built, as described
+   shortly. With any luck, Next Loader will compile without error, leaving the
+   "loader_ia32.efi", "loader_x64.efi", or "loader_aa64.efi" file, depending
+   on your platform, in the "loader" subdirectory. This same step builds the
    "gptsync_ia32.efi", "gptsync_x64.efi", or "gptsync_aa64.efi" program
    file, in the "gptsync" subdirectory. If you want to build IA32 binaries
    on an x86-64 (X64) system, type "ARCH=ia32 make". Similarly, you can
    specify "ARCH=aarch64" to cross-compile for ARM64, but this works only if
    you're using the TianoCore build kit, and only if you set up TianoCore
    for cross-compiling. If you plan to build multiple architectures, be sure
-   to copy the .efi file for the first build out of the refind subdirectory
+   to copy the .efi file for the first build out of the loader subdirectory
    and type "make clean" before building the second architecture.
 
-The top-level rEFInd Makefile supports three toolchains, each of which
-provides several options to compile a subset of rEFInd's programs. (Note
+The top-level Next Loader Makefile supports three toolchains, each of which
+provides several options to compile a subset of Next Loader's programs. (Note
 that I specify AMD64/x86-64/X64 filenames in the below for simplicity.) The
 "make" targets are:
 
-* gnuefi -- This target builds refind_x64.efi and gptsync_x64.efi with
+* gnuefi -- This target builds loader_x64.efi and gptsync_x64.efi with
   the GNU-EFI toolkit.
 * gptsync_gnuefi -- This target builds just the gptsync.efi program
   with the GNU-EFI toolkit.
 * fs_gnuefi -- This target builds all the filesystem drivers with the
   GNU-EFI toolkit.
-* all_gnuefi -- This target builds everything (refind_x64.efi,
+* all_gnuefi -- This target builds everything (loader_x64.efi,
   gptsync_x64.efi, and the filesystem drivers) with the GNU-EFI toolkit.
-* tiano -- This target builds refind_x64.efi and gptsync_x64.efi with the
+* tiano -- This target builds loader_x64.efi and gptsync_x64.efi with the
   TianoCore toolkit by using custom Makefile rules, bypassing the TianoCore
   toolkit's "build" command. The result is slightly faster compilation in a
   more traditional Unix/Linux way; but the compilation rules are fragile and
@@ -253,7 +253,7 @@ that I specify AMD64/x86-64/X64 filenames in the below for simplicity.) The
   only gptsync_x64.efi.
 * fs_tiano -- This target works like the preceding two, but builds the
   filesystem drivers.
-* all_tiano -- This target builds refind_x64.efi, gptsync_x64.efi, and
+* all_tiano -- This target builds loader_x64.efi, gptsync_x64.efi, and
   the filesystem drivers using custom Makefile rules.
 * edk2 -- Like the "tiano" target, this one builds with the TianoCore
   toolkit; but it employs a build method more like that favored by
@@ -269,8 +269,8 @@ that I specify AMD64/x86-64/X64 filenames in the below for simplicity.) The
   unlike the preceding ones, requires WRITE access to the TianoCore build
   tree, or at least to the Build and Conf subdirectories of that tree, as
   well as to the root of the tree. (This method creates a symbolic link of
-  the main rEFInd directory into the root of the TianoCore tree, and the
-  build process creates a subdirectory called Build/Refind to hold temporary
+  the main Next Loader directory into the root of the TianoCore tree, and the
+  build process creates a subdirectory called Build/NextLoader to hold temporary
   files and the final .efi files. The "make" utility then copies these files
   to the same locations used by the tiano and gnuefi targets.)
 * gptsync_edk2 -- This target copies just the gptsync_x64.efi binary to its
@@ -291,17 +291,17 @@ that I specify AMD64/x86-64/X64 filenames in the below for simplicity.) The
 * clean -- This target deletes intermediate build files. Note that it
   deletes intermediate files generated by ALL the build methods (gnuefi,
   tiano, and edk2).
-* install -- This target runs the refind-install script with no
+* install -- This target runs the loader-install script with no
   arguments.
 
-If rEFInd doesn't compile correctly, you'll need to track down the source
+If Next Loader doesn't compile correctly, you'll need to track down the source
 of the problem. Double-check that you've got all the necessary development
 tools installed, including GCC, make, and either GNU-EFI or TianoCore EDK2.
 You may also need to adjust the Makefile or Make.common file; or possibly
 Make* files in code subdirectories. (The main Makefile controls the process
 for both toolkits, while Make.common holds most common options.) The most
 likely thing you'll need to change is the path to the various GNU-EFI
-include files and libraries. Since rEFInd 0.6.2, the default Make.common
+include files and libraries. Since Next Loader 0.6.2, the default Make.common
 file includes the following definitions:
 
 EFIINC          = /usr/include/efi
@@ -312,7 +312,7 @@ EFICRT0         = /usr/lib
 If you've installed GNU-EFI from source code, you may need to add "local" to
 those paths, as in "/usr/local/include/efi". You might need to change
 references to "lib" to "lib32" or "lib64" on some systems. Recall that you
-need at least GNU-EFI version 3.0u to build rEFInd, and some older or
+need at least GNU-EFI version 3.0u to build Next Loader, and some older or
 behind-the-times distributions might provide out-of-date versions of this
 package.
 
@@ -320,17 +320,17 @@ If you're using TianoCore's EDK2, as noted earlier, you may need to adjust
 the TIANOBASE or EDKBASE variable in Makefile.
 
 
-Compiling rEFInd the TianoCore Way
+Compiling Next Loader the TianoCore Way
 ==================================
 
 If you use TianoCore, you may know that the standard way to build
 applications under that environment does not follow the typical Unix/Linux
 development model described above. Instead, the application to be compiled
 is dropped into the main TianoCore source tree and compiled there using the
-"build" command. rEFInd can be compiled in this way. I am providing
+"build" command. Next Loader can be compiled in this way. I am providing
 instructions on compiling in this way because it may work better than
-rEFInd's Makefiles in some cases, especially if you're using a non-Linux
-platform for development. I've successfully compiled rEFInd 0.10.8 under OS
+Next Loader's Makefiles in some cases, especially if you're using a non-Linux
+platform for development. I've successfully compiled Next Loader 0.10.8 under OS
 X in this way. (I present details and caveats shortly.) Note that the "edk2"
 and related Makefile targets use this method behind the scenes. The
 procedure is:
@@ -343,11 +343,11 @@ procedure is:
    other directories and files. If you use the UDK2014.SR1.UP1.P1 package
    noted earlier, this would be the MyWorkSpace directory.
 
-3. Unpack the rEFInd source tarball in the current directory.
+3. Unpack the Next Loader source tarball in the current directory.
 
-4. Rename the rEFInd directory (refind-{version}, where {version} is the
-   version number) to RefindPkg. Alternatively, create a symbolic link
-   called RefindPkg that points to the real directory.
+4. Rename the Next Loader directory (loader-{version}, where {version} is the
+   version number) to NextLoaderPkg. Alternatively, create a symbolic link
+   called NextLoaderPkg that points to the real directory.
 
 5. Type "source edksetup.sh BaseTools". (You can skip this step if you're
    using the same login session you used to build the TianoCore toolkit; you
@@ -356,30 +356,30 @@ procedure is:
    have otherwise modified the environment variables set in edksetup.sh.)
 
 6. If you're using UDK2014 AND you're compiling for AARCH64, you must
-   open refind.inf, gptsync.inf, and the .inf files for all the drivers in
+   open loader.inf, gptsync.inf, and the .inf files for all the drivers in
    the filesystems subdirectory and comment out the line that reads
    "CompilerIntrinsicsLib". This library is needed for later versions of
    EDK2 but is not present in (and not required for) UDK2014.
 
-7. Type "build -p RefindPkg/RefindPkg.dsc" to build rEFInd. If you've
+7. Type "build -p NextLoaderPkg/NextLoaderPkg.dsc" to build Next Loader. If you've
    properly configured your TianoCore installation for cross-compiling, you
    may add "-a {ARCH}", where {ARCH} is an architecture code, to compile for
-   that platform. For instance, "build -a IA32 -p RefindPkg/RefindPkg.dsc"
+   that platform. For instance, "build -a IA32 -p NextLoaderPkg/NextLoaderPkg.dsc"
    builds for IA32 (32-bit x86), even on another type of computer.
 
-The rEFInd package should build, leaving binaries buried ridiculously deep
-within the directory tree. For instance, on my test build, the rEFInd
+The Next Loader package should build, leaving binaries buried ridiculously deep
+within the directory tree. For instance, on my test build, the Next Loader
 binaries were at:
 
-Build/Refind/RELEASE_GCC49/X64/btrfs.efi
-Build/Refind/RELEASE_GCC49/X64/ext2.efi
-Build/Refind/RELEASE_GCC49/X64/ext4.efi
-Build/Refind/RELEASE_GCC49/X64/gptsync.efi
-Build/Refind/RELEASE_GCC49/X64/hfs.efi
-Build/Refind/RELEASE_GCC49/X64/iso9660.efi
-Build/Refind/RELEASE_GCC49/X64/ntfs.efi
-Build/Refind/RELEASE_GCC49/X64/refind.efi
-Build/Refind/RELEASE_GCC49/X64/reiserfs.efi
+Build/NextLoader/RELEASE_GCC49/X64/btrfs.efi
+Build/NextLoader/RELEASE_GCC49/X64/ext2.efi
+Build/NextLoader/RELEASE_GCC49/X64/ext4.efi
+Build/NextLoader/RELEASE_GCC49/X64/gptsync.efi
+Build/NextLoader/RELEASE_GCC49/X64/hfs.efi
+Build/NextLoader/RELEASE_GCC49/X64/iso9660.efi
+Build/NextLoader/RELEASE_GCC49/X64/ntfs.efi
+Build/NextLoader/RELEASE_GCC49/X64/loader.efi
+Build/NextLoader/RELEASE_GCC49/X64/reiserfs.efi
 
 I've tested this procedure under Ubuntu 16.04 with GCC 5.4.0 and under OS X
 10.11 with both Clang 7.0.0/XCode 7.1.1 and Clang 8.0.0/XCode 8.1.1. (See
@@ -388,7 +388,7 @@ use anything but a GCC- or Clang-derived compiler, there's a good chance
 you'll run into a compiler-specific code incompatibility.
 
 
-Compiling rEFInd Under OS X
+Compiling Next Loader Under OS X
 ===========================
 
 Building under OS X is *NOT SUPPORTED.* I've tested this procedure and it
@@ -410,78 +410,78 @@ changes for compilation to succeed:
   Conf/target.txt.
 
 * I had to edit Conf/tools_def.txt and edit the RELEASE_XCODE5_X64_CC_FLAGS
-  line to remove the "-Werror" option. With this option set, the main rEFInd
+  line to remove the "-Werror" option. With this option set, the main Next Loader
   binary and several drivers failed to build. **CAUTION:** The warnings that
-  prevented the rEFInd binary from compiling with "-Werror" intact related
+  prevented the Next Loader binary from compiling with "-Werror" intact related
   to ((sysv_abi)) declarations in mok/mok.h. This makes me think that the
   resulting binary may be incompatible with Shim, although I've not tested
   this; my only testing of the binary built under OS X were on systems with
   Secure Boot disabled or with the Secure Boot system under my complete
   control and without Shim installed.
 
-* I had to edit refind.inf and uncomment the line in the Packages section
+* I had to edit loader.inf and uncomment the line in the Packages section
   that reads "StdLib/StdLib.dec".
 
 * I've been unable to get the Btrfs driver to build. To adjust the package
-  to omit this driver, edit the RefindPkg.dsc file and remove the line near
-  the bottom that reads "RefindPkg/filesystems/btrfs.inf".
+  to omit this driver, edit the NextLoaderPkg.dsc file and remove the line near
+  the bottom that reads "NextLoaderPkg/filesystems/btrfs.inf".
 
-Note that if you want to use macOS or Windows to compile rEFInd, you might
+Note that if you want to use macOS or Windows to compile Next Loader, you might
 be able to create a project or Makefile for your non-GCC compiler or use a
 GCC port, such as MinGW (http://www.mingw.org), along with the procedure
-described earlier, under "Compiling rEFInd the Unix/Linux Way." You'd
+described earlier, under "Compiling Next Loader the Unix/Linux Way." You'd
 probably need to adjust the Makefiles in the latter case.
 
 
-Installing rEFInd
+Installing Next Loader
 =================
 
-With rEFInd compiled, you can install it. The easiest way to do this is
-with the refind-install script, which works on both Linux and macOS.
+With Next Loader compiled, you can install it. The easiest way to do this is
+with the loader-install script, which works on both Linux and macOS.
 Alternatively, you can type "make install" to install using this script.
 Note that this script copies files to the ESP and uses "efibootmgr" (on
-Linux) or "bless" (on macOS) to add rEFInd to the firmware's boot loader
-list. The docs/man/refind-install.8 file (and its HTML conversion,
-docs/refind/refind-install.html) provides more details on this script and
+Linux) or "bless" (on macOS) to add Next Loader to the firmware's boot loader
+list. The docs/man/loader-install.8 file (and its HTML conversion,
+docs/loader/loader-install.html) provides more details on this script and
 its use.
 
-If refind-install doesn't work for you or if you prefer to do the job
+If loader-install doesn't work for you or if you prefer to do the job
 manually, you may. On a UEFI-based system, you'll want to copy files on the
 ESP as follows:
 
-* Create a directory for rEFInd, such as EFI/refind.
-* Copy refind/refind_ia32.efi or refind_x64.efi to the ESP's EFI/refind
+* Create a directory for Next Loader, such as EFI/loader.
+* Copy loader/loader_ia32.efi or loader_x64.efi to the ESP's EFI/loader
   directory.
-* Copy refind.conf-sample to the EFI/refind directory as refind.conf.
-* Copy the icons subdirectory, including all its files, to EFI/refind.
+* Copy loader.conf-sample to the EFI/loader directory as loader.conf.
+* Copy the icons subdirectory, including all its files, to EFI/loader.
 
-You'll then need to activate rEFInd in your EFI. This can be done with
+You'll then need to activate Next Loader in your EFI. This can be done with
 tools such as "efibootmgr" under Linux or "bless" under OS X. See the
-docs/refind/installing.html file for details.
+docs/loader/installing.html file for details.
 
 
 Note to Distribution Maintainers
 ================================
 
-The refind-install script, and therefore the "install" target in the
+The loader-install script, and therefore the "install" target in the
 Makefile, installs the program directly to the ESP and it modifies the
 *CURRENT COMPUTER's* NVRAM. Thus, you should *NOT* use this target as part
 of the build process for your binary packages (RPMs, Debian packages, etc.).
 (Gentoo could use it in an ebuild, though....) You COULD, however, install
-the files to a directory somewhere (/usr/share/refind or whatever) and then
-call refind-install as part of the binary package installation process.
-Placing the files directly in /boot/efi/EFI/{distname}/refind and then
+the files to a directory somewhere (/usr/share/loader or whatever) and then
+call loader-install as part of the binary package installation process.
+Placing the files directly in /boot/efi/EFI/{distname}/loader and then
 having a post-install script call efibootmgr could also work, but this
 assumes that the ESP is mounted at /boot/efi. Also, Debian packages try to
 create symbolic links when updating packages, which won't work on an ESP,
-which should use FAT. For packaging examples, see the refind.spec file and
-debian subdirectory of the rEFInd source tarball.
+which should use FAT. For packaging examples, see the loader.spec file and
+debian subdirectory of the Next Loader source tarball.
 
 
 Adding Support for Network Boot
 ===============================
 
-rEFInd provides EXPERIMENTAL support for booting over the network using
+Next Loader provides EXPERIMENTAL support for booting over the network using
 iPXE (http://ipxe.org) as a means to receive the payload. In order to
 enable this feature you'll want to follow these instructions:
 
@@ -491,11 +491,11 @@ enable this feature you'll want to follow these instructions:
 * copy bin/ipxe.efi and bin/ipxe_discover.efi to the EFI volume at EFI/tools/
 
 Note that you may need to install additional development packages, such as
-libiberty-dev and binutils-dev, in addition to those needed to build rEFInd
+libiberty-dev and binutils-dev, in addition to those needed to build Next Loader
 itself.
 
 My own tests show this support to work under optimal conditions; however,
 architecture (EFI vs. BIOS) detection may not work, and some computers will
 hang or won't retrieve boot files from the network. For these reasons, this
-support is disabled by default in rEFInd, and I do not provide iPXE
+support is disabled by default in Next Loader, and I do not provide iPXE
 binaries.

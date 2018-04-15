@@ -9,12 +9,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 # This file contains make definitions common to several (or all) of the make
-# files in the rEFInd code subdirectories. Some options are specific to
+# files in the Next Loader code subdirectories. Some options are specific to
 # particular architectures or build systems and others are more universal.
 
 #
 # Environment definitions -- where stuff is and what sort of system is being
-# used to compile rEFInd....
+# used to compile Next Loader....
 #
 
 EFIINC          = /usr/include/efi
@@ -64,7 +64,7 @@ OPTIMFLAGS      = -Os -fno-strict-aliasing
 CFLAGS          = $(OPTIMFLAGS) -fno-stack-protector -fshort-wchar -Wall
 
 # ...for GNU-EFI....
-GNUEFI_CFLAGS   = -fpic -I$(EFIINC) -I$(EFIINC)/$(ARCH) -I$(EFIINC)/protocol -I../include -I../refind -I../libeg -I../mok
+GNUEFI_CFLAGS   = -fpic -I$(EFIINC) -I$(EFIINC)/$(ARCH) -I$(EFIINC)/protocol -I../include -I../loader -I../libeg -I../mok
 
 # ...and for TianoCore....
 TIANO_INCLUDE_DIRS = -I $(TIANOBASE)/MdePkg \
@@ -77,7 +77,7 @@ TIANO_INCLUDE_DIRS = -I $(TIANOBASE)/MdePkg \
                      -I $(TIANOBASE)/IntelFrameworkPkg/Include \
                      -I $(TIANOBASE)/MdePkg/Include/$(ARCHDIR) \
                      -I .. \
-                     -I ../refind \
+                     -I ../loader \
                      -I ../libeg \
                      -I ../include \
                      -I ../mok
@@ -128,7 +128,7 @@ ifeq ($(ARCH),ia32)
   GNUEFI_LDFLAGS += -znocombreloc -zdefs
 
   # In practice, cross-compiling filesystem drivers works, but not the main
-  # rEFInd binary....
+  # Next Loader binary....
   ifeq ($(HOSTARCH),x86_64)
     GNUEFILIB := $(GNUEFILIB)32
     EFILIB    := $(EFILIB)32
@@ -193,6 +193,6 @@ endif
 # utility rules
 
 #clean:
-#	rm -f $(TARGET) *~ *.so $(OBJS) *.efi *.obj refind_*.txt refind_*.dll *.lib
+#	rm -f $(TARGET) *~ *.so $(OBJS) *.efi *.obj loader_*.txt loader_*.dll *.lib
 
 # EOF

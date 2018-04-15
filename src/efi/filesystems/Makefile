@@ -1,4 +1,4 @@
-# meta-Makefile for rEFInd filesystem drivers
+# meta-Makefile for Next Loader filesystem drivers
 #
 # Most of the functionality is in Make.tiano; this Makefile merely
 # deletes critical temporary files and calls Make.tiano with the
@@ -11,7 +11,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-INSTALL_DIR = /boot/efi/EFI/refind/drivers
+INSTALL_DIR = /boot/efi/EFI/loader/drivers
 
 FILESYSTEMS = ext2 ext4 reiserfs iso9660 hfs btrfs ntfs
 FILESYSTEMS_GNUEFI = ext2_gnuefi ext4_gnuefi reiserfs_gnuefi iso9660_gnuefi hfs_gnuefi btrfs_gnuefi ntfs_gnuefi

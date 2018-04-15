@@ -15,36 +15,36 @@ WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 **/
 
 /*
- * rEFInd NOTE: This file is included only when compiling with GNU-EFI,
+ * Next Loader NOTE: This file is included only when compiling with GNU-EFI,
  * which has not traditionally provided the definitions supplied here.
  * Unfortunately, recent (ca. 3.0.4) versions of GNU-EFI have added
  * SOME of these functions to an existing header file, creating problems
  * when trying to maintain compatibility with multiple GNU-EFI versions.
  * I've therefore renamed the relevant defines, types, and functions,
  * both here and in fsw_efi.c; and included a define to match the only
- * used name (REFIND_EFI_COMPONENT_NAME_PROTOCOL) to the traditional
+ * used name (LOADER_EFI_COMPONENT_NAME_PROTOCOL) to the traditional
  * name (EFI_COMPONENT_NAME_PROTOCOL) in fsw_efi.c for compiling with
  * TianoCore.
  */
 
-#ifndef __REFIND_EFI_COMPONENT_NAME_H__
-#define __REFIND_EFI_COMPONENT_NAME_H__
+#ifndef __LOADER_EFI_COMPONENT_NAME_H__
+#define __LOADER_EFI_COMPONENT_NAME_H__
 
 ///
 /// The global ID for the Component Name Protocol.
 ///
-#define REFIND_EFI_COMPONENT_NAME_PROTOCOL_GUID \
+#define LOADER_EFI_COMPONENT_NAME_PROTOCOL_GUID \
   { \
     0x107a772c, 0xd5e1, 0x11d4, {0x9a, 0x46, 0x0, 0x90, 0x27, 0x3f, 0xc1, 0x4d } \
   }
 
-typedef struct _REFIND_EFI_COMPONENT_NAME_PROTOCOL  REFIND_EFI_COMPONENT_NAME_PROTOCOL;
+typedef struct _LOADER_EFI_COMPONENT_NAME_PROTOCOL  LOADER_EFI_COMPONENT_NAME_PROTOCOL;
 
 
 /**
   Retrieves a Unicode string that is the user-readable name of the EFI Driver.
 
-  @param  This       A pointer to the REFIND_EFI_COMPONENT_NAME_PROTOCOL instance.
+  @param  This       A pointer to the LOADER_EFI_COMPONENT_NAME_PROTOCOL instance.
   @param  Language   A pointer to a three-character ISO 639-2 language identifier.
                      This is the language of the driver name that that the caller
                      is requesting, and it must match one of the languages specified
@@ -65,8 +65,8 @@ typedef struct _REFIND_EFI_COMPONENT_NAME_PROTOCOL  REFIND_EFI_COMPONENT_NAME_PR
 **/
 typedef
 EFI_STATUS
-(EFI_FUNCTION EFIAPI *REFIND_EFI_COMPONENT_NAME_GET_DRIVER_NAME)(
-  IN REFIND_EFI_COMPONENT_NAME_PROTOCOL    *This,
+(EFI_FUNCTION EFIAPI *LOADER_EFI_COMPONENT_NAME_GET_DRIVER_NAME)(
+  IN LOADER_EFI_COMPONENT_NAME_PROTOCOL    *This,
   IN  CHAR8                                *Language,
   OUT CHAR16                               **DriverName
   );
@@ -76,7 +76,7 @@ EFI_STATUS
   Retrieves a Unicode string that is the user readable name of the controller
   that is being managed by an EFI Driver.
 
-  @param  This             A pointer to the REFIND_EFI_COMPONENT_NAME_PROTOCOL instance.
+  @param  This             A pointer to the LOADER_EFI_COMPONENT_NAME_PROTOCOL instance.
   @param  ControllerHandle The handle of a controller that the driver specified by
                            This is managing.  This handle specifies the controller
                            whose name is to be returned.
@@ -114,8 +114,8 @@ EFI_STATUS
 **/
 typedef
 EFI_STATUS
-(EFI_FUNCTION EFIAPI *REFIND_EFI_COMPONENT_NAME_GET_CONTROLLER_NAME)(
-  IN  REFIND_EFI_COMPONENT_NAME_PROTOCOL                      *This,
+(EFI_FUNCTION EFIAPI *LOADER_EFI_COMPONENT_NAME_GET_CONTROLLER_NAME)(
+  IN  LOADER_EFI_COMPONENT_NAME_PROTOCOL                      *This,
   IN  EFI_HANDLE                                              ControllerHandle,
   IN  EFI_HANDLE                                              ChildHandle        OPTIONAL,
   IN  CHAR8                                                   *Language,
@@ -126,9 +126,9 @@ EFI_STATUS
 /// This protocol is used to retrieve user readable names of drivers 
 /// and controllers managed by UEFI Drivers.
 ///
-struct _REFIND_EFI_COMPONENT_NAME_PROTOCOL {
-  REFIND_EFI_COMPONENT_NAME_GET_DRIVER_NAME      GetDriverName;
-  REFIND_EFI_COMPONENT_NAME_GET_CONTROLLER_NAME  GetControllerName;
+struct _LOADER_EFI_COMPONENT_NAME_PROTOCOL {
+  LOADER_EFI_COMPONENT_NAME_GET_DRIVER_NAME      GetDriverName;
+  LOADER_EFI_COMPONENT_NAME_GET_CONTROLLER_NAME  GetControllerName;
   ///
   /// A Null-terminated ASCII string that contains one or more
   /// ISO 639-2 language codes. This is the list of language codes

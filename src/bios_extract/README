@@ -1,0 +1,36 @@
+bios_extract:
+-------------
+Tool to extract the different submodules of common legacy bioses. Currently
+only supports AMI95 bioses.
+
+ami_slab:
+---------
+Tool to extract the different submodules of an AMI SLAB (Single Link Arch BIOS)
+module from an AMI BIOS.
+
+bcpvpd:
+-------
+Extracts IBM compressed BIOS images (BCPVPD and $IBMCOMP) so that bios_extract
+can handle it.
+
+decap.sh:
+------
+A simple shell script to remove headers of UEFI Capsule files.
+
+lh5_test:
+---------
+Sample program left over from development, but kept to be able to easily
+verify lh5 extraction functionality. Will not be built per default.
+
+xfv:
+----
+Tool to dissect EFI capsules.
+
+phoenix_extract.py:
+-------------------
+Simple python script to extract Phoenix FFV from ROM image
+
+microcode_extract.py:
+---------------------
+Simple python script to extract microcode blobs from binary BIOS image
+

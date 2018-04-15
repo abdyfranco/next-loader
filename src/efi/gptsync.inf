@@ -14,8 +14,8 @@
   BASE_NAME                     = gptsync
   FILE_GUID                     = 2767A966-477A-4EC0-8E95-EFFC2C29583D
   MODULE_TYPE                   = UEFI_APPLICATION
-  EDK_RELEASE_VERSION		= 0x00020000
-  EFI_SPECIFICATION_VERSION	= 0x00010000
+  EDK_RELEASE_VERSION		        = 0x00020000
+  EFI_SPECIFICATION_VERSION	    = 0x00010000
   VERSION_STRING                = 1.0
   ENTRY_POINT                   = efi_main
 

@@ -1,6 +1,6 @@
 #
 # filesystems/Make.tiano
-# Build control file for rEFInd's EFI filesystem drivers
+# Build control file for Next Loader's EFI filesystem drivers
 #
 
 # This program is licensed under the terms of the GNU GPL, version 3,

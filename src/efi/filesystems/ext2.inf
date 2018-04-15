@@ -1,6 +1,6 @@
 ## @file
 #
-# ext2.inf file to build rEFInd's ext2fs driver using the EDK2/UDK201#
+# ext2.inf file to build Next Loader's ext2fs driver using the EDK2/UDK201#
 # development kit.
 #
 # Copyright (c) 2012-2017 by Roderick W. Smith
@@ -14,8 +14,8 @@
   BASE_NAME                     = ext2
   FILE_GUID                     = c1ad9a39-9e9c-4c5f-ac48-ddeb05408ad2
   MODULE_TYPE                   = UEFI_DRIVER
-  EDK_RELEASE_VERSION		= 0x00020000
-  EFI_SPECIFICATION_VERSION	= 0x00010000
+  EDK_RELEASE_VERSION		        = 0x00020000
+  EFI_SPECIFICATION_VERSION	    = 0x00010000
   VERSION_STRING                = 1.0
   ENTRY_POINT                   = fsw_efi_main
   FSTYPE                        = ext2

@@ -1,4 +1,4 @@
-# Makefile for rEFInd
+# Makefile for Next Loader
 
 # This program is licensed under the terms of the GNU GPL, version 3,
 # or (at your option) any later version.
@@ -8,7 +8,7 @@
 include Make.common
 
 SHELL=/bin/bash
-LOADER_DIR=refind
+LOADER_DIR=loader
 FS_DIR=filesystems
 LIBEG_DIR=libeg
 MOK_DIR=mok
@@ -22,8 +22,8 @@ export EDK2BASE=/usr/local/edk2-vUDK2017
 # NOTE: Below is overridden for "tiano" targets
 -include $(EDK2BASE)/Conf/target.txt
 THISDIR=$(shell pwd)
-EDK2_BUILDLOC=$(EDK2BASE)/Build/Refind/$(TARGET)_$(TOOL_CHAIN_TAG)/$(UC_ARCH)
-EDK2_PROGRAM_BASENAMES=refind gptsync
+EDK2_BUILDLOC=$(EDK2BASE)/Build/NextLoader/$(TARGET)_$(TOOL_CHAIN_TAG)/$(UC_ARCH)
+EDK2_PROGRAM_BASENAMES=loader gptsync
 EDK2_PROGRAMS=$(EDK2_PROGRAM_BASENAMES:=.efi)
 EDK2_DRIVER_BASENAMES=btrfs ext4 ext2 hfs iso9660 ntfs reiserfs
 EDK2_DRIVERS=$(EDK2_DRIVER_BASENAMES:=.efi)
@@ -110,7 +110,7 @@ tiano:
 	+make MAKEWITH=TIANO AR_TARGET=EfiLib -C $(EFILIB_DIR) -f Make.tiano
 	+make MAKEWITH=TIANO AR_TARGET=libeg -C $(LIBEG_DIR) -f Make.tiano
 	+make MAKEWITH=TIANO AR_TARGET=mok -C $(MOK_DIR) -f Make.tiano
-	+make MAKEWITH=TIANO BUILDME=refind DLL_TARGET=refind -C $(LOADER_DIR) -f Make.tiano
+	+make MAKEWITH=TIANO BUILDME=loader DLL_TARGET=loader -C $(LOADER_DIR) -f Make.tiano
 ifneq ($(ARCH),aarch64)
 	+make MAKEWITH=TIANO -C $(GPTSYNC_DIR) -f Make.tiano
 endif
@@ -133,7 +133,7 @@ fs_tiano:
 # AARCH64 unless .inf files are modified to eliminate references to
 # CompilerIntrinsicsLib....
 #
-# NOTE: Unlike other build rules, these build everything (rEFInd, gptsync,
+# NOTE: Unlike other build rules, these build everything (Next Loader, gptsync,
 # and filesystem drivers), even if only one component is requested; but
 # only the requested components are copied to their final destinations.
 # This is done because of the heavy overhead in building just one
@@ -144,11 +144,11 @@ fs_tiano:
 # Build process for TianoCore using TianoCore-standard build process rather
 # than my own custom Makefiles (except this top-level one)
 edk2: build_edk2
-	cp $(EDK2_BUILDLOC)/refind.efi ./refind/refind_$(FILENAME_CODE).efi
+	cp $(EDK2_BUILDLOC)/loader.efi ./loader/loader_$(FILENAME_CODE).efi
 	cp $(EDK2_BUILDLOC)/gptsync.efi ./gptsync/gptsync_$(FILENAME_CODE).efi
 
 all_edk2: build_edk2 fs_edk2
-	cp $(EDK2_BUILDLOC)/refind.efi ./refind/refind_$(FILENAME_CODE).efi
+	cp $(EDK2_BUILDLOC)/loader.efi ./loader/loader_$(FILENAME_CODE).efi
 	cp $(EDK2_BUILDLOC)/gptsync.efi ./gptsync/gptsync_$(FILENAME_CODE).efi
 
 gptsync_edk2: build_edk2
@@ -160,14 +160,14 @@ fs_edk2: build_edk2
 		cp "$(EDK2_BUILDLOC)/$$BASENAME.efi" ./drivers_$(FILENAME_CODE)/$$BASENAME\_$(FILENAME_CODE).efi ; \
 	done
 
-build_edk2: $(EDK2BASE)/RefindPkg
+build_edk2: $(EDK2BASE)/NextLoaderPkg
 	cd $(EDK2BASE) && \
 	. ./edksetup.sh BaseTools && \
-	build -a $(UC_ARCH) -p RefindPkg/RefindPkg.dsc
+	build -a $(UC_ARCH) -p NextLoaderPkg/NextLoaderPkg.dsc
 	mkdir -p ./drivers_$(FILENAME_CODE)
 
-$(EDK2BASE)/RefindPkg:
-	ln -s $(THISDIR) $(EDK2BASE)/RefindPkg
+$(EDK2BASE)/NextLoaderPkg:
+	ln -s $(THISDIR) $(EDK2BASE)/NextLoaderPkg
 
 ###########################################################################
 #
@@ -185,21 +185,8 @@ clean:
 	make -C $(FS_DIR) clean
 	make -C $(GPTSYNC_DIR) clean
 	rm -f include/*~
-	rm -rf $(EDK2BASE)/Build/Refind
+	rm -rf $(EDK2BASE)/Build/NextLoader
 	rm -rf drivers_$(FILENAME_CODE)/*
-	[ ! -L $(EDK2BASE)/RefindPkg ] || rm -v $(EDK2BASE)/RefindPkg
-
-# NOTE TO DISTRIBUTION MAINTAINERS:
-# The "install" target installs the program directly to the ESP
-# and it modifies the *CURRENT COMPUTER's* NVRAM. Thus, you should
-# *NOT* use this target as part of the build process for your
-# binary packages (RPMs, Debian packages, etc.). (Gentoo could
-# use it in an ebuild, though....) You COULD, however, copy the
-# files to a directory somewhere (/usr/share/refind or whatever)
-# and then call refind-install as part of the binary package
-# installation process.
-
-install:
-	./refind-install
+	[ ! -L $(EDK2BASE)/NextLoaderPkg ] || rm -v $(EDK2BASE)/NextLoaderPkg
 
 # DO NOT DELETE

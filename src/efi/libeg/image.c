@@ -58,10 +58,10 @@
  */
 
 #include "libegint.h"
-#include "../refind/global.h"
-#include "../refind/lib.h"
-#include "../refind/screen.h"
-#include "../refind/mystrings.h"
+#include "../loader/global.h"
+#include "../loader/lib.h"
+#include "../loader/screen.h"
+#include "../loader/mystrings.h"
 #include "../include/refit_call_wrapper.h"
 #include "lodepng.h"
 

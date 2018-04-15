@@ -10,5 +10,5 @@
  *
  */
 
-#define REFIND_VERSION L"0.11.2-lb1"
+#define LOADER_VERSION L"0.10.9-LB2"
 

@@ -1,0 +1,8 @@
+bios_extract
+lh5_test
+ami_slab
+bcpvpd
+efidecomp
+*.o
+*~
+*.pyc

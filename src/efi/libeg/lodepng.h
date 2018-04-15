@@ -23,7 +23,7 @@ freely, subject to the following restrictions:
     distribution.
 */
 /*
- * This version of lodepng.h is modified for use with rEFInd. Some options
+ * This version of lodepng.h is modified for use with Next Loader. Some options
  * are commented out and several definitions (commented on shortly) are added
  * for GNU-EFI compatibility. The associated lodepng.c file is unmodified
  * from the original.
