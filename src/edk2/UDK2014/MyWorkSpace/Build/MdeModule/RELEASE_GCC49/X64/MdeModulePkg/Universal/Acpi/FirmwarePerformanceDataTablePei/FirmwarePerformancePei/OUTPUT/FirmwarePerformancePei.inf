@@ -1,0 +1,128 @@
+## @file
+#  Firmware Performance Pei Module.
+#
+#  In S3 resume boot mode, it updates S3 Resume Performance Record in ACPI Firmware Performance Data Table.
+#
+#  This module register report status code listener to collect performance data
+#  for S3 Resume Performance Record on S3 resume boot path.
+#
+#  Copyright (c) 2011 - 2018, Intel Corporation. All rights reserved.<BR>
+#  This program and the accompanying materials
+#  are licensed and made available under the terms and conditions of the BSD License
+#  which accompanies this distribution.  The full text of the license may be found at
+#  http://opensource.org/licenses/bsd-license.php
+#
+#  THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+##
+
+# DO NOT EDIT
+# FILE auto-generated
+
+[Defines]
+  INF_VERSION                = 0x00010017
+  BASE_NAME                  = FirmwarePerformancePei
+  FILE_GUID                  = ADF01BF6-47D6-495d-B95B-687777807214
+  MODULE_TYPE                = PEIM
+  VERSION_STRING             = 1.0
+  ENTRY_POINT                = FirmwarePerformancePeiEntryPoint
+  MODULE_UNI_FILE            = FirmwarePerformancePei.uni
+
+[Packages.X64]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[Binaries.X64]
+  PE32|FirmwarePerformancePei.efi
+  PEI_DEPEX|FirmwarePerformancePei.depex
+
+[PatchPcd.X64]
+
+[Protocols.X64]
+
+[Ppis.X64]
+  ## CONSUMES
+  gEfiPeiRscHandlerPpiGuid
+
+  ## CONSUMES
+  gEfiPeiReadOnlyVariable2PpiGuid
+
+  ## SOMETIMES_PRODUCES
+  gEfiPeiFirmwareVolumeInfoPpiGuid
+
+  ## SOMETIMES_PRODUCES
+  gEfiPeiFirmwareVolumeInfo2PpiGuid
+
+
+[Guids.X64]
+  ## SOMETIMES_CONSUMES   ## UNDEFINED # RestoreLockBox
+  gEfiFirmwarePerformanceGuid
+
+  ## SOMETIMES_CONSUMES ## UNDEFINED # RestoreLockBox
+  gFirmwarePerformanceS3PointerGuid
+
+  ## SOMETIMES_CONSUMES ## HOB
+  gEdkiiFpdtExtendedFirmwarePerformanceGuid
+
+  ## SOMETIMES_PRODUCES ## HOB # MemoryAllocation StackHob
+  gEfiHobMemoryAllocStackGuid
+
+  ## SOMETIMES_PRODUCES ## HOB # MemoryAllocation BspStoreHob
+  gEfiHobMemoryAllocBspStoreGuid
+
+  ## SOMETIMES_PRODUCES ## HOB # MemoryAllocation ModuleHob
+  gEfiHobMemoryAllocModuleGuid
+
+  ## SOMETIMES_PRODUCES ## GUID # FV File System Guid.
+  gEfiFirmwareFileSystem2Guid
+
+
+[PcdEx.X64]
+
+[LibraryClasses.X64]
+## @LIB_INSTANCES
+#  MdePkg/Library/PeiMemoryAllocationLib/PeiMemoryAllocationLib.inf
+#  MdePkg/Library/PeiHobLib/PeiHobLib.inf
+#  MdePkg/Library/BasePcdLibNull/BasePcdLibNull.inf
+#  MdePkg/Library/BaseMemoryLib/BaseMemoryLib.inf
+#  MdePkg/Library/BaseDebugLibNull/BaseDebugLibNull.inf
+#  MdePkg/Library/BaseLib/BaseLib.inf
+#  MdePkg/Library/PeiServicesLib/PeiServicesLib.inf
+#  MdePkg/Library/PeiServicesTablePointerLib/PeiServicesTablePointerLib.inf
+#  MdePkg/Library/PeimEntryPoint/PeimEntryPoint.inf
+#  MdePkg/Library/BaseTimerLibNullTemplate/BaseTimerLibNullTemplate.inf
+#  MdeModulePkg/Library/LockBoxNullLib/LockBoxNullLib.inf
+
+[Depex.X64]
+#  gEfiPeiMasterBootModePpiGuid AND gEfiPeiRscHandlerPpiGuid # [BootMode] # S3_RESUME             ## SOMETIMES_CONSUMES
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+# [BootMode]
+# S3_RESUME             ## SOMETIMES_CONSUMES
+
+[BuildOptions.X64]
+## @AsBuilt
+##   GCC:RELEASE_GCC49_X64_SYMRENAME_FLAGS = Symbol renaming not needed for
+##   GCC:RELEASE_GCC49_X64_ASLDLINK_FLAGS = -nostdlib -n -q --gc-sections --script=$(EDK_TOOLS_PATH)/Scripts/gcc4.9-ld-script --entry ReferenceAcpiTable -u ReferenceAcpiTable -m elf_x86_64
+##   GCC:RELEASE_GCC49_X64_VFR_FLAGS = -l -n
+##   GCC:RELEASE_GCC49_X64_PP_FLAGS = -E -x assembler-with-cpp -include $(DEST_DIR_DEBUG)/AutoGen.h
+##   GCC:RELEASE_GCC49_X64_GENFW_FLAGS = 
+##   GCC:RELEASE_GCC49_X64_OPTROM_FLAGS = -e
+##   GCC:RELEASE_GCC49_X64_RC_FLAGS = -I binary -O elf64-x86-64        -B i386    --rename-section .data=.hii
+##   GCC:RELEASE_GCC49_X64_ASM_FLAGS = -c -x assembler -imacros $(DEST_DIR_DEBUG)/AutoGen.h -m64
+##   GCC:RELEASE_GCC49_X64_ASL_FLAGS = 
+##   GCC:RELEASE_GCC49_X64_CC_FLAGS = -g -fshort-wchar -fno-strict-aliasing -Wall -Werror -Wno-array-bounds -ffunction-sections -fdata-sections -c -include AutoGen.h -DSTRING_ARRAY_NAME=$(BASE_NAME)Strings -m64 -fno-stack-protector "-DEFIAPI=__attribute__((ms_abi))" -DNO_BUILTIN_VA_FUNCS -mno-red-zone -Wno-address -mcmodel=large -Wno-address -Wno-unused-but-set-variable -D DISABLE_NEW_DEPRECATED_INTERFACES
+##   GCC:RELEASE_GCC49_X64_VFRPP_FLAGS = -x c -E -P -DVFRCOMPILE --include $(DEST_DIR_DEBUG)/$(MODULE_NAME)StrDefs.h
+##   GCC:RELEASE_GCC49_X64_ASLCC_FLAGS = -x c -m64
+##   GCC:RELEASE_GCC49_X64_DLINK_FLAGS = -nostdlib -n -q --gc-sections --script=$(EDK_TOOLS_PATH)/Scripts/gcc4.9-ld-script --entry $(IMAGE_ENTRY_POINT) -u $(IMAGE_ENTRY_POINT) -Map $(DEST_DIR_DEBUG)/$(BASE_NAME).map  -melf_x86_64 --oformat=elf64-x86-64
+##   GCC:RELEASE_GCC49_X64_NASMB_FLAGS = -f bin
+##   GCC:RELEASE_GCC49_X64_ASLPP_FLAGS = -x c -E -P
+##   GCC:RELEASE_GCC49_X64_OBJCOPY_FLAGS = 
+##   GCC:RELEASE_GCC49_X64_APP_FLAGS = 
+##   GCC:RELEASE_GCC49_X64_ASMLINK_FLAGS = /nologo /tiny
+##   GCC:RELEASE_GCC49_X64_NASM_FLAGS = -f elf64

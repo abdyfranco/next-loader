@@ -1,0 +1,348 @@
+## @file
+#  Provides SMM variable service.
+#
+#  This module installs SMM variable protocol into SMM protocol database,
+#  which can be used by SMM driver, and installs SMM variable protocol
+#  into BS protocol database, which can be used to notify the SMM Runtime
+#  Dxe driver that the SMM variable service is ready.
+#  This module should be used with SMM Runtime DXE module together. The
+#  SMM Runtime DXE module would install variable arch protocol and variable
+#  write arch protocol based on SMM variable module.
+#
+#  Caution: This module requires additional review when modified.
+#  This driver will have external input - variable data and communicate buffer in SMM mode.
+#  This external input must be validated carefully to avoid security issues such as
+#  buffer overflow or integer overflow.
+#    The whole SMM authentication variable design relies on the integrity of flash part and SMM.
+#  which is assumed to be protected by platform.  All variable code and metadata in flash/SMM Memory
+#  may not be modified without authorization. If platform fails to protect these resources,
+#  the authentication service provided in this driver will be broken, and the behavior is undefined.
+#
+# Copyright (c) 2010 - 2016, Intel Corporation. All rights reserved.<BR>
+# This program and the accompanying materials
+# are licensed and made available under the terms and conditions of the BSD License
+# which accompanies this distribution. The full text of the license may be found at
+# http://opensource.org/licenses/bsd-license.php
+# THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+# WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+##
+
+# DO NOT EDIT
+# FILE auto-generated
+
+[Defines]
+  INF_VERSION                = 0x00010017
+  BASE_NAME                  = VariableSmm
+  FILE_GUID                  = 23A089B3-EED5-4ac5-B2AB-43E3298C2343
+  MODULE_TYPE                = DXE_SMM_DRIVER
+  VERSION_STRING             = 1.0
+  PI_SPECIFICATION_VERSION   = 0x0001000A
+  ENTRY_POINT                = VariableServiceInitialize
+  MODULE_UNI_FILE            = VariableSmm.uni
+
+[Packages.X64]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[Binaries.X64]
+  PE32|VariableSmm.efi
+  SMM_DEPEX|VariableSmm.depex
+
+[PatchPcd.X64]
+
+[Protocols.X64]
+  ## CONSUMES
+  gEfiSmmFirmwareVolumeBlockProtocolGuid
+
+  ## CONSUMES
+  ## NOTIFY
+  gEfiSmmFaultTolerantWriteProtocolGuid
+
+  ## PRODUCES
+  ## UNDEFINED # SmiHandlerRegister
+  gEfiSmmVariableProtocolGuid
+
+  ## CONSUMES
+  ## NOTIFY
+  gEfiSmmEndOfDxeProtocolGuid
+
+  ## PRODUCES
+  gEdkiiSmmVarCheckProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiTcgProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiTcg2ProtocolGuid
+
+  ## CONSUMES
+  gEfiSmmBase2ProtocolGuid
+
+  ## CONSUMES
+  ## CONSUMES
+  gEfiSmmAccess2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiDevicePathProtocolGuid
+
+  ## UNDEFINED
+  gEfiDebugPortProtocolGuid
+
+  ## SOMETIMES_PRODUCES
+  gEfiDriverBindingProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSimpleTextOutProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiGraphicsOutputProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiHiiFontProtocolGuid
+
+  ## SOMETIMES_CONSUMES # Consumes if gEfiGraphicsOutputProtocolGuid uninstalled
+  gEfiUgaDrawProtocolGuid
+
+  ## SOMETIMES_PRODUCES # User chooses to produce it
+  gEfiComponentNameProtocolGuid
+
+  ## SOMETIMES_PRODUCES # User chooses to produce it
+  gEfiComponentName2ProtocolGuid
+
+  ## SOMETIMES_PRODUCES # User chooses to produce it
+  gEfiDriverConfigurationProtocolGuid
+
+  ## SOMETIMES_PRODUCES # User chooses to produce it
+  gEfiDriverConfiguration2ProtocolGuid
+
+  ## SOMETIMES_PRODUCES # User chooses to produce it
+  gEfiDriverDiagnosticsProtocolGuid
+
+  ## SOMETIMES_PRODUCES # User chooses to produce it
+  gEfiDriverDiagnostics2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  ## SOMETIMES_CONSUMES
+  gEfiFirmwareVolume2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  ## SOMETIMES_CONSUMES
+  gEfiLoadedImageProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiLoadFileProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiLoadFile2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSimpleFileSystemProtocolGuid
+
+  ## CONSUMES
+  gEfiSmmReadyToLockProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiFirmwareVolumeBlock2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiHiiDatabaseProtocolGuid
+
+
+[Ppis.X64]
+
+[Guids.X64]
+  ## SOMETIMES_CONSUMES   ## GUID # Signature of Variable store header
+  ## SOMETIMES_PRODUCES   ## GUID # Signature of Variable store header
+  ## SOMETIMES_CONSUMES   ## HOB
+  ## SOMETIMES_PRODUCES   ## SystemTable
+  gEfiAuthenticatedVariableGuid
+
+  ## SOMETIMES_CONSUMES   ## GUID # Signature of Variable store header
+  ## SOMETIMES_PRODUCES   ## GUID # Signature of Variable store header
+  ## SOMETIMES_CONSUMES   ## HOB
+  ## SOMETIMES_PRODUCES   ## SystemTable
+  gEfiVariableGuid
+
+  ## SOMETIMES_CONSUMES  ## Variable
+  ## SOMETIMES_CONSUMES  ## Variable:L"Boot####"
+  ## SOMETIMES_CONSUMES  ## Variable:L"Driver####"
+  ## SOMETIMES_CONSUMES  ## Variable:L"SysPrep####"
+  ## SOMETIMES_CONSUMES  ## Variable:L"Key####"
+  ## SOMETIMES_CONSUMES   ## Variable:L"LangCodes"
+  ## SOMETIMES_CONSUMES   ## Variable:L"Lang"
+  ## SOMETIMES_CONSUMES   ## Variable:L"Timeout"
+  ## SOMETIMES_CONSUMES   ## Variable:L"PlatformLangCodes"
+  ## SOMETIMES_CONSUMES   ## Variable:L"PlatformLang"
+  ## SOMETIMES_CONSUMES   ## Variable:L"ConIn"
+  ## SOMETIMES_CONSUMES   ## Variable:L"ConOut"
+  ## SOMETIMES_CONSUMES   ## Variable:L"ErrOut"
+  ## SOMETIMES_CONSUMES   ## Variable:L"ConInDev"
+  ## SOMETIMES_CONSUMES   ## Variable:L"ConOutDev"
+  ## SOMETIMES_CONSUMES   ## Variable:L"ErrOutDev"
+  ## SOMETIMES_CONSUMES   ## Variable:L"BootOrder"
+  ## SOMETIMES_CONSUMES   ## Variable:L"BootNext"
+  ## SOMETIMES_CONSUMES   ## Variable:L"BootCurrent"
+  ## SOMETIMES_CONSUMES   ## Variable:L"BootOptionSupport"
+  ## SOMETIMES_CONSUMES   ## Variable:L"DriverOrder"
+  ## SOMETIMES_CONSUMES   ## Variable:L"SysPrepOrder"
+  ## SOMETIMES_CONSUMES   ## Variable:L"HwErrRecSupport"
+  ## SOMETIMES_CONSUMES   ## Variable:L"SetupMode"
+  ## SOMETIMES_CONSUMES   ## Variable:L"PK"
+  ## SOMETIMES_CONSUMES   ## Variable:L"KEK"
+  ## SOMETIMES_CONSUMES   ## Variable:L"SignatureSupport"
+  ## SOMETIMES_CONSUMES   ## Variable:L"SecureBoot"
+  ## SOMETIMES_CONSUMES   ## Variable:L"KEKDefault"
+  ## SOMETIMES_CONSUMES   ## Variable:L"PKDefault"
+  ## SOMETIMES_CONSUMES   ## Variable:L"dbDefault"
+  ## SOMETIMES_CONSUMES   ## Variable:L"dbxDefault"
+  ## SOMETIMES_CONSUMES   ## Variable:L"dbtDefault"
+  ## SOMETIMES_CONSUMES   ## Variable:L"OsIndicationsSupported"
+  ## SOMETIMES_CONSUMES   ## Variable:L"OsIndications"
+  ## SOMETIMES_CONSUMES   ## Variable:L"VendorKeys"
+  ## SOMETIMES_CONSUMES   ## Variable:L"Boot####"
+  ## SOMETIMES_CONSUMES   ## Variable:L"Driver####"
+  ## SOMETIMES_CONSUMES   ## Variable:L"SysPrep####"
+  ## SOMETIMES_CONSUMES   ## Variable:L"Key####"
+  ## SOMETIMES_CONSUMES   ## Variable:L"PlatformLang"
+  ## SOMETIMES_PRODUCES   ## Variable:L"PlatformLang"
+  ## SOMETIMES_CONSUMES   ## Variable:L"Lang"
+  ## SOMETIMES_PRODUCES   ## Variable:L"Lang"
+  gEfiGlobalVariableGuid
+
+  ## SOMETIMES_CONSUMES   ## Variable:L"MemoryOverwriteRequestControl"
+  gEfiMemoryOverwriteControlDataGuid
+
+  ## SOMETIMES_PRODUCES   ## Variable:L"MemoryOverwriteRequestControlLock"
+  gEfiMemoryOverwriteRequestControlLockGuid
+
+  ## PRODUCES             ## GUID # Install protocol
+  gSmmVariableWriteGuid
+
+  ## CONSUMES             ## GUID
+  gEfiSystemNvDataFvGuid
+
+  ## SOMETIMES_CONSUMES   ## HOB
+  gEdkiiFaultTolerantWriteGuid
+
+  ## SOMETIMES_CONSUMES   ## Variable:L"VarErrorFlag"
+  ## SOMETIMES_PRODUCES   ## Variable:L"VarErrorFlag"
+  gEdkiiVarErrorFlagGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiVTUTF8Guid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiVT100Guid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiVT100PlusGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiPcAnsiGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiUartDevicePathGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiSasDevicePathGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiVirtualDiskGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiVirtualCdGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiPersistentVirtualDiskGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiPersistentVirtualCdGuid
+
+  ## SOMETIMES_CONSUMES  ## Event
+  gEfiEventReadyToBootGuid
+
+  ## SOMETIMES_CONSUMES  ## Event
+  gEfiEventLegacyBootGuid
+
+  ## CONSUMES  ## SystemTable
+  gEfiHobListGuid
+
+  ## SOMETIMES_CONSUMES   ## Variable:L"HwErrRec####"
+  ## SOMETIMES_CONSUMES    ## Variable:L"HwErrRec####"
+  gEfiHardwareErrorVariableGuid
+
+  ## SOMETIMES_CONSUMES ## UNDEFINED
+  gEfiFileInfoGuid
+
+  ## CONSUMES  ## SystemTable
+  gEfiDxeServicesTableGuid
+
+  ## SOMETIMES_CONSUMES   ## Variable:L"DB"
+  ## SOMETIMES_CONSUMES   ## Variable:L"DBX"
+  ## SOMETIMES_CONSUMES   ## Variable:L"DBT"
+  gEfiImageSecurityDatabaseGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEdkiiIfrBitVarstoreGuid
+
+
+[PcdEx.X64]
+
+[LibraryClasses.X64]
+## @LIB_INSTANCES
+#  MdePkg/Library/BaseDebugPrintErrorLevelLib/BaseDebugPrintErrorLevelLib.inf
+#  MdePkg/Library/BasePrintLib/BasePrintLib.inf
+#  MdePkg/Library/BasePcdLibNull/BasePcdLibNull.inf
+#  MdePkg/Library/UefiDebugLibConOut/UefiDebugLibConOut.inf
+#  MdePkg/Library/BaseMemoryLib/BaseMemoryLib.inf
+#  MdePkg/Library/BaseLib/BaseLib.inf
+#  MdePkg/Library/UefiBootServicesTableLib/UefiBootServicesTableLib.inf
+#  MdePkg/Library/SmmServicesTableLib/SmmServicesTableLib.inf
+#  MdePkg/Library/SmmMemoryAllocationLib/SmmMemoryAllocationLib.inf
+#  MdePkg/Library/UefiRuntimeServicesTableLib/UefiRuntimeServicesTableLib.inf
+#  MdePkg/Library/UefiDevicePathLib/UefiDevicePathLib.inf
+#  MdePkg/Library/UefiLib/UefiLib.inf
+#  MdePkg/Library/BaseTimerLibNullTemplate/BaseTimerLibNullTemplate.inf
+#  MdePkg/Library/DxeHobLib/DxeHobLib.inf
+#  MdeModulePkg/Library/VarCheckLib/VarCheckLib.inf
+#  MdePkg/Library/DxeServicesLib/DxeServicesLib.inf
+#  MdePkg/Library/UefiDriverEntryPoint/UefiDriverEntryPoint.inf
+#  MdePkg/Library/BaseSynchronizationLib/BaseSynchronizationLib.inf
+#  MdePkg/Library/DxeServicesTableLib/DxeServicesTableLib.inf
+#  MdePkg/Library/SmmMemLib/SmmMemLib.inf
+#  MdeModulePkg/Library/AuthVariableLibNull/AuthVariableLibNull.inf
+#  MdeModulePkg/Library/VarCheckUefiLib/VarCheckUefiLib.inf
+#  MdeModulePkg/Library/VarCheckHiiLib/VarCheckHiiLib.inf
+#  MdeModulePkg/Library/VarCheckPcdLib/VarCheckPcdLib.inf
+
+[Depex.X64]
+#  (TRUE) AND (gEfiSmmBase2ProtocolGuid) AND (gEfiSmmAccess2ProtocolGuid) AND (gEfiBdsArchProtocolGuid AND gEfiCpuArchProtocolGuid AND gEfiMetronomeArchProtocolGuid AND gEfiMonotonicCounterArchProtocolGuid AND gEfiRealTimeClockArchProtocolGuid AND gEfiResetArchProtocolGuid AND gEfiRuntimeArchProtocolGuid AND gEfiSecurityArchProtocolGuid AND gEfiTimerArchProtocolGuid AND gEfiVariableWriteArchProtocolGuid AND gEfiVariableArchProtocolGuid AND gEfiWatchdogTimerArchProtocolGuid) AND (gEfiSmmAccess2ProtocolGuid)
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64
+#
+
+[BuildOptions.X64]
+## @AsBuilt
+##   GCC:RELEASE_GCC49_X64_SYMRENAME_FLAGS = Symbol renaming not needed for
+##   GCC:RELEASE_GCC49_X64_ASLDLINK_FLAGS = -nostdlib -n -q --gc-sections --script=$(EDK_TOOLS_PATH)/Scripts/gcc4.9-ld-script --entry ReferenceAcpiTable -u ReferenceAcpiTable -m elf_x86_64
+##   GCC:RELEASE_GCC49_X64_VFR_FLAGS = -l -n
+##   GCC:RELEASE_GCC49_X64_PP_FLAGS = -E -x assembler-with-cpp -include $(DEST_DIR_DEBUG)/AutoGen.h
+##   GCC:RELEASE_GCC49_X64_GENFW_FLAGS = 
+##   GCC:RELEASE_GCC49_X64_OPTROM_FLAGS = -e
+##   GCC:RELEASE_GCC49_X64_RC_FLAGS = -I binary -O elf64-x86-64        -B i386    --rename-section .data=.hii
+##   GCC:RELEASE_GCC49_X64_ASM_FLAGS = -c -x assembler -imacros $(DEST_DIR_DEBUG)/AutoGen.h -m64
+##   GCC:RELEASE_GCC49_X64_ASL_FLAGS = 
+##   GCC:RELEASE_GCC49_X64_CC_FLAGS = -g -fshort-wchar -fno-strict-aliasing -Wall -Werror -Wno-array-bounds -ffunction-sections -fdata-sections -c -include AutoGen.h -DSTRING_ARRAY_NAME=$(BASE_NAME)Strings -m64 -fno-stack-protector "-DEFIAPI=__attribute__((ms_abi))" -DNO_BUILTIN_VA_FUNCS -mno-red-zone -Wno-address -mcmodel=large -Wno-address -Wno-unused-but-set-variable -D DISABLE_NEW_DEPRECATED_INTERFACES
+##   GCC:RELEASE_GCC49_X64_VFRPP_FLAGS = -x c -E -P -DVFRCOMPILE --include $(DEST_DIR_DEBUG)/$(MODULE_NAME)StrDefs.h
+##   GCC:RELEASE_GCC49_X64_ASLCC_FLAGS = -x c -m64
+##   GCC:RELEASE_GCC49_X64_DLINK_FLAGS = -nostdlib -n -q --gc-sections --script=$(EDK_TOOLS_PATH)/Scripts/gcc4.9-ld-script --entry $(IMAGE_ENTRY_POINT) -u $(IMAGE_ENTRY_POINT) -Map $(DEST_DIR_DEBUG)/$(BASE_NAME).map  -melf_x86_64 --oformat=elf64-x86-64
+##   GCC:RELEASE_GCC49_X64_NASMB_FLAGS = -f bin
+##   GCC:RELEASE_GCC49_X64_ASLPP_FLAGS = -x c -E -P
+##   GCC:RELEASE_GCC49_X64_OBJCOPY_FLAGS = 
+##   GCC:RELEASE_GCC49_X64_APP_FLAGS = 
+##   GCC:RELEASE_GCC49_X64_ASMLINK_FLAGS = /nologo /tiny
+##   GCC:RELEASE_GCC49_X64_NASM_FLAGS = -f elf64

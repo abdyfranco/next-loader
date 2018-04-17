@@ -1,0 +1,13 @@
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/BaseDebugPrintErrorLevelLib/BaseDebugPrintErrorLevelLib/OUTPUT/BaseDebugPrintErrorLevelLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/BaseLib/BaseLib/OUTPUT/BaseLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/BasePcdLibNull/BasePcdLibNull/OUTPUT/BasePcdLibNull.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/BasePrintLib/BasePrintLib/OUTPUT/BasePrintLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/UefiDebugLibConOut/UefiDebugLibConOut/OUTPUT/UefiDebugLibConOut.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/BaseMemoryLib/BaseMemoryLib/OUTPUT/BaseMemoryLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/UefiBootServicesTableLib/UefiBootServicesTableLib/OUTPUT/UefiBootServicesTableLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryAllocationLib/UefiMemoryAllocationLib/OUTPUT/UefiMemoryAllocationLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/UefiRuntimeServicesTableLib/UefiRuntimeServicesTableLib/OUTPUT/UefiRuntimeServicesTableLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/UefiDevicePathLib/UefiDevicePathLib/OUTPUT/UefiDevicePathLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/UefiDriverEntryPoint/UefiDriverEntryPoint/OUTPUT/UefiDriverEntryPoint.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/UefiLib/UefiLib/OUTPUT/UefiLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdeModulePkg/Bus/I2c/I2cDxe/I2cHostDxe/OUTPUT/I2cHostDxe.lib

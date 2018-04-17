@@ -1,0 +1,13 @@
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/BasePcdLibNull/BasePcdLibNull/OUTPUT/BasePcdLibNull.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/BaseLib/BaseLib/OUTPUT/BaseLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/PeiHobLib/PeiHobLib/OUTPUT/PeiHobLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/BaseMemoryLib/BaseMemoryLib/OUTPUT/BaseMemoryLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/PeiMemoryAllocationLib/PeiMemoryAllocationLib/OUTPUT/PeiMemoryAllocationLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/PeiServicesLib/PeiServicesLib/OUTPUT/PeiServicesLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/BaseDebugLibNull/BaseDebugLibNull/OUTPUT/BaseDebugLibNull.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/PeiServicesTablePointerLib/PeiServicesTablePointerLib/OUTPUT/PeiServicesTablePointerLib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/BaseIoLibIntrinsic/BaseIoLibIntrinsic/OUTPUT/BaseIoLibIntrinsic.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/BasePciCf8Lib/BasePciCf8Lib/OUTPUT/BasePciCf8Lib.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/BasePciLibCf8/BasePciLibCf8/OUTPUT/BasePciLibCf8.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdePkg/Library/PeimEntryPoint/PeimEntryPoint/OUTPUT/PeimEntryPoint.lib
+/usr/local/UDK2014/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/X64/MdeModulePkg/Bus/Pci/UfsPciHcPei/UfsPciHcPei/OUTPUT/UfsPciHcPei.lib

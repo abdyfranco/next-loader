@@ -1,0 +1,14 @@
+/usr/local/UDK2014/MyWorkSpace/Build/Mde/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryLib/UefiMemoryLib/OUTPUT/ScanMem64Wrapper.obj
+/usr/local/UDK2014/MyWorkSpace/Build/Mde/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryLib/UefiMemoryLib/OUTPUT/ScanMem32Wrapper.obj
+/usr/local/UDK2014/MyWorkSpace/Build/Mde/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryLib/UefiMemoryLib/OUTPUT/ScanMem16Wrapper.obj
+/usr/local/UDK2014/MyWorkSpace/Build/Mde/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryLib/UefiMemoryLib/OUTPUT/ScanMem8Wrapper.obj
+/usr/local/UDK2014/MyWorkSpace/Build/Mde/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryLib/UefiMemoryLib/OUTPUT/ZeroMemWrapper.obj
+/usr/local/UDK2014/MyWorkSpace/Build/Mde/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryLib/UefiMemoryLib/OUTPUT/CompareMemWrapper.obj
+/usr/local/UDK2014/MyWorkSpace/Build/Mde/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryLib/UefiMemoryLib/OUTPUT/SetMem64Wrapper.obj
+/usr/local/UDK2014/MyWorkSpace/Build/Mde/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryLib/UefiMemoryLib/OUTPUT/SetMem32Wrapper.obj
+/usr/local/UDK2014/MyWorkSpace/Build/Mde/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryLib/UefiMemoryLib/OUTPUT/SetMem16Wrapper.obj
+/usr/local/UDK2014/MyWorkSpace/Build/Mde/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryLib/UefiMemoryLib/OUTPUT/SetMemWrapper.obj
+/usr/local/UDK2014/MyWorkSpace/Build/Mde/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryLib/UefiMemoryLib/OUTPUT/CopyMemWrapper.obj
+/usr/local/UDK2014/MyWorkSpace/Build/Mde/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryLib/UefiMemoryLib/OUTPUT/MemLibGeneric.obj
+/usr/local/UDK2014/MyWorkSpace/Build/Mde/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryLib/UefiMemoryLib/OUTPUT/MemLibGuid.obj
+/usr/local/UDK2014/MyWorkSpace/Build/Mde/RELEASE_GCC49/X64/MdePkg/Library/UefiMemoryLib/UefiMemoryLib/OUTPUT/MemLib.obj

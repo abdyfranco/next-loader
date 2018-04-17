@@ -17,13 +17,13 @@ fi
 BUILD_DIR="$BASEDIR/../build"
 EFI_DIR="$BASEDIR/efi"
 BOOT_MANAGER_DIR="$BASEDIR/boot_manager"
-GCC_COMPILER='gcc'
-
-# Delete the previous build
-rm -rf $BUILD_DIR
+GCC_COMPILER='gcc-4.9'
 
 # Run Compiler for Boot Manager app if script is executed in macOS
 if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Delete the previous build
+    rm -rf "$BUILD_DIR/macos" >/dev/null 2>&1
+
     # Create a macOS build folder
     mkdir -p "$BUILD_DIR/macos"
 
@@ -43,6 +43,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     exit
 fi
 
+# Delete the previous build
+rm -rf $BUILD_DIR >/dev/null 2>&1
+
 # Create the build dir
 mkdir -p "$BUILD_DIR/x64/loader/drivers_x64"
 mkdir "$BUILD_DIR/x64/loader/tools_x64"
@@ -56,13 +59,17 @@ mkdir -p "$BUILD_DIR/aa64/loader/drivers_aa64"
 mkdir "$BUILD_DIR/aa64/loader/tools_aa64"
 mkdir "$BUILD_DIR/aa64/loader/themes"
 
-# Compile Next Loader UEFI Application
-export WORKSPACE="$BASEDIR/edk2/UDK2014/MyWorkSpace"
+# Set the UDK2014 Environment
+mkdir -p /usr/local/UDK2014/
+ln -s "$BASEDIR/edk2/UDK2014/MyWorkSpace" "/usr/local/UDK2014"
+
+export WORKSPACE="/usr/local/UDK2014/MyWorkSpace"
 export EDK_TOOLS_PATH="$WORKSPACE/BaseTools"
 
-mkdir -p /usr/local/UDK2014/
-ln -s "$WORKSPACE" "/usr/local/UDK2014"
+(cd "$WORKSPACE" && source edksetup.sh BaseTools)
+(cd "$EDK_TOOLS_PATH/Source/C" && make)
 
+# Compile Next Loader UEFI Application
 (cd "$EFI_DIR" && make all CC=$GCC_COMPILER)
 (cd "$EFI_DIR" && make fs CC=$GCC_COMPILER)
 (cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER --always-make)
@@ -186,7 +193,6 @@ chmod -R 755 "$BUILD_DIR"
 # Clean rules for build
 #(cd "$EDK_TOOLS_PATH" && make clean)
 (cd "$EFI_DIR" && make clean)
-
 unlink "/usr/local/UDK2014/MyWorkSpace"
 rm -rf /usr/local/UDK2014/
 rm -rf "$WORKSPACE/Build"

@@ -1,0 +1,298 @@
+## @file
+# This module provide an SMM CIS compliant implementation of SMM Core.
+#
+# Copyright (c) 2009 - 2018, Intel Corporation. All rights reserved.<BR>
+#
+# This program and the accompanying materials
+# are licensed and made available under the terms and conditions of the BSD License
+# which accompanies this distribution. The full text of the license may be found at
+# http://opensource.org/licenses/bsd-license.php
+# THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+# WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+##
+
+# DO NOT EDIT
+# FILE auto-generated
+
+[Defines]
+  INF_VERSION                = 0x00010017
+  BASE_NAME                  = PiSmmCore
+  FILE_GUID                  = E94F54CD-81EB-47ed-AEC3-856F5DC157A9
+  MODULE_TYPE                = SMM_CORE
+  VERSION_STRING             = 1.0
+  PI_SPECIFICATION_VERSION   = 0x0001000A
+  ENTRY_POINT                = SmmMain
+  MODULE_UNI_FILE            = PiSmmCore.uni
+
+[Packages.X64]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[Binaries.X64]
+  PE32|PiSmmCore.efi
+
+[PatchPcd.X64]
+
+[Protocols.X64]
+  ## UNDEFINED # SmiHandlerRegister
+  gEfiDxeSmmReadyToLockProtocolGuid
+
+  ## CONSUMES
+  ## PRODUCES
+  gEfiSmmReadyToLockProtocolGuid
+
+  ## CONSUMES
+  gEfiSmmCpuIo2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  ## CONSUMES
+  gEfiFirmwareVolume2ProtocolGuid
+
+  ## CONSUMES
+  ## PRODUCES
+  gEfiSmmEndOfDxeProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSecurityArchProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSecurity2ArchProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  ## SOMETIMES_CONSUMES
+  ## PRODUCES
+  gEfiLoadedImageProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  ## CONSUMES
+  gEfiDevicePathProtocolGuid
+
+  ## SOMETIMES_PRODUCES
+  gEdkiiSmmExitBootServicesProtocolGuid
+
+  ## SOMETIMES_PRODUCES
+  gEdkiiSmmLegacyBootProtocolGuid
+
+  ## PRODUCES
+  gEdkiiSmmReadyToBootProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSmmSwDispatch2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSmmSxDispatch2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSmmPowerButtonDispatch2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSmmStandbyButtonDispatch2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSmmPeriodicTimerDispatch2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSmmGpiDispatch2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSmmIoTrapDispatch2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSmmUsbDispatch2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSmmCpuProtocolGuid
+
+  ## CONSUMES
+  gEdkiiSmmMemoryAttributeProtocolGuid
+
+  ## UNDEFINED
+  gEfiDebugPortProtocolGuid
+
+  ## SOMETIMES_PRODUCES
+  gEfiDriverBindingProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSimpleTextOutProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiGraphicsOutputProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiHiiFontProtocolGuid
+
+  ## SOMETIMES_CONSUMES # Consumes if gEfiGraphicsOutputProtocolGuid uninstalled
+  gEfiUgaDrawProtocolGuid
+
+  ## SOMETIMES_PRODUCES # User chooses to produce it
+  gEfiComponentNameProtocolGuid
+
+  ## SOMETIMES_PRODUCES # User chooses to produce it
+  gEfiComponentName2ProtocolGuid
+
+  ## SOMETIMES_PRODUCES # User chooses to produce it
+  gEfiDriverConfigurationProtocolGuid
+
+  ## SOMETIMES_PRODUCES # User chooses to produce it
+  gEfiDriverConfiguration2ProtocolGuid
+
+  ## SOMETIMES_PRODUCES # User chooses to produce it
+  gEfiDriverDiagnosticsProtocolGuid
+
+  ## SOMETIMES_PRODUCES # User chooses to produce it
+  gEfiDriverDiagnostics2ProtocolGuid
+
+  ## CONSUMES
+  gEfiSmmAccess2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiLoadFileProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiLoadFile2ProtocolGuid
+
+  ## SOMETIMES_CONSUMES
+  gEfiSimpleFileSystemProtocolGuid
+
+
+[Ppis.X64]
+
+[Guids.X64]
+  ## SOMETIMES_CONSUMES   ## File
+  gAprioriGuid
+
+  ## PRODUCES             ## GUID # SmiHandlerRegister
+  gEfiEventDxeDispatchGuid
+
+  ## SOMETIMES_CONSUMES  ## Event
+  ## PRODUCES             ## GUID # SmiHandlerRegister
+  gEfiEventLegacyBootGuid
+
+  ## PRODUCES             ## GUID # SmiHandlerRegister
+  gEfiEventExitBootServicesGuid
+
+  ## SOMETIMES_CONSUMES  ## Event
+  ## PRODUCES             ## GUID # SmiHandlerRegister
+  gEfiEventReadyToBootGuid
+
+  ## PRODUCES             ## GUID # SmiHandlerRegister
+  gEfiEndOfDxeEventGroupGuid
+
+  ## SOMETIMES_CONSUMES   ## GUID # Locate protocol
+  ## SOMETIMES_PRODUCES   ## GUID # SmiHandlerRegister
+  gEdkiiMemoryProfileGuid
+
+  ## SOMETIMES_PRODUCES   ## GUID # Install protocol
+  gEdkiiSmmMemoryProfileGuid
+
+  ## PRODUCES   ## SystemTable
+  gEdkiiPiSmmMemoryAttributesTableGuid
+
+  ## SOMETIMES_CONSUMES   ## SystemTable
+  gLoadFixedAddressConfigurationTableGuid
+
+  ## SOMETIMES_PRODUCES   ## GUID # Install protocol
+  ## SOMETIMES_PRODUCES   ## GUID # SmiHandlerRegister
+  gSmiHandlerProfileGuid
+
+  ## SOMETIMES_PRODUCES ## GUID # Install protocol
+  gEdkiiEndOfS3ResumeGuid
+
+  ## SOMETIMES_PRODUCES ## GUID # Install protocol
+  gEdkiiS3SmmInitDoneGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiVTUTF8Guid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiVT100Guid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiVT100PlusGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiPcAnsiGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiUartDevicePathGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiSasDevicePathGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiVirtualDiskGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiVirtualCdGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiPersistentVirtualDiskGuid
+
+  ## SOMETIMES_CONSUMES  ## GUID
+  gEfiPersistentVirtualCdGuid
+
+  ## SOMETIMES_CONSUMES  ## Variable
+  gEfiGlobalVariableGuid
+
+  ## CONSUMES  ## SystemTable
+  gEfiHobListGuid
+
+  ## SOMETIMES_CONSUMES ## UNDEFINED
+  gEfiFileInfoGuid
+
+
+[PcdEx.X64]
+
+[LibraryClasses.X64]
+## @LIB_INSTANCES
+#  MdePkg/Library/BasePcdLibNull/BasePcdLibNull.inf
+#  MdePkg/Library/BaseDebugLibNull/BaseDebugLibNull.inf
+#  MdePkg/Library/BaseMemoryLib/BaseMemoryLib.inf
+#  MdePkg/Library/BaseLib/BaseLib.inf
+#  MdePkg/Library/UefiBootServicesTableLib/UefiBootServicesTableLib.inf
+#  MdePkg/Library/BasePrintLib/BasePrintLib.inf
+#  MdeModulePkg/Library/PiSmmCoreMemoryAllocationLib/PiSmmCoreMemoryAllocationLib.inf
+#  MdePkg/Library/UefiRuntimeServicesTableLib/UefiRuntimeServicesTableLib.inf
+#  MdePkg/Library/UefiDevicePathLib/UefiDevicePathLib.inf
+#  MdePkg/Library/UefiLib/UefiLib.inf
+#  MdePkg/Library/BasePeCoffExtraActionLibNull/BasePeCoffExtraActionLibNull.inf
+#  MdeModulePkg/Library/PiSmmCoreSmmServicesTableLib/PiSmmCoreSmmServicesTableLib.inf
+#  MdePkg/Library/DxeHobLib/DxeHobLib.inf
+#  MdePkg/Library/UefiDriverEntryPoint/UefiDriverEntryPoint.inf
+#  MdePkg/Library/BasePeCoffLib/BasePeCoffLib.inf
+#  MdePkg/Library/BasePeCoffGetEntryPointLib/BasePeCoffGetEntryPointLib.inf
+#  MdePkg/Library/BaseCacheMaintenanceLib/BaseCacheMaintenanceLib.inf
+#  MdePkg/Library/BaseReportStatusCodeLibNull/BaseReportStatusCodeLibNull.inf
+#  MdeModulePkg/Library/SmmCorePlatformHookLibNull/SmmCorePlatformHookLibNull.inf
+#  MdePkg/Library/BasePerformanceLibNull/BasePerformanceLibNull.inf
+#  MdePkg/Library/BaseTimerLibNullTemplate/BaseTimerLibNullTemplate.inf
+#  MdePkg/Library/SmmMemLib/SmmMemLib.inf
+#  MdePkg/Library/DxeServicesLib/DxeServicesLib.inf
+
+[Depex.X64]
+#  (gEfiBdsArchProtocolGuid AND gEfiCpuArchProtocolGuid AND gEfiMetronomeArchProtocolGuid AND gEfiMonotonicCounterArchProtocolGuid AND gEfiRealTimeClockArchProtocolGuid AND gEfiResetArchProtocolGuid AND gEfiRuntimeArchProtocolGuid AND gEfiSecurityArchProtocolGuid AND gEfiTimerArchProtocolGuid AND gEfiVariableWriteArchProtocolGuid AND gEfiVariableArchProtocolGuid AND gEfiWatchdogTimerArchProtocolGuid) AND (gEfiSmmAccess2ProtocolGuid)
+
+#  VALID_ARCHITECTURES           = IA32 X64
+
+[BuildOptions.X64]
+## @AsBuilt
+##   GCC:RELEASE_GCC49_X64_SYMRENAME_FLAGS = Symbol renaming not needed for
+##   GCC:RELEASE_GCC49_X64_ASLDLINK_FLAGS = -nostdlib -n -q --gc-sections --script=$(EDK_TOOLS_PATH)/Scripts/gcc4.9-ld-script --entry ReferenceAcpiTable -u ReferenceAcpiTable -m elf_x86_64
+##   GCC:RELEASE_GCC49_X64_VFR_FLAGS = -l -n
+##   GCC:RELEASE_GCC49_X64_PP_FLAGS = -E -x assembler-with-cpp -include $(DEST_DIR_DEBUG)/AutoGen.h
+##   GCC:RELEASE_GCC49_X64_GENFW_FLAGS = 
+##   GCC:RELEASE_GCC49_X64_OPTROM_FLAGS = -e
+##   GCC:RELEASE_GCC49_X64_RC_FLAGS = -I binary -O elf64-x86-64        -B i386    --rename-section .data=.hii
+##   GCC:RELEASE_GCC49_X64_ASM_FLAGS = -c -x assembler -imacros $(DEST_DIR_DEBUG)/AutoGen.h -m64
+##   GCC:RELEASE_GCC49_X64_ASL_FLAGS = 
+##   GCC:RELEASE_GCC49_X64_CC_FLAGS = -g -fshort-wchar -fno-strict-aliasing -Wall -Werror -Wno-array-bounds -ffunction-sections -fdata-sections -c -include AutoGen.h -DSTRING_ARRAY_NAME=$(BASE_NAME)Strings -m64 -fno-stack-protector "-DEFIAPI=__attribute__((ms_abi))" -DNO_BUILTIN_VA_FUNCS -mno-red-zone -Wno-address -mcmodel=large -Wno-address -Wno-unused-but-set-variable -D DISABLE_NEW_DEPRECATED_INTERFACES
+##   GCC:RELEASE_GCC49_X64_VFRPP_FLAGS = -x c -E -P -DVFRCOMPILE --include $(DEST_DIR_DEBUG)/$(MODULE_NAME)StrDefs.h
+##   GCC:RELEASE_GCC49_X64_ASLCC_FLAGS = -x c -m64
+##   GCC:RELEASE_GCC49_X64_DLINK_FLAGS = -nostdlib -n -q --gc-sections --script=$(EDK_TOOLS_PATH)/Scripts/gcc4.9-ld-script --entry $(IMAGE_ENTRY_POINT) -u $(IMAGE_ENTRY_POINT) -Map $(DEST_DIR_DEBUG)/$(BASE_NAME).map  -melf_x86_64 --oformat=elf64-x86-64
+##   GCC:RELEASE_GCC49_X64_NASMB_FLAGS = -f bin
+##   GCC:RELEASE_GCC49_X64_ASLPP_FLAGS = -x c -E -P
+##   GCC:RELEASE_GCC49_X64_OBJCOPY_FLAGS = 
+##   GCC:RELEASE_GCC49_X64_APP_FLAGS = 
+##   GCC:RELEASE_GCC49_X64_ASMLINK_FLAGS = /nologo /tiny
+##   GCC:RELEASE_GCC49_X64_NASM_FLAGS = -f elf64
