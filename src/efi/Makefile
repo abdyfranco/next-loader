@@ -14,11 +14,13 @@ LIBEG_DIR=libeg
 MOK_DIR=mok
 GPTSYNC_DIR=gptsync
 EFILIB_DIR=EfiLib
+
 # Two possible locations for TianoCore toolkit:
 # TIANOBASE is used with "tiano" targets and
 # EDK2BASE is used with "edk2" targets
 export TIANOBASE=/usr/local/UDK2014/MyWorkSpace
 export EDK2BASE=/usr/local/edk2-vUDK2017
+
 # NOTE: Below is overridden for "tiano" targets
 -include $(EDK2BASE)/Conf/target.txt
 THISDIR=$(shell pwd)
