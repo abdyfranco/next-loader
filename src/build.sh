@@ -8,9 +8,15 @@ if [ "$BASEDIR" == "." ]; then
 fi
 
 # Check if the script has been executed using sudo
-if [ ! "$EUID" == 0 ]
-  then echo "You must run this program as root or using sudo!"
-  exit
+if [ ! "$EUID" == 0 ] then
+    echo "You must run this program as root or using sudo!"
+    exit
+fi
+
+# Check if the script has been executed in macOS
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "You can't run this program from macOS!"
+    exit
 fi
 
 # Set application constants
@@ -19,32 +25,10 @@ EFI_DIR="$BASEDIR/efi"
 BOOT_MANAGER_DIR="$BASEDIR/boot_manager"
 GCC_COMPILER='gcc-4.9'
 
-# Run Compiler for Boot Manager app if script is executed in macOS
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    # Delete the previous build
-    rm -rf "$BUILD_DIR/macos" >/dev/null 2>&1
-
-    # Create a macOS build folder
-    mkdir -p "$BUILD_DIR/macos"
-
-    xcode-select --install
-    xcode-select -s /Applications/Xcode.app/Contents/Developer
-    xcodebuild -project "$BOOT_MANAGER_DIR/Boot Manager.xcodeproj" -alltargets -configuration Release
-    xcode-select --switch /Library/Developer/CommandLineTools
-
-    cp -r "$BOOT_MANAGER_DIR/build/Release/Boot Manager.app" "$BUILD_DIR/macos/"
-
-    # Clean rules for Xcode build
-    rm -rf "$BOOT_MANAGER_DIR/build/Boot Manager.build"
-    rm -rf "$BOOT_MANAGER_DIR/build/Release"
-    rm -rf "$BOOT_MANAGER_DIR/build/SharedPrecompiledHeaders"
-
-    # Exit from the script, Next Loader can't be compiled in macOS
-    exit
-fi
-
 # Delete the previous build
-rm -rf $BUILD_DIR >/dev/null 2>&1
+rm -rf "$BUILD_DIR/x64" >/dev/null 2>&1
+rm -rf "$BUILD_DIR/ia32" >/dev/null 2>&1
+rm -rf "$BUILD_DIR/aa64" >/dev/null 2>&1
 
 # Create the build dir
 mkdir -p "$BUILD_DIR/x64/loader/drivers_x64"
@@ -71,14 +55,14 @@ export EDK_TOOLS_PATH="$WORKSPACE/BaseTools"
 
 # Compile Next Loader UEFI Application
 (cd "$EFI_DIR" && make all CC=$GCC_COMPILER ARCH=x86_64)
-(cd "$EFI_DIR" && make all CC=$GCC_COMPILER ARCH=ia32) >/dev/null 2>&1
-(cd "$EFI_DIR" && make all CC=$GCC_COMPILER ARCH=aarch64) >/dev/null 2>&1
+(cd "$EFI_DIR" && make all CC=$GCC_COMPILER ARCH=ia32)
+(cd "$EFI_DIR" && make all CC=$GCC_COMPILER ARCH=aarch64)
 (cd "$EFI_DIR" && make fs CC=$GCC_COMPILER ARCH=x86_64)
-(cd "$EFI_DIR" && make fs CC=$GCC_COMPILER ARCH=ia32) >/dev/null 2>&1
-(cd "$EFI_DIR" && make fs CC=$GCC_COMPILER ARCH=aarch64) >/dev/null 2>&1
+(cd "$EFI_DIR" && make fs CC=$GCC_COMPILER ARCH=ia32)
+(cd "$EFI_DIR" && make fs CC=$GCC_COMPILER ARCH=aarch64)
 (cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER ARCH=x86_64 --always-make)
-(cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER ARCH=ia32 --always-make) >/dev/null 2>&1
-(cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER ARCH=aarch64 --always-make) >/dev/null 2>&1
+(cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER ARCH=ia32 --always-make)
+(cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER ARCH=aarch64 --always-make)
 
 cp "$EFI_DIR/loader/loader_x64.efi" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 cp "$EFI_DIR/loader/loader_ia32.efi" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
@@ -110,13 +94,12 @@ cp "$EFI_DIR/filesystems/btrfs_aa64.efi" "$BUILD_DIR/aa64/loader/drivers_aa64/" 
 
 cp "$EFI_DIR/gptsync/gptsync_x64.efi" "$BUILD_DIR/x64/loader/tools_x64" >/dev/null 2>&1
 cp "$EFI_DIR/gptsync/gptsync_ia32.efi" "$BUILD_DIR/ia32/loader/tools_ia32" >/dev/null 2>&1
-cp "$EFI_DIR/gptsync/gptsync_aa64.efi" "$BUILD_DIR/x64/loader/tools_aa64" >/dev/null 2>&1
+cp "$EFI_DIR/gptsync/gptsync_aa64.efi" "$BUILD_DIR/aa64/loader/tools_aa64" >/dev/null 2>&1
 
 cp -r "$EFI_DIR/icons" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 cp -r "$EFI_DIR/keys" "$BUILD_DIR/x64/" >/dev/null 2>&1
 cp -r "$EFI_DIR/scripts" "$BUILD_DIR/x64/" >/dev/null 2>&1
 cp "$EFI_DIR/images/font.png" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
-cp "$EFI_DIR/images/VolumeIcon.icns" "$BUILD_DIR/x64/" >/dev/null 2>&1
 cp "$EFI_DIR/loader.conf" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 cp "$EFI_DIR/stanzas.conf" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 
@@ -124,7 +107,6 @@ cp -r "$EFI_DIR/icons" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
 cp -r "$EFI_DIR/keys" "$BUILD_DIR/ia32/" >/dev/null 2>&1
 cp -r "$EFI_DIR/scripts" "$BUILD_DIR/ia32/" >/dev/null 2>&1
 cp "$EFI_DIR/images/font.png" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
-cp "$EFI_DIR/images/VolumeIcon.icns" "$BUILD_DIR/ia32/" >/dev/null 2>&1
 cp "$EFI_DIR/loader.conf" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
 cp "$EFI_DIR/stanzas.conf" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
 
@@ -132,7 +114,6 @@ cp -r "$EFI_DIR/icons" "$BUILD_DIR/aa64/loader/" >/dev/null 2>&1
 cp -r "$EFI_DIR/keys" "$BUILD_DIR/aa64/" >/dev/null 2>&1
 cp -r "$EFI_DIR/scripts" "$BUILD_DIR/aa64/" >/dev/null 2>&1
 cp "$EFI_DIR/images/font.png" "$BUILD_DIR/aa64/loader/" >/dev/null 2>&1
-cp "$EFI_DIR/images/VolumeIcon.icns" "$BUILD_DIR/aa64/" >/dev/null 2>&1
 cp "$EFI_DIR/loader.conf" "$BUILD_DIR/aa64/loader/" >/dev/null 2>&1
 cp "$EFI_DIR/stanzas.conf" "$BUILD_DIR/aa64/loader/" >/dev/null 2>&1
 
