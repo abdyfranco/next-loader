@@ -70,9 +70,15 @@ export EDK_TOOLS_PATH="$WORKSPACE/BaseTools"
 (cd "$EDK_TOOLS_PATH/Source/C" && make)
 
 # Compile Next Loader UEFI Application
-(cd "$EFI_DIR" && make all CC=$GCC_COMPILER)
-(cd "$EFI_DIR" && make fs CC=$GCC_COMPILER)
-(cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER --always-make)
+(cd "$EFI_DIR" && make all CC=$GCC_COMPILER ARCH=x86_64)
+(cd "$EFI_DIR" && make all CC=$GCC_COMPILER ARCH=ia32) >/dev/null 2>&1
+(cd "$EFI_DIR" && make all CC=$GCC_COMPILER ARCH=aarch64) >/dev/null 2>&1
+(cd "$EFI_DIR" && make fs CC=$GCC_COMPILER ARCH=x86_64)
+(cd "$EFI_DIR" && make fs CC=$GCC_COMPILER ARCH=ia32) >/dev/null 2>&1
+(cd "$EFI_DIR" && make fs CC=$GCC_COMPILER ARCH=aarch64) >/dev/null 2>&1
+(cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER ARCH=x86_64 --always-make)
+(cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER ARCH=ia32 --always-make) >/dev/null 2>&1
+(cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER ARCH=aarch64 --always-make) >/dev/null 2>&1
 
 cp "$EFI_DIR/loader/loader_x64.efi" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 cp "$EFI_DIR/loader/loader_ia32.efi" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
@@ -111,18 +117,24 @@ cp -r "$EFI_DIR/keys" "$BUILD_DIR/x64/" >/dev/null 2>&1
 cp -r "$EFI_DIR/scripts" "$BUILD_DIR/x64/" >/dev/null 2>&1
 cp "$EFI_DIR/images/font.png" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 cp "$EFI_DIR/images/VolumeIcon.icns" "$BUILD_DIR/x64/" >/dev/null 2>&1
+cp "$EFI_DIR/loader.conf" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
+cp "$EFI_DIR/stanzas.conf" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 
 cp -r "$EFI_DIR/icons" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
 cp -r "$EFI_DIR/keys" "$BUILD_DIR/ia32/" >/dev/null 2>&1
 cp -r "$EFI_DIR/scripts" "$BUILD_DIR/ia32/" >/dev/null 2>&1
 cp "$EFI_DIR/images/font.png" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
 cp "$EFI_DIR/images/VolumeIcon.icns" "$BUILD_DIR/ia32/" >/dev/null 2>&1
+cp "$EFI_DIR/loader.conf" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
+cp "$EFI_DIR/stanzas.conf" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
 
 cp -r "$EFI_DIR/icons" "$BUILD_DIR/aa64/loader/" >/dev/null 2>&1
 cp -r "$EFI_DIR/keys" "$BUILD_DIR/aa64/" >/dev/null 2>&1
 cp -r "$EFI_DIR/scripts" "$BUILD_DIR/aa64/" >/dev/null 2>&1
 cp "$EFI_DIR/images/font.png" "$BUILD_DIR/aa64/loader/" >/dev/null 2>&1
 cp "$EFI_DIR/images/VolumeIcon.icns" "$BUILD_DIR/aa64/" >/dev/null 2>&1
+cp "$EFI_DIR/loader.conf" "$BUILD_DIR/aa64/loader/" >/dev/null 2>&1
+cp "$EFI_DIR/stanzas.conf" "$BUILD_DIR/aa64/loader/" >/dev/null 2>&1
 
 # Add prebuilt components to the build
 cp "$EFI_DIR/prebuilt/drivers_x64/apfs_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1

@@ -1,4 +1,4 @@
-### Prebuilt Components
+# Prebuilt Components
 
 The components within this folder have been obtained by third parties in compiled
 form.
