@@ -23,7 +23,9 @@ fi
 BUILD_DIR="$BASEDIR/../build"
 EFI_DIR="$BASEDIR/efi"
 BOOT_MANAGER_DIR="$BASEDIR/boot_manager"
-UEFI_VOLUME="/Volumes/UEFI Boot Manager"
+VOLUME_NAME="UEFI Boot Manager"
+UEFI_VOLUME="/Volumes/$VOLUME_NAME"
+UEFI_NAME="More Options"
 
 # Delete the previous build
 rm -rf "$BUILD_DIR/macos" >/dev/null 2>&1
@@ -47,11 +49,11 @@ cp -r "$BOOT_MANAGER_DIR/build/Release/Boot Manager.app" "$BUILD_DIR/macos/"
 rm -rf "$BUILD_DIR/uefi_x64.dmg" >/dev/null 2>&1
 rm -rf "$BUILD_DIR/uefi_ia32.dmg" >/dev/null 2>&1
 rm -rf "$BUILD_DIR/uefi_aa64.dmg" >/dev/null 2>&1
-hdiutil detach "/Volumes/UEFI Boot Manager/" >/dev/null 2>&1
+hdiutil detach "$UEFI_VOLUME" >/dev/null 2>&1
 
 # Build DMG image for x64
 if [ -e "$BUILD_DIR/x64/loader/loader_x64.efi" ]; then
-    (cd "$BUILD_DIR" && hdiutil create -fs HFS+ -srcfolder "$BUILD_DIR/x64/" -volname "UEFI Boot Manager" "uefi_x64_tmp.dmg")
+    (cd "$BUILD_DIR" && hdiutil create -fs HFS+ -srcfolder "$BUILD_DIR/x64/" -volname "$VOLUME_NAME" "uefi_x64_tmp.dmg")
     
     hdiutil convert "$BUILD_DIR/uefi_x64_tmp.dmg" -format UDRW -o "$BUILD_DIR/uefi_x64.dmg"
     hdiutil attach "$BUILD_DIR/uefi_x64.dmg"
@@ -59,13 +61,13 @@ if [ -e "$BUILD_DIR/x64/loader/loader_x64.efi" ]; then
     cp "$EFI_DIR/images/VolumeIcon.icns" "$UEFI_VOLUME/.VolumeIcon.icns"
     
     SetFile -a C "$UEFI_VOLUME"
-    bless --folder "$UEFI_VOLUME/loader" --file "$UEFI_VOLUME/loader/loader_x64.efi" --label "More Options"
+    bless --folder "$UEFI_VOLUME/loader" --file "$UEFI_VOLUME/loader/loader_x64.efi" --label "$UEFI_NAME"
     hdiutil detach "$UEFI_VOLUME"
 fi
 
 # Build DMG image for IA-32
 if [ -e "$BUILD_DIR/ia32/loader/loader_ia32.efi" ]; then
-    (cd "$BUILD_DIR" && hdiutil create -fs HFS+ -srcfolder "$BUILD_DIR/ia32/" -volname "UEFI Boot Manager" "uefi_ia32_tmp.dmg")
+    (cd "$BUILD_DIR" && hdiutil create -fs HFS+ -srcfolder "$BUILD_DIR/ia32/" -volname "$VOLUME_NAME" "uefi_ia32_tmp.dmg")
     
     hdiutil convert "$BUILD_DIR/uefi_ia32_tmp.dmg" -format UDRW -o "$BUILD_DIR/uefi_ia32.dmg"
     hdiutil attach "$BUILD_DIR/uefi_ia32.dmg"
@@ -73,13 +75,13 @@ if [ -e "$BUILD_DIR/ia32/loader/loader_ia32.efi" ]; then
     cp "$EFI_DIR/images/VolumeIcon.icns" "$UEFI_VOLUME/.VolumeIcon.icns"
     
     SetFile -a C "$UEFI_VOLUME"
-    bless --folder "$UEFI_VOLUME/loader" --file "$UEFI_VOLUME/loader/loader_ia32.efi" --label "More Options"
+    bless --folder "$UEFI_VOLUME/loader" --file "$UEFI_VOLUME/loader/loader_ia32.efi" --label "$UEFI_NAME"
     hdiutil detach "$UEFI_VOLUME"
 fi
 
 # Build DMG image for ARM64
 if [ -e "$BUILD_DIR/aa64/loader/loader_aa64.efi" ]; then
-    (cd "$BUILD_DIR" && hdiutil create -fs HFS+ -srcfolder "$BUILD_DIR/aa64/" -volname "UEFI Boot Manager" "uefi_aa64_tmp.dmg")
+    (cd "$BUILD_DIR" && hdiutil create -fs HFS+ -srcfolder "$BUILD_DIR/aa64/" -volname "$VOLUME_NAME" "uefi_aa64_tmp.dmg")
     
     hdiutil convert "$BUILD_DIR/uefi_aa64_tmp.dmg" -format UDRW -o "$BUILD_DIR/uefi_aa64.dmg"
     hdiutil attach "$BUILD_DIR/uefi_aa64.dmg"
@@ -87,7 +89,7 @@ if [ -e "$BUILD_DIR/aa64/loader/loader_aa64.efi" ]; then
     cp "$EFI_DIR/images/VolumeIcon.icns" "$UEFI_VOLUME/.VolumeIcon.icns"
     
     SetFile -a C "$UEFI_VOLUME"
-    bless --folder "$UEFI_VOLUME/loader" --file "$UEFI_VOLUME/loader/loader_aa64.efi" --label "More Options"
+    bless --folder "$UEFI_VOLUME/loader" --file "$UEFI_VOLUME/loader/loader_aa64.efi" --label "$UEFI_NAME"
     hdiutil detach "$UEFI_VOLUME"
 fi
 
