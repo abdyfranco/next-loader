@@ -158,6 +158,14 @@ cp "$EFI_DIR/prebuilt/tools_x64/tcpipv4_x64.efi" "$BUILD_DIR/x64/loader/tools_x6
 cp "$EFI_DIR/prebuilt/tools_x64/textmode_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
 cp "$EFI_DIR/prebuilt/tools_x64/which_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
 
+cp "$EFI_DIR/prebuilt/drivers_ia32/fat_ia32.efi" "$BUILD_DIR/ia32/loader/drivers_ia32/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_ia32/hfs_plus_ia32.efi" "$BUILD_DIR/ia32/loader/drivers_ia32/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_ia32/zfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers_ia32/" >/dev/null 2>&1
+
+cp "$EFI_DIR/prebuilt/drivers_aa64/fat_aa64.efi" "$BUILD_DIR/aa64/loader/drivers_aa64/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_aa64/hfs_plus_aa64.efi" "$BUILD_DIR/aa64/loader/drivers_aa64/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_aa64/zfs_aa64.efi" "$BUILD_DIR/aa64/loader/drivers_aa64/" >/dev/null 2>&1
+
 # Delete uncompiled architectures
 if [ ! -e "$BUILD_DIR/x64/loader/loader_x64.efi" ]; then
     rm -rf "$BUILD_DIR/x64/"
