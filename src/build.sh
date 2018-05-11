@@ -8,7 +8,7 @@ if [ "$BASEDIR" == "." ]; then
 fi
 
 # Check if the script has been executed using sudo
-if [ ! "$EUID" == 0 ] then
+if [ ! "$EUID" == 0 ]; then
     echo "You must run this program as root or using sudo!"
     exit
 fi
@@ -19,11 +19,25 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     exit
 fi
 
+# Check if the script has been executed in CentOS 7
+if [[ -e "/etc/centos-release" && $(rpm -qa \*-release | grep -Ei "centos" | cut -d"-" -f3) == "7" ]]; then
+    # Install libuuid
+    yum -y install libuuid libuuid-devel >/dev/null 2>&1
+
+    # Install the Developer Tool Set
+    yum -y install centos-release-scl-rh >/dev/null 2>&1
+    yum -y install devtoolset-3-gcc devtoolset-3-gcc-c++ >/dev/null 2>&1
+
+    # Install GCC 4.9
+    update-alternatives --install /usr/bin/gcc-4.9 gcc-4.9 /opt/rh/devtoolset-3/root/usr/bin/gcc 10 >/dev/null 2>&1
+    update-alternatives --install /usr/bin/g++-4.9 g++-4.9 /opt/rh/devtoolset-3/root/usr/bin/g++ 10 >/dev/null 2>&1
+fi
+
 # Set application constants
 BUILD_DIR="$BASEDIR/../build"
 EFI_DIR="$BASEDIR/efi"
 BOOT_MANAGER_DIR="$BASEDIR/boot_manager"
-GCC_COMPILER='gcc-4.9'
+GCC_COMPILER='gcc-4.9' # GCC 4.9 Recommended
 
 # Delete the previous build
 rm -rf "$BUILD_DIR/x64" >/dev/null 2>&1
