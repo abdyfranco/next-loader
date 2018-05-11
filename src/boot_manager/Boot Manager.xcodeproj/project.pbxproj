@@ -52,6 +52,11 @@
 		02BAFC4B166E52A30072A560 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02BAFC49166E52A30072A560 /* MainMenu.xib */; };
 		02DFE6550FB38EEB00C28D32 /* StatusItemIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 02DFE6540FB38EEB00C28D32 /* StatusItemIcon.png */; };
 		02DFE65E0FB3916B00C28D32 /* StatusItemIconAlt.png in Resources */ = {isa = PBXBuildFile; fileRef = 02DFE65D0FB3916B00C28D32 /* StatusItemIconAlt.png */; };
+		2063050120A61036004ED8A3 /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 2063050020A61036004ED8A3 /* STPrivilegedTask.m */; };
+		2063050220A61036004ED8A3 /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 2063050020A61036004ED8A3 /* STPrivilegedTask.m */; };
+		2063050620A61144004ED8A3 /* STPrivilegedTask.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 2063050520A61144004ED8A3 /* STPrivilegedTask.podspec */; };
+		2063050820A6133C004ED8A3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2063050720A6133C004ED8A3 /* Security.framework */; };
+		2063050A20A61349004ED8A3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2063050920A61349004ED8A3 /* Cocoa.framework */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -174,6 +179,11 @@
 		2042B3CE20815B0800C3219A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2042B3CF20815B0800C3219A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2042B3D020815B0800C3219A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = nl; path = nl.lproj/Credits.rtf; sourceTree = "<group>"; };
+		206304FF20A61036004ED8A3 /* STPrivilegedTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPrivilegedTask.h; sourceTree = "<group>"; };
+		2063050020A61036004ED8A3 /* STPrivilegedTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPrivilegedTask.m; sourceTree = "<group>"; };
+		2063050520A61144004ED8A3 /* STPrivilegedTask.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = STPrivilegedTask.podspec; path = Dependencies/STPrivilegedTask.podspec; sourceTree = "<group>"; };
+		2063050720A6133C004ED8A3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		2063050920A61349004ED8A3 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Source/main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -187,6 +197,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2063050A20A61349004ED8A3 /* Cocoa.framework in Frameworks */,
+				2063050820A6133C004ED8A3 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +219,8 @@
 		02091EF2138060DA007A7A8B /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				2063050520A61144004ED8A3 /* STPrivilegedTask.podspec */,
+				206304FE20A61036004ED8A3 /* STPrivilegedTask */,
 				0249E25C191EEB370001ACD6 /* BCAboutBox */,
 				0249E261191EEB370001ACD6 /* BCSystemInfo.h */,
 				0249E262191EEB370001ACD6 /* BCSystemInfo.m */,
@@ -342,6 +356,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		206304FE20A61036004ED8A3 /* STPrivilegedTask */ = {
+			isa = PBXGroup;
+			children = (
+				206304FF20A61036004ED8A3 /* STPrivilegedTask.h */,
+				2063050020A61036004ED8A3 /* STPrivilegedTask.m */,
+			);
+			name = STPrivilegedTask;
+			path = Dependencies/STPrivilegedTask;
+			sourceTree = "<group>";
+		};
 		29B97314FDCFA39411CA2CEA /* Bootr */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,6 +403,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2063050920A61349004ED8A3 /* Cocoa.framework */,
+				2063050720A6133C004ED8A3 /* Security.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -479,6 +505,7 @@
 				02BAFC48166E529C0072A560 /* Preferences.xib in Resources */,
 				02BAFC4B166E52A30072A560 /* MainMenu.xib in Resources */,
 				022A8730166E546E0081A745 /* InfoPlist.strings in Resources */,
+				2063050620A61144004ED8A3 /* STPrivilegedTask.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,6 +548,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2063050220A61036004ED8A3 /* STPrivilegedTask.m in Sources */,
 				025D1889108A604C00D8995D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -540,6 +568,7 @@
 				02B6B9470FB39FE1000EC4B9 /* QBVolumeManager.m in Sources */,
 				02B6B9C10FB3EBE9000EC4B9 /* QBPreferencesController.m in Sources */,
 				0249E268191EEB5D0001ACD6 /* NSApplication+BCAdditions.m in Sources */,
+				2063050120A61036004ED8A3 /* STPrivilegedTask.m in Sources */,
 				02412076120A40ED00EF7B5C /* QBVolume.m in Sources */,
 				027C159F120E1AB80019BBF3 /* QBOSDetectOperation.m in Sources */,
 				0249E265191EEB370001ACD6 /* BCSystemInfo.m in Sources */,

@@ -11,6 +11,7 @@
 #import <stdio.h>
 #include <getopt.h>
 #import "QBVolumeManager.h"
+#import "STPrivilegedTask.h"
 
 int main(int argc, char *argv[])
 {
@@ -55,7 +56,7 @@ int main(int argc, char *argv[])
         if(isLegacy)
             [blessArguments addObject:@"--legacy"];
         
-        NSTask *task = [[NSTask alloc] init];
+        /*NSTask *task = [[NSTask alloc] init];
         [task setLaunchPath:@"/usr/sbin/bless"];
         [task setArguments:blessArguments];
         
@@ -63,6 +64,21 @@ int main(int argc, char *argv[])
         [task waitUntilExit];
         
         int status = [task terminationStatus];
+        
+        if(status != 0)
+        {
+            NSLog(@"Failed to set boot: %i", status);
+            ret = kQBVolumeManagerSetBootError;
+        }*/
+
+        STPrivilegedTask *privilegedTask = [[STPrivilegedTask alloc] init];
+        [privilegedTask setLaunchPath:@"/usr/sbin/bless"];
+        [privilegedTask setArguments:blessArguments];
+        
+        [privilegedTask launch];
+        [privilegedTask waitUntilExit];
+        
+        int status = [privilegedTask terminationStatus];
         
         if(status != 0)
         {
