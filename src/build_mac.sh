@@ -56,12 +56,17 @@ if [ -e "$BUILD_DIR/x64/loader/loader_x64.efi" ]; then
     (cd "$BUILD_DIR" && hdiutil create -fs HFS+ -srcfolder "$BUILD_DIR/x64/" -volname "$VOLUME_NAME" "uefi_x64_tmp.dmg")
     
     hdiutil convert "$BUILD_DIR/uefi_x64_tmp.dmg" -format UDRW -o "$BUILD_DIR/uefi_x64.dmg"
+    hdiutil resize -limits "$BUILD_DIR/uefi_x64.dmg"
+    hdiutil resize -sectors 70000 "$BUILD_DIR/uefi_x64.dmg"
     hdiutil attach "$BUILD_DIR/uefi_x64.dmg"
     
     cp "$EFI_DIR/images/VolumeIcon.icns" "$UEFI_VOLUME/.VolumeIcon.icns"
     
-    SetFile -a C "$UEFI_VOLUME"
+    bless --unbless "$UEFI_VOLUME/"
     bless --folder "$UEFI_VOLUME/loader" --file "$UEFI_VOLUME/loader/loader_x64.efi" --label "$UEFI_NAME"
+    bless --info "$UEFI_VOLUME/"
+
+    SetFile -a C "$UEFI_VOLUME"
     hdiutil detach "$UEFI_VOLUME"
 fi
 
@@ -70,12 +75,17 @@ if [ -e "$BUILD_DIR/ia32/loader/loader_ia32.efi" ]; then
     (cd "$BUILD_DIR" && hdiutil create -fs HFS+ -srcfolder "$BUILD_DIR/ia32/" -volname "$VOLUME_NAME" "uefi_ia32_tmp.dmg")
     
     hdiutil convert "$BUILD_DIR/uefi_ia32_tmp.dmg" -format UDRW -o "$BUILD_DIR/uefi_ia32.dmg"
+    hdiutil resize -limits "$BUILD_DIR/uefi_ia32.dmg"
+    hdiutil resize -sectors 70000 "$BUILD_DIR/uefi_ia32.dmg"
     hdiutil attach "$BUILD_DIR/uefi_ia32.dmg"
     
     cp "$EFI_DIR/images/VolumeIcon.icns" "$UEFI_VOLUME/.VolumeIcon.icns"
     
-    SetFile -a C "$UEFI_VOLUME"
+    bless --unbless "$UEFI_VOLUME/"
     bless --folder "$UEFI_VOLUME/loader" --file "$UEFI_VOLUME/loader/loader_ia32.efi" --label "$UEFI_NAME"
+    bless --info "$UEFI_VOLUME/"
+
+    SetFile -a C "$UEFI_VOLUME"
     hdiutil detach "$UEFI_VOLUME"
 fi
 
@@ -84,12 +94,17 @@ if [ -e "$BUILD_DIR/aa64/loader/loader_aa64.efi" ]; then
     (cd "$BUILD_DIR" && hdiutil create -fs HFS+ -srcfolder "$BUILD_DIR/aa64/" -volname "$VOLUME_NAME" "uefi_aa64_tmp.dmg")
     
     hdiutil convert "$BUILD_DIR/uefi_aa64_tmp.dmg" -format UDRW -o "$BUILD_DIR/uefi_aa64.dmg"
+    hdiutil resize -limits "$BUILD_DIR/uefi_aa64.dmg"
+    hdiutil resize -sectors 70000 "$BUILD_DIR/uefi_aa64.dmg"
     hdiutil attach "$BUILD_DIR/uefi_aa64.dmg"
     
     cp "$EFI_DIR/images/VolumeIcon.icns" "$UEFI_VOLUME/.VolumeIcon.icns"
     
-    SetFile -a C "$UEFI_VOLUME"
+    bless --unbless "$UEFI_VOLUME/"
     bless --folder "$UEFI_VOLUME/loader" --file "$UEFI_VOLUME/loader/loader_aa64.efi" --label "$UEFI_NAME"
+    bless --info "$UEFI_VOLUME/"
+
+    SetFile -a C "$UEFI_VOLUME"
     hdiutil detach "$UEFI_VOLUME"
 fi
 
