@@ -34,6 +34,7 @@ have multiple booting options.
 ## Copyright
 - Copyright (c) 2017-2018 [Abdy Franco](http://abdyfran.co/)
 - Copyright (c) 2012-2017 [Roderick W. Smith](http://www.rodsbooks.com/)
+- Copyright (c) 2009-2017 [Sveinbjorn Thordarson](http://sveinbjorn.org/)
 - Copyright (c) 2013-2014 [Buttered Cat Software](http://buttered-cat.com)
 - Copyright (c) 2004-2012 [Intel Corporation](https://www.intel.com)
 - Copyright (c) 2006-2010 [Christoph Pfisterer](https://chrisp.de/en/)
