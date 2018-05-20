@@ -1,7 +1,0 @@
-/root/next-loader/src/edk2/UDK2018/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/AARCH64/MdeModulePkg/Library/BrotliCustomDecompressLib/BrotliCustomDecompressLib/OUTPUT/GuidedSectionExtraction.obj
-/root/next-loader/src/edk2/UDK2018/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/AARCH64/MdeModulePkg/Library/BrotliCustomDecompressLib/BrotliCustomDecompressLib/OUTPUT/BrotliDecompress.obj
-/root/next-loader/src/edk2/UDK2018/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/AARCH64/MdeModulePkg/Library/BrotliCustomDecompressLib/BrotliCustomDecompressLib/OUTPUT/common/dictionary.obj
-/root/next-loader/src/edk2/UDK2018/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/AARCH64/MdeModulePkg/Library/BrotliCustomDecompressLib/BrotliCustomDecompressLib/OUTPUT/dec/bit_reader.obj
-/root/next-loader/src/edk2/UDK2018/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/AARCH64/MdeModulePkg/Library/BrotliCustomDecompressLib/BrotliCustomDecompressLib/OUTPUT/dec/decode.obj
-/root/next-loader/src/edk2/UDK2018/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/AARCH64/MdeModulePkg/Library/BrotliCustomDecompressLib/BrotliCustomDecompressLib/OUTPUT/dec/huffman.obj
-/root/next-loader/src/edk2/UDK2018/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/AARCH64/MdeModulePkg/Library/BrotliCustomDecompressLib/BrotliCustomDecompressLib/OUTPUT/dec/state.obj
