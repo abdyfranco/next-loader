@@ -31,13 +31,23 @@ if [[ -e "/etc/centos-release" && $(rpm -qa \*-release | grep -Ei "centos" | cut
     # Install GCC 4.9
     update-alternatives --install /usr/bin/gcc-4.9 gcc-4.9 /opt/rh/devtoolset-3/root/usr/bin/gcc 10 >/dev/null 2>&1
     update-alternatives --install /usr/bin/g++-4.9 g++-4.9 /opt/rh/devtoolset-3/root/usr/bin/g++ 10 >/dev/null 2>&1
+
+    # Install cross compiler dependencies
+    yum -y install mingw64-gcc >/dev/null 2>&1
+    yum -y install mingw32-gcc >/dev/null 2>&1
+    yum -y install gcc-aarch64-linux-gnu >/dev/null 2>&1
 fi
 
 # Set application constants
 BUILD_DIR="$BASEDIR/../build"
 EFI_DIR="$BASEDIR/efi"
 BOOT_MANAGER_DIR="$BASEDIR/boot_manager"
-GCC_COMPILER='gcc-4.9' # GCC 4.9 Recommended
+
+# Set application compilers
+GCC_COMPILER='gcc-4.9'
+GCC_X64_COMPILER='x86_64-w64-mingw32-gcc'
+GCC_IA32_COMPILER='i686-w64-mingw32-gcc'
+GCC_AA64_COMPILER='aarch64-linux-gnu-gcc'
 
 # Delete the previous build
 rm -rf "$BUILD_DIR/x64" >/dev/null 2>&1
@@ -65,18 +75,18 @@ export WORKSPACE="/usr/local/UDK2014/MyWorkSpace"
 export EDK_TOOLS_PATH="$WORKSPACE/BaseTools"
 
 (cd "$WORKSPACE" && source edksetup.sh BaseTools)
-(cd "$EDK_TOOLS_PATH/Source/C" && make)
+(cd "$EDK_TOOLS_PATH/Source/C" && make CC=$GCC_COMPILER)
 
 # Compile Next Loader UEFI Application
 (cd "$EFI_DIR" && make all CC=$GCC_COMPILER ARCH=x86_64)
-(cd "$EFI_DIR" && make all CC=$GCC_COMPILER ARCH=ia32)
-(cd "$EFI_DIR" && make all CC=$GCC_COMPILER ARCH=aarch64)
+(cd "$EFI_DIR" && make all CC=$GCC_IA32_COMPILER ARCH=ia32)
+(cd "$EFI_DIR" && make all CC=$GCC_AA64_COMPILER ARCH=aarch64)
 (cd "$EFI_DIR" && make fs CC=$GCC_COMPILER ARCH=x86_64)
-(cd "$EFI_DIR" && make fs CC=$GCC_COMPILER ARCH=ia32)
-(cd "$EFI_DIR" && make fs CC=$GCC_COMPILER ARCH=aarch64)
+(cd "$EFI_DIR" && make fs CC=$GCC_IA32_COMPILER ARCH=ia32)
+(cd "$EFI_DIR" && make fs CC=$GCC_AA64_COMPILER ARCH=aarch64)
 (cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER ARCH=x86_64 --always-make)
-(cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER ARCH=ia32 --always-make)
-(cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER ARCH=aarch64 --always-make)
+(cd "$EFI_DIR" && make gptsync CC=$GCC_IA32_COMPILER ARCH=ia32 --always-make)
+(cd "$EFI_DIR" && make gptsync CC=$GCC_AA64_COMPILER ARCH=aarch64 --always-make)
 
 cp "$EFI_DIR/loader/loader_x64.efi" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 cp "$EFI_DIR/loader/loader_ia32.efi" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
@@ -193,20 +203,10 @@ if [ ! -e "$BUILD_DIR/aa64/loader/loader_aa64.efi" ]; then
     rm -rf "$BUILD_DIR/aa64/"
 fi 
 
-# Compile UDK2018 Base tools
-#export WORKSPACE="$BASEDIR/edk2/UDK2018/MyWorkSpace"
-#export EDK_TOOLS_PATH="$WORKSPACE/BaseTools"
-
-#(cd "$EDK_TOOLS_PATH" && export WORKSPACE="$WORKSPACE" && export EDK_TOOLS_PATH="$EDK_TOOLS_PATH" && make CC=$GCC_COMPILER)
-
-# Compile UDK2018 MdeModulePkg
-#(cd "$EDK_TOOLS_PATH/BinWrappers/PosixLike" && export WORKSPACE="$WORKSPACE" && export EDK_TOOLS_PATH="$EDK_TOOLS_PATH" && ./build -p MdeModulePkg/MdeModulePkg.dsc)
-
 # Change file permissions
 chmod -R 755 "$BUILD_DIR"
 
 # Clean rules for build
-#(cd "$EDK_TOOLS_PATH" && make clean)
 (cd "$EFI_DIR" && make clean)
 unlink "/usr/local/UDK2014/MyWorkSpace"
 rm -rf /usr/local/UDK2014/

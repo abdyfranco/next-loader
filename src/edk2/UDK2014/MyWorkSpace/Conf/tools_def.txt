@@ -138,17 +138,17 @@ DEFINE ELFGCC_BIN       = /usr/bin
 
 #
 # Option 1: Hard coded full path to compiler suite
-DEFINE UNIXGCC_IA32_PETOOLS_PREFIX = /opt/tiano/i386-tiano-pe/i386-tiano-pe/bin/
-DEFINE UNIXGCC_X64_PETOOLS_PREFIX  = /opt/tiano/x86_64-pc-mingw64/x86_64-pc-mingw64/bin/
-DEFINE UNIXGCC_IPF_PETOOLS_PREFIX  = /opt/tiano/ia64-pc-elf/ia64-pc-elf/bin/
+#DEFINE UNIXGCC_IA32_PETOOLS_PREFIX = /opt/tiano/i386-tiano-pe/i386-tiano-pe/bin/
+#DEFINE UNIXGCC_X64_PETOOLS_PREFIX  = /opt/tiano/x86_64-pc-mingw64/x86_64-pc-mingw64/bin/
+#DEFINE UNIXGCC_IPF_PETOOLS_PREFIX  = /opt/tiano/ia64-pc-elf/ia64-pc-elf/bin/
 #
 # Option 2: Use an environment variable
 #DEFINE UNIXGCC_IA32_PETOOLS_PREFIX = ENV(IA32_PETOOLS_PREFIX)
 #DEFINE UNIXGCC_X64_PETOOLS_PREFIX  = ENV(X64_PETOOLS_PREFIX)
 #
 # Option 3: Install the compiler suite into your default paths
-#DEFINE UNIXGCC_IA32_PETOOLS_PREFIX = i386-pc-mingw32-
-#DEFINE UNIXGCC_X64_PETOOLS_PREFIX  = x86_64-pc-mingw32-
+DEFINE UNIXGCC_IA32_PETOOLS_PREFIX = i686-w64-mingw32-
+DEFINE UNIXGCC_X64_PETOOLS_PREFIX  = x86_64-w64-mingw32-
 #
 # Option 4: Create links under the BaseTools/Bin/gcc/ARCH directory
 # Links needed: gcc, ar & ld
@@ -4508,17 +4508,17 @@ RELEASE_GCC48_AARCH64_CC_FLAGS   = DEF(GCC48_AARCH64_CC_FLAGS) -Wno-unused-but-s
 ##################
 # GCC49 IA32 definitions
 ##################
-*_GCC49_IA32_OBJCOPY_PATH         = DEF(GCC49_IA32_PREFIX)objcopy
-*_GCC49_IA32_CC_PATH              = DEF(GCC49_IA32_PREFIX)gcc
-*_GCC49_IA32_SLINK_PATH           = DEF(GCC49_IA32_PREFIX)ar
-*_GCC49_IA32_DLINK_PATH           = DEF(GCC49_IA32_PREFIX)ld
-*_GCC49_IA32_ASLDLINK_PATH        = DEF(GCC49_IA32_PREFIX)ld
-*_GCC49_IA32_ASM_PATH             = DEF(GCC49_IA32_PREFIX)gcc
-*_GCC49_IA32_PP_PATH              = DEF(GCC49_IA32_PREFIX)gcc
-*_GCC49_IA32_VFRPP_PATH           = DEF(GCC49_IA32_PREFIX)gcc
-*_GCC49_IA32_ASLCC_PATH           = DEF(GCC49_IA32_PREFIX)gcc
-*_GCC49_IA32_ASLPP_PATH           = DEF(GCC49_IA32_PREFIX)gcc
-*_GCC49_IA32_RC_PATH              = DEF(GCC49_IA32_PREFIX)objcopy
+*_GCC49_IA32_OBJCOPY_PATH         = /usr/bin/i686-w64-mingw32-objcopy
+*_GCC49_IA32_CC_PATH              = /usr/bin/i686-w64-mingw32-gcc
+*_GCC49_IA32_SLINK_PATH           = /usr/bin/i686-w64-mingw32-ar
+*_GCC49_IA32_DLINK_PATH           = /usr/bin/i686-w64-mingw32-ld
+*_GCC49_IA32_ASLDLINK_PATH        = /usr/bin/i686-w64-mingw32-ld
+*_GCC49_IA32_ASM_PATH             = /usr/bin/i686-w64-mingw32-gcc
+*_GCC49_IA32_PP_PATH              = /usr/bin/i686-w64-mingw32-gcc
+*_GCC49_IA32_VFRPP_PATH           = /usr/bin/i686-w64-mingw32-gcc
+*_GCC49_IA32_ASLCC_PATH           = /usr/bin/i686-w64-mingw32-gcc
+*_GCC49_IA32_ASLPP_PATH           = /usr/bin/i686-w64-mingw32-gcc
+*_GCC49_IA32_RC_PATH              = /usr/bin/i686-w64-mingw32-objcopy
 
 *_GCC49_IA32_ASLCC_FLAGS          = DEF(GCC_ASLCC_FLAGS) -m32
 *_GCC49_IA32_ASLDLINK_FLAGS       = DEF(GCC49_IA32_X64_ASLDLINK_FLAGS) -m elf_i386
@@ -4585,16 +4585,16 @@ RELEASE_GCC49_ARM_CC_FLAGS       = DEF(GCC49_ARM_CC_FLAGS) -Wno-unused-but-set-v
 ##################
 # GCC49 AARCH64 definitions
 ##################
-*_GCC49_AARCH64_CC_PATH          = ENV(GCC49_AARCH64_PREFIX)gcc
-*_GCC49_AARCH64_SLINK_PATH       = ENV(GCC49_AARCH64_PREFIX)ar
-*_GCC49_AARCH64_DLINK_PATH       = ENV(GCC49_AARCH64_PREFIX)ld
-*_GCC49_AARCH64_ASLDLINK_PATH    = ENV(GCC49_AARCH64_PREFIX)ld
-*_GCC49_AARCH64_ASM_PATH         = ENV(GCC49_AARCH64_PREFIX)gcc
-*_GCC49_AARCH64_PP_PATH          = ENV(GCC49_AARCH64_PREFIX)gcc
-*_GCC49_AARCH64_VFRPP_PATH       = ENV(GCC49_AARCH64_PREFIX)gcc
-*_GCC49_AARCH64_ASLCC_PATH       = ENV(GCC49_AARCH64_PREFIX)gcc
-*_GCC49_AARCH64_ASLPP_PATH       = ENV(GCC49_AARCH64_PREFIX)gcc
-*_GCC49_AARCH64_RC_PATH          = ENV(GCC49_AARCH64_PREFIX)objcopy
+*_GCC49_AARCH64_CC_PATH          = /usr/bin/aarch64-linux-gnu-gcc
+*_GCC49_AARCH64_SLINK_PATH       = /usr/bin/aarch64-linux-gnu-ar
+*_GCC49_AARCH64_DLINK_PATH       = /usr/bin/aarch64-linux-gnu-ld
+*_GCC49_AARCH64_ASLDLINK_PATH    = /usr/bin/aarch64-linux-gnu-ld
+*_GCC49_AARCH64_ASM_PATH         = /usr/bin/aarch64-linux-gnu-gcc
+*_GCC49_AARCH64_PP_PATH          = /usr/bin/aarch64-linux-gnu-gcc
+*_GCC49_AARCH64_VFRPP_PATH       = /usr/bin/aarch64-linux-gnu-gcc
+*_GCC49_AARCH64_ASLCC_PATH       = /usr/bin/aarch64-linux-gnu-gcc
+*_GCC49_AARCH64_ASLPP_PATH       = /usr/bin/aarch64-linux-gnu-gcc
+*_GCC49_AARCH64_RC_PATH          = /usr/bin/aarch64-linux-gnu-objcopy
 
 *_GCC49_AARCH64_ASLCC_FLAGS      = DEF(GCC_ASLCC_FLAGS)
 *_GCC49_AARCH64_ASLDLINK_FLAGS   = DEF(GCC49_AARCH64_ASLDLINK_FLAGS)
