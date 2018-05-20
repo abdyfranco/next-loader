@@ -1,0 +1,7 @@
+-I/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdeModulePkg/Universal/Disk/RamDiskDxe
+-I/root/next-loader/src/edk2/UDK2018/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/IA32/MdeModulePkg/Universal/Disk/RamDiskDxe/RamDiskDxe/DEBUG
+-I/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg
+-I/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg/Include
+-I/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg/Include/Ia32
+-I/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdeModulePkg
+-I/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdeModulePkg/Include

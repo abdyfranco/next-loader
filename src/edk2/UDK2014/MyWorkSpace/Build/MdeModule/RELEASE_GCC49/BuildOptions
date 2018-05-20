@@ -1,0 +1,3 @@
+gCommandLineDefines: {'ARCH': 'X64 IA32 AARCH64'}
+BuildOptionPcd: []
+Active Platform: /root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdeModulePkg/MdeModulePkg.dsc

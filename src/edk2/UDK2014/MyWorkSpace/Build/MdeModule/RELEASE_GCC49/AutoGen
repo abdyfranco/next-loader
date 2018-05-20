@@ -1,0 +1,9 @@
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/ArmPkg/ArmPkg.dec
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdeModulePkg/MdeModulePkg.dec
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/BuildOptions
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdeModulePkg/MdeModulePkg.dsc
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/PcdTokenNumber
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/Conf/build_rule.txt
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/Conf/tools_def.txt
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/EmbeddedPkg/EmbeddedPkg.dec
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg/MdePkg.dec

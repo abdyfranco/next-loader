@@ -34,6 +34,14 @@ ARCH            ?= $(HOSTARCH)
 # Note: TIANOBASE is defined in master Makefile and exported
 GENFW           = $(TIANOBASE)/BaseTools/Source/C/bin/GenFw
 prefix          = /usr/bin/
+
+CC            = $(prefix)gcc
+AS            = $(prefix)as
+LD            = $(prefix)ld
+AR            = $(prefix)ar
+RANLIB        = $(prefix)ranlib
+OBJCOPY       = $(prefix)objcopy
+
 ifeq ($(ARCH),aarch64)
   CC            = $(prefix)aarch64-linux-gnu-gcc
   AS            = $(prefix)aarch64-linux-gnu-as
@@ -41,13 +49,15 @@ ifeq ($(ARCH),aarch64)
   AR            = $(prefix)aarch64-linux-gnu-ar
   RANLIB        = $(prefix)aarch64-linux-gnu-ranlib
   OBJCOPY       = $(prefix)aarch64-linux-gnu-objcopy
-else
-  CC            = $(prefix)gcc
-  AS            = $(prefix)as
-  LD            = $(prefix)ld
-  AR            = $(prefix)ar
-  RANLIB        = $(prefix)ranlib
-  OBJCOPY       = $(prefix)objcopy
+endif
+
+ifeq ($(ARCH),ia32)
+  CC            = $(prefix)i686-w64-mingw32-gcc
+  AS            = $(prefix)i686-w64-mingw32-as
+  LD            = $(prefix)i686-w64-mingw32-ld
+  AR            = $(prefix)i686-w64-mingw32-ar
+  RANLIB        = $(prefix)i686-w64-mingw32-ranlib
+  OBJCOPY       = $(prefix)i686-w64-mingw32-objcopy
 endif
 
 ifeq ($(MAKEWITH),TIANO)
@@ -139,7 +149,7 @@ ifeq ($(ARCH),ia32)
   ARCHDIR = Ia32
   UC_ARCH = IA32
   FILENAME_CODE = ia32
-  LD_CODE = elf_i386
+  LD_CODE = i386pe
 endif
 
 ifeq ($(ARCH), aarch64)

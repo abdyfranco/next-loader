@@ -1,0 +1,12 @@
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/Build/MdeModule/RELEASE_GCC49/AARCH64/MdePkg/Library/BaseSynchronizationLib/BaseSynchronizationLib/DEBUG/AutoGen.h
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg/Include/Library/TimerLib.h
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg/Include/Library/DebugLib.h
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg/Include/Library/SynchronizationLib.h
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg/Include/Library/PcdLib.h
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg/Library/BaseSynchronizationLib/BaseSynchronizationLibInternals.h
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg/Include/Base.h
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg/Library/BaseSynchronizationLib/BaseSynchronizationLib.inf
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg/Library/BaseSynchronizationLib/AArch64/Synchronization.S
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg/Include/AArch64/ProcessorBind.h
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg/Include/Library/BaseLib.h
+/root/next-loader/src/edk2/UDK2018/MyWorkSpace/MdePkg/Library/BaseSynchronizationLib/Synchronization.c

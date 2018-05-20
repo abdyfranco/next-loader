@@ -140,7 +140,7 @@ DEFINE ELFGCC_BIN       = /usr/bin
 # Option 1: Hard coded full path to compiler suite
 #DEFINE UNIXGCC_IA32_PETOOLS_PREFIX = /opt/tiano/i386-tiano-pe/i386-tiano-pe/bin/
 #DEFINE UNIXGCC_X64_PETOOLS_PREFIX  = /opt/tiano/x86_64-pc-mingw64/x86_64-pc-mingw64/bin/
-#DEFINE UNIXGCC_IPF_PETOOLS_PREFIX  = /opt/tiano/ia64-pc-elf/ia64-pc-elf/bin/
+DEFINE UNIXGCC_IPF_PETOOLS_PREFIX  = /opt/tiano/ia64-pc-elf/ia64-pc-elf/bin/
 #
 # Option 2: Use an environment variable
 #DEFINE UNIXGCC_IA32_PETOOLS_PREFIX = ENV(IA32_PETOOLS_PREFIX)

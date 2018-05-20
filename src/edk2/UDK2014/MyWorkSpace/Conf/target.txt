@@ -47,7 +47,7 @@ TARGET                = RELEASE
 #                                               If not specified, then all valid architectures specified
 #                                               in the platform file, for which tools are available, will be
 #                                               built.
-TARGET_ARCH           = X64 IA32 AArch64
+TARGET_ARCH           = X64 IA32 AARCH64
 
 #  TOOL_DEFINITION_FILE  Filename  Optional   Specify the name of the filename to use for specifying
 #                                             the tools to use for the build.  If not specified,

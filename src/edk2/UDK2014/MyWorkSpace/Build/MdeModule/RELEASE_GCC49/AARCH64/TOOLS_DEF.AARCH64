@@ -1,0 +1,135 @@
+FROMELFPATH_FAMILY = GCC
+
+SYMRENAME = echo
+SYMRENAME_FLAGS = Symbol renaming not needed for
+SYMRENAME_FAMILY = GCC
+
+OPTROM = EfiRom
+OPTROM_FLAGS = -e
+OPTROM_FAMILY = GCC
+
+ASLDLINK = /usr/bin/aarch64-linux-gnu-ld
+ASLDLINK_FLAGS = -Ttext=0x0 --emit-relocs -nostdlib --gc-sections -u $(IMAGE_ENTRY_POINT) -e $(IMAGE_ENTRY_POINT) -Map $(DEST_DIR_DEBUG)/$(BASE_NAME).map --entry ReferenceAcpiTable -u $(IMAGE_ENTRY_POINT)
+ASLDLINK_FAMILY = GCC
+
+VFRPPPATH_FAMILY = GCC
+
+RSA2048SHA256SIGN = Rsa2048Sha256Sign
+RSA2048SHA256SIGN_GUID = A7717414-C616-4977-9420-844712A735BF
+RSA2048SHA256SIGN_FAMILY = GCC
+
+ARCHDLINK_FAMILY = GCC
+
+VFR = VfrCompile
+VFR_FLAGS = -l -n
+VFR_FAMILY = GCC
+
+PP = /usr/bin/aarch64-linux-gnu-gcc
+PP_FLAGS = $(ARCHCC_FLAGS) $(PLATFORM_FLAGS) -E -x assembler-with-cpp -include $(DEST_DIR_DEBUG)/AutoGen.h
+PP_FAMILY = GCC
+
+LZMAF86 = LzmaF86Compress
+LZMAF86_GUID = D42AE6BD-1352-4bfb-909A-CA72A6EAE889
+LZMAF86_FAMILY = GCC
+
+ARCHCC_FAMILY = GCC
+
+DSYMUTIL_FAMILY = GCC
+
+GENFW = GenFw
+GENFW_FLAGS = 
+GENFW_FAMILY = GCC
+
+CCPATH_FAMILY = GCC
+
+SLINK = /usr/bin/aarch64-linux-gnu-ar
+SLINK_FAMILY = GCC
+
+DLINKPATH_FAMILY = GCC
+
+PLATFORM_FLAGS = 
+PLATFORM_FAMILY = GCC
+
+RC = /usr/bin/aarch64-linux-gnu-objcopy
+RC_FLAGS = -I binary -O elf64-littleaarch64 -B aarch64 --rename-section .data=.hii
+RC_FAMILY = GCC
+
+PPPATH_FAMILY = GCC
+
+ASM = /usr/bin/aarch64-linux-gnu-gcc
+ASM_FLAGS = $(ARCHASM_FLAGS) $(PLATFORM_FLAGS) -c -x assembler -imacros $(DEST_DIR_DEBUG)/AutoGen.h -mlittle-endian
+ASM_FAMILY = GCC
+
+ASL = iasl
+ASL_FLAGS = 
+ASL_OUTFLAGS = -p
+ASL_FAMILY = GCC
+
+SLINKPATH_FAMILY = GCC
+
+MTOC = /usr/local/bin/mtoc
+MTOC_FAMILY = GCC
+
+CC = /usr/bin/aarch64-linux-gnu-gcc
+CC_FLAGS = $(ARCHCC_FLAGS) $(PLATFORM_FLAGS) -g -fshort-wchar -fno-strict-aliasing -Wall -Werror -Wno-array-bounds -ffunction-sections -fdata-sections -c -include AutoGen.h -DSTRING_ARRAY_NAME=$(BASE_NAME)Strings -g -Os -fshort-wchar -fno-strict-aliasing -Wall -Werror -Wno-array-bounds -c -include AutoGen.h -mcmodel=large -mlittle-endian -fno-short-enums -save-temps -fverbose-asm -fsigned-char  -ffunction-sections -fdata-sections -fomit-frame-pointer -fno-builtin -Wno-address -Wno-unused-but-set-variable -D DISABLE_NEW_DEPRECATED_INTERFACES -D DISABLE_NEW_DEPRECATED_INTERFACES
+CC_FAMILY = GCC
+
+NASMB_FLAGS = -f bin
+NASMB_FAMILY = GCC
+
+VFRPP = /usr/bin/aarch64-linux-gnu-gcc
+VFRPP_FLAGS = $(ARCHCC_FLAGS) $(PLATFORM_FLAGS) -x c -E -P -DVFRCOMPILE --include $(DEST_DIR_DEBUG)/$(MODULE_NAME)StrDefs.h
+VFRPP_FAMILY = GCC
+
+ARCHASM_FAMILY = GCC
+
+ASMPATH_FAMILY = GCC
+
+LZMA = LzmaCompress
+LZMA_GUID = EE4E5898-3914-4259-9D6E-DC7BD79403CF
+LZMA_FAMILY = GCC
+
+ASM16_FAMILY = GCC
+
+ASLCC = /usr/bin/aarch64-linux-gnu-gcc
+ASLCC_FLAGS = -x c
+ASLCC_FAMILY = GCC
+
+FROMELF_FAMILY = GCC
+
+
+DLINK = /usr/bin/aarch64-linux-gnu-ld
+DLINK_FLAGS = -Ttext=0x0 --emit-relocs -nostdlib --gc-sections -u $(IMAGE_ENTRY_POINT) -e $(IMAGE_ENTRY_POINT) -Map $(DEST_DIR_DEBUG)/$(BASE_NAME).map
+DLINK_FAMILY = GCC
+
+TIANO = TianoCompress
+TIANO_GUID = A31280AD-481E-41B6-95E8-127F4C984779
+TIANO_FAMILY = GCC
+
+VPDTOOL = BPDG
+VPDTOOL_GUID = 8C3D856A-9BE6-468E-850A-24F7A8D38E08
+VPDTOOL_FAMILY = GCC
+
+CRC32 = GenCrc32
+CRC32_GUID = FC1BCDB0-7D31-49AA-936A-A4600D9DD083
+CRC32_FAMILY = GCC
+
+ASLPP = /usr/bin/aarch64-linux-gnu-gcc
+ASLPP_FLAGS = -x c -E -P
+ASLPP_FAMILY = GCC
+
+OBJCOPY_ADDDEBUGFLAG = 
+OBJCOPY = echo
+OBJCOPY_FLAGS = objcopy not needed for
+OBJCOPY_FAMILY = GCC
+
+APP_FLAGS = 
+APP_FAMILY = GCC
+
+ASMLINK = C:\WINDDK\3790.1830\bin\bin16\link16.exe
+ASMLINK_FLAGS = /nologo /tiny
+ASMLINK_FAMILY = GCC
+
+NASM = nasm
+NASM_FAMILY = GCC
+
