@@ -1,5 +1,7 @@
 #!/bin/bash
 
+start_time=$(date +%s)
+
 # Get current working directory
 BASEDIR=$(dirname "$0")
 
@@ -21,6 +23,10 @@ fi
 
 # Check if the script has been executed in CentOS 7
 if [[ -e "/etc/centos-release" && $(rpm -qa \*-release | grep -Ei "centos" | cut -d"-" -f3) == "7" ]]; then
+    echo "======================================"
+    echo " => Installing CentOS 7 Dependencies"
+    echo "======================================"
+
     # Install libuuid
     yum -y install libuuid libuuid-devel >/dev/null 2>&1
 
@@ -75,6 +81,10 @@ mkdir "$BUILD_DIR/ia32/loader/tools_ia32"
 mkdir "$BUILD_DIR/ia32/loader/themes"
 
 # Set the UDK2014 environment
+echo "======================================"
+echo " => Setting up the UDK2014 Environment"
+echo "======================================"
+
 mkdir -p /usr/local/UDK2014/
 ln -s "$UDK2014_DIR" "/usr/local/UDK2014"
 
@@ -85,6 +95,10 @@ export EDK_TOOLS_PATH="$WORKSPACE/BaseTools"
 (cd "$WORKSPACE" && source ./edksetup.sh)
 
 # Compile UDK2014 packages
+echo "======================================"
+echo " => Compiling UDK2014 Packages"
+echo "======================================"
+
 (cd "$WORKSPACE" && ./BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE)
 (cd "$WORKSPACE" && ./BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE)
 
@@ -92,6 +106,10 @@ export EDK_TOOLS_PATH="$WORKSPACE/BaseTools"
 (cd "$WORKSPACE" && ./BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE)
 
 # Compile Next Loader UEFI Application
+echo "======================================"
+echo " => Compiling Next Loader Application"
+echo "======================================"
+
 (cd "$EFI_DIR" && make all CC=$GCC_COMPILER ARCH=x86_64)
 (cd "$EFI_DIR" && make all CC=$GCC_IA32_COMPILER ARCH=ia32)
 (cd "$EFI_DIR" && make fs CC=$GCC_COMPILER ARCH=x86_64)
@@ -136,20 +154,35 @@ cp "$EFI_DIR/loader.conf" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
 cp "$EFI_DIR/stanzas.conf" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
 
 # Set the UDK2018 environment
+echo "======================================"
+echo " => Setting up the UDK2018 Environment"
+echo "======================================"
+
+export WORKSPACE="$UDK2018_DIR"
+export EDK_TOOLS_PATH="$UDK2018_DIR/BaseTools"
+
 (cd "$UDK2018_DIR" && make -C BaseTools CC=$GCC_COMPILER)
 (cd "$UDK2018_DIR" && source ./edksetup.sh)
 
 # Compile UDK2018 packages
-(cd "$UDK2018_DIR" && build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE)
-(cd "$UDK2018_DIR" && build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE)
+echo "======================================"
+echo " => Compiling UDK2018 Packages"
+echo "======================================"
 
-(cd "$UDK2018_DIR" && build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE)
-(cd "$UDK2018_DIR" && build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE)
+(cd "$UDK2018_DIR" && ./BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE)
+(cd "$UDK2018_DIR" && ./BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE)
 
-(cd "$UDK2018_DIR" && build -p DuetPkg/DuetPkgX64.dsc -t GCC49 -a X64)
-(cd "$UDK2018_DIR" && build -p DuetPkg/DuetPkgIa32.dsc -t GCC49 -a IA32)
+(cd "$UDK2018_DIR" && ./BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE)
+(cd "$UDK2018_DIR" && ./BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE)
+
+(cd "$UDK2018_DIR" && ./BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgX64.dsc -t GCC49 -a X64)
+(cd "$UDK2018_DIR" && ./BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgIa32.dsc -t GCC49 -a IA32)
 
 # Add UDK2018 MdeModulePkg drivers
+echo "======================================"
+echo " => Installing MdeModulePkg Package"
+echo "======================================"
+
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/CrScreenshotDxe.efi" "$BUILD_DIR/x64/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/GraphicsOutputDxe.efi" "$BUILD_DIR/x64/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/NvmExpressDxe.efi" "$BUILD_DIR/x64/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
@@ -173,6 +206,10 @@ cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/XhciDxe.efi" "$BUILD_DIR/ia3
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/XhciPei.efi" "$BUILD_DIR/ia32/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
 
 # Add UDK2018 DuetPkg drivers
+echo "======================================"
+echo " => Installing DuetPkgX64 Package"
+echo "======================================"
+
 cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/BiosVideo.efi" "$BUILD_DIR/x64/loader/uefi/DuetPkg/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/GraphicsConsoleDxe.efi" "$BUILD_DIR/x64/loader/uefi/DuetPkg/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/SataController.efi" "$BUILD_DIR/x64/loader/uefi/DuetPkg/" >/dev/null 2>&1
@@ -186,6 +223,10 @@ cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/VgaClassDxe.efi" "$BUILD_DIR
 cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/VgaMiniPort.efi" "$BUILD_DIR/ia32/loader/uefi/DuetPkg/" >/dev/null 2>&1
 
 # Add prebuilt components to the build
+echo "======================================"
+echo " => Installing Pre-built Components"
+echo "======================================"
+
 cp "$EFI_DIR/prebuilt/drivers_x64/apfs_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
 cp "$EFI_DIR/prebuilt/drivers_x64/data_hub_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
 cp "$EFI_DIR/prebuilt/drivers_x64/fat_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
@@ -236,6 +277,10 @@ fi
 chmod -R 755 "$BUILD_DIR"
 
 # Clean rules for build
+echo "======================================"
+echo " => Cleaning Compilation Environment"
+echo "======================================"
+
 (cd "$EFI_DIR" && make clean)
 (cd "$UDK2014_DIR/BaseTools" && make clean)
 (cd "$UDK2018_DIR/BaseTools" && make clean)
@@ -243,3 +288,10 @@ unlink "/usr/local/UDK2014/MyWorkSpace"
 rm -rf /usr/local/UDK2014/
 rm -rf "$UDK2014_DIR/Build"
 rm -rf "$UDK2018_DIR/Build"
+
+end_time=$(date +%s)
+run_time=$(($end_time-$start_time))
+
+echo "======================================"
+echo " => The Next Loader compilation was completed in $run_time seconds."
+echo "======================================"

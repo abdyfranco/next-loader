@@ -48,7 +48,6 @@ cp -r "$BOOT_MANAGER_DIR/build/Release/Boot Manager.app" "$BUILD_DIR/macos/"
 # Delete previous DMG images
 rm -rf "$BUILD_DIR/uefi_x64.dmg" >/dev/null 2>&1
 rm -rf "$BUILD_DIR/uefi_ia32.dmg" >/dev/null 2>&1
-rm -rf "$BUILD_DIR/uefi_aa64.dmg" >/dev/null 2>&1
 hdiutil detach "$UEFI_VOLUME" >/dev/null 2>&1
 
 # Build DMG image for x64
@@ -89,29 +88,9 @@ if [ -e "$BUILD_DIR/ia32/loader/loader_ia32.efi" ]; then
     hdiutil detach "$UEFI_VOLUME"
 fi
 
-# Build DMG image for ARM64
-if [ -e "$BUILD_DIR/aa64/loader/loader_aa64.efi" ]; then
-    (cd "$BUILD_DIR" && hdiutil create -fs HFS+ -srcfolder "$BUILD_DIR/aa64/" -volname "$VOLUME_NAME" "uefi_aa64_tmp.dmg")
-    
-    hdiutil convert "$BUILD_DIR/uefi_aa64_tmp.dmg" -format UDRW -o "$BUILD_DIR/uefi_aa64.dmg"
-    hdiutil resize -limits "$BUILD_DIR/uefi_aa64.dmg"
-    hdiutil resize -sectors 70000 "$BUILD_DIR/uefi_aa64.dmg"
-    hdiutil attach "$BUILD_DIR/uefi_aa64.dmg"
-    
-    cp "$EFI_DIR/images/VolumeIcon.icns" "$UEFI_VOLUME/.VolumeIcon.icns"
-    
-    bless --unbless "$UEFI_VOLUME/"
-    bless --folder "$UEFI_VOLUME/loader" --file "$UEFI_VOLUME/loader/loader_aa64.efi" --label "$UEFI_NAME"
-    bless --info "$UEFI_VOLUME/"
-
-    SetFile -a C "$UEFI_VOLUME"
-    hdiutil detach "$UEFI_VOLUME"
-fi
-
 # Clean rules for build
 rm -rf "$BOOT_MANAGER_DIR/build/Boot Manager.build"
 rm -rf "$BOOT_MANAGER_DIR/build/Release"
 rm -rf "$BOOT_MANAGER_DIR/build/SharedPrecompiledHeaders"
 rm -rf "$BUILD_DIR/uefi_x64_tmp.dmg"
 rm -rf "$BUILD_DIR/uefi_ia32_tmp.dmg"
-rm -rf "$BUILD_DIR/uefi_aa64_tmp.dmg"
