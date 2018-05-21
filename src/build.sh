@@ -57,6 +57,7 @@ EFI_DIR="$BASEDIR/efi"
 BOOT_MANAGER_DIR="$BASEDIR/boot_manager"
 UDK2014_DIR="$BASEDIR/edk2/UDK2014/MyWorkSpace"
 UDK2018_DIR="$BASEDIR/edk2/UDK2018/MyWorkSpace"
+BOOT2FLAPPY_DIR="$BASEDIR/boot2flappy"
 
 # Set application compilers
 GCC_COMPILER='gcc-4.9'
@@ -217,6 +218,15 @@ cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/BiosVideo.efi" "$BUILD_DIR/i
 cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/GraphicsConsoleDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/VgaClassDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/VgaMiniPort.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+
+# Compile flappy bird
+#(cd "$BOOT2FLAPPY_DIR" && mkdir build)
+#(cd "$BOOT2FLAPPY_DIR/build" && cmake ..)
+#(cd "$BOOT2FLAPPY_DIR/build" && make)
+
+#mkdir -p "$BUILD_DIR/x64/EFI/BOOT/"
+#cp "$BOOT2FLAPPY_DIR/build/vm/hda-contents/EFI/BOOT/BOOTX64.EFI" "$BUILD_DIR/x64/loader/tools_x64/boot2flappy_x64.efi" >/dev/null 2>&1
+#cp "$BOOT2FLAPPY_DIR/build/vm/hda-contents/EFI/BOOT/SPRITES.BMP" "$BUILD_DIR/x64/EFI/BOOT/" >/dev/null 2>&1
 
 # Add prebuilt components to the build
 echo "======================================"

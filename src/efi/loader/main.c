@@ -131,6 +131,7 @@
   #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\EFI\\tools\\ipxe_x64.efi,\\loader\\%s\\ipxe_x64.efi", TOOLS_DIR)
   #define FTP_NAMES               PoolPrint(L"\\EFI\\tools\\ftp.efi,\\EFI\\tools\\ftp_x64.efi,\\loader\\%s\\ftp_x64.efi", TOOLS_DIR)
   #define HEXDUMP_NAMES           PoolPrint(L"\\EFI\\tools\\hexdump.efi,\\EFI\\tools\\hexdump_x64.efi,\\loader\\%s\\hexdump_x64.efi", TOOLS_DIR)
+  #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\EFI\\tools\\boot2flappy_x64.efi,\\loader\\%s\\boot2flappy_x64.efi", TOOLS_DIR)
   #define MEMTEST_NAMES           L"memtest86.efi,memtest86_x64.efi,memtest86x64.efi,bootx64.efi"
   #define FALLBACK_FULLNAME       L"EFI\\BOOT\\bootx64.efi"
   #define FALLBACK_BASENAME       L"bootx64.efi"
@@ -143,6 +144,7 @@
   #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\loader\\%s\\ipxe_ia32.efi", TOOLS_DIR)
   #define FTP_NAMES               PoolPrint(L"\\EFI\\tools\\ftp.efi,\\EFI\\tools\\ftp_ia32.efi,\\loader\\%s\\ftp_ia32.efi", TOOLS_DIR)
   #define HEXDUMP_NAMES           PoolPrint(L"\\EFI\\tools\\hexdump.efi,\\EFI\\tools\\hexdump_ia32.efi,\\loader\\%s\\hexdump_ia32.efi", TOOLS_DIR)
+  #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\EFI\\tools\\boot2flappy_ia32.efi,\\loader\\%s\\boot2flappy_ia32.efi", TOOLS_DIR)
   #define MEMTEST_NAMES           L"memtest86.efi,memtest86_ia32.efi,memtest86ia32.efi,bootia32.efi"
   #define FALLBACK_FULLNAME       L"EFI\\BOOT\\bootia32.efi"
   #define FALLBACK_BASENAME       L"bootia32.efi"
@@ -155,6 +157,7 @@
   #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\loader\\%s\\ipxe_aa64.efi", TOOLS_DIR)
   #define FTP_NAMES               PoolPrint(L"\\EFI\\tools\\ftp.efi,\\EFI\\tools\\ftp_aa64.efi,\\loader\\%s\\ftp_aa64.efi", TOOLS_DIR)
   #define HEXDUMP_NAMES           PoolPrint(L"\\EFI\\tools\\hexdump.efi,\\EFI\\tools\\hexdump_aa64.efi,\\loader\\%s\\hexdump_aa64.efi", TOOLS_DIR)
+  #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\EFI\\tools\\boot2flappy_aa64.efi,\\loader\\%s\\boot2flappy_aa64.efi", TOOLS_DIR)
   #define MEMTEST_NAMES           L"memtest86.efi,memtest86_aa64.efi,memtest86aa64.efi,bootaa64.efi"
   #define FALLBACK_FULLNAME       L"EFI\\BOOT\\bootaa64.efi"
   #define FALLBACK_BASENAME       L"bootaa64.efi"
@@ -167,6 +170,7 @@
   #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\loader\\%s\\ipxe_arm.efi", TOOLS_DIR)
   #define FTP_NAMES               PoolPrint(L"\\EFI\\tools\\ftp.efi,\\EFI\\tools\\ftp_arm.efi,\\loader\\%s\\ftp_arm.efi", TOOLS_DIR)
   #define HEXDUMP_NAMES           PoolPrint(L"\\EFI\\tools\\hexdump.efi,\\EFI\\tools\\hexdump_arm.efi,\\loader\\%s\\hexdump_arm.efi", TOOLS_DIR)
+  #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\EFI\\tools\\boot2flappy_arm.efi,\\loader\\%s\\boot2flappy_arm.efi", TOOLS_DIR)
   #define MEMTEST_NAMES           L"memtest86.efi,memtest86_arm.efi,memtest86arm.efi,bootarm.efi"
   #define FALLBACK_FULLNAME       L"EFI\\BOOT\\bootarm.efi"
   #define FALLBACK_BASENAME       L"bootarm.efi"
@@ -178,6 +182,7 @@
   #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\loader\\%s\\ipxe.efi", TOOLS_DIR)
   #define FTP_NAMES               PoolPrint(L"\\EFI\\tools\\ftp.efi,\\ftp_x64.efi,\\loader\\%s\\ftp.efi", TOOLS_DIR)
   #define HEXDUMP_NAMES           PoolPrint(L"\\EFI\\tools\\hexdump.efi,\\hexdump.efi,\\loader\\%s\\hexdump.efi", TOOLS_DIR)
+  #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\EFI\\tools\\boot2flappy.efi,\\loader\\%s\\boot2flappy.efi", TOOLS_DIR)
   #define MEMTEST_NAMES           L"memtest86.efi"
   #define DRIVER_DIRS             L"drivers"
   #define FALLBACK_FULLNAME       L"EFI\\BOOT\\boot.efi" /* Not really correct */
@@ -2055,6 +2060,17 @@ static VOID ScanForTools(VOID) {
                 while ((FileName = FindCommaDelimited(HEXDUMP_NAMES, j++)) != NULL) {
                     if (IsValidTool(SelfVolume, FileName)) {
                         AddToolEntry(SelfVolume, FileName, L"Hexadecimal Dump", BuiltinIcon(BUILTIN_ICON_TOOL_HEXDUMP),
+                                     'S', FALSE);
+                    }
+                MyFreePool(FileName);
+                } // while
+                break;
+
+            case TAG_FLAPPY:
+                j = 0;
+                while ((FileName = FindCommaDelimited(FLAPPY_NAMES, j++)) != NULL) {
+                    if (IsValidTool(SelfVolume, FileName)) {
+                        AddToolEntry(SelfVolume, FileName, L"Flappy Bird", BuiltinIcon(BUILTIN_ICON_TOOL_FLAPPY),
                                      'S', FALSE);
                     }
                 MyFreePool(FileName);

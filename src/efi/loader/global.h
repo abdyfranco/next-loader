@@ -90,7 +90,8 @@
 #define TAG_HIDDEN           (20)
 #define TAG_FTP              (21)
 #define TAG_HEXDUMP          (22)
-#define NUM_TOOLS            (23)
+#define TAG_FLAPPY           (23)
+#define NUM_TOOLS            (24)
 
 #define NUM_SCAN_OPTIONS 10
 

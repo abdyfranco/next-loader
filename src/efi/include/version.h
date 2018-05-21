@@ -10,5 +10,5 @@
  *
  */
 
-#define LOADER_VERSION L"0.10.9-LB2"
+#define LOADER_VERSION L"1.1.0"
 
