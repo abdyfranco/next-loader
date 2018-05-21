@@ -88,7 +88,7 @@ SYMRENAME = echo
 SYMRENAME_FLAGS = Symbol renaming not needed for
 
 ASLDLINK = /usr/bin/i686-w64-mingw32-ld
-ASLDLINK_FLAGS = -nostdlib -n -q --gc-sections --script=$(EDK_TOOLS_PATH)/Scripts/gcc4.9-ld-script --entry ReferenceAcpiTable -u ReferenceAcpiTable -m elf_i386
+ASLDLINK_FLAGS = -nostdlib -n -q --gc-sections --script=$(EDK_TOOLS_PATH)/Scripts/gcc4.9-ld-script --entry ReferenceAcpiTable -u ReferenceAcpiTable -m i386pe
 
 TIANO = TianoCompress
 TIANO_GUID =  A31280AD-481E-41B6-95E8-127F4C984779
@@ -153,7 +153,7 @@ MAKE = make
 
 
 DLINK = /usr/bin/i686-w64-mingw32-ld
-DLINK_FLAGS = -nostdlib -n -q --gc-sections --script=$(EDK_TOOLS_PATH)/Scripts/gcc4.9-ld-script --entry $(IMAGE_ENTRY_POINT) -u $(IMAGE_ENTRY_POINT) -Map $(DEST_DIR_DEBUG)/$(BASE_NAME).map -m elf_i386 --oformat=elf32-i386
+DLINK_FLAGS = -nostdlib -n -q --gc-sections --script=$(EDK_TOOLS_PATH)/Scripts/gcc4.9-ld-script --entry $(IMAGE_ENTRY_POINT) -u $(IMAGE_ENTRY_POINT) -Map $(DEST_DIR_DEBUG)/$(BASE_NAME).map -m i386pe --oformat=elf32-i386
 
 NASMB_FLAGS = -f bin
 

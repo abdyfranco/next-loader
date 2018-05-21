@@ -5,7 +5,7 @@ SYMRENAME_FLAGS = Symbol renaming not needed for
 SYMRENAME_FAMILY = GCC
 
 ASLDLINK = /usr/bin/i686-w64-mingw32-ld
-ASLDLINK_FLAGS = -nostdlib -n -q --gc-sections --script=$(EDK_TOOLS_PATH)/Scripts/gcc4.9-ld-script --entry ReferenceAcpiTable -u ReferenceAcpiTable -m elf_i386
+ASLDLINK_FLAGS = -nostdlib -n -q --gc-sections --script=$(EDK_TOOLS_PATH)/Scripts/gcc4.9-ld-script --entry ReferenceAcpiTable -u ReferenceAcpiTable -m i386pe
 ASLDLINK_FAMILY = GCC
 
 CCPATH_FAMILY = GCC
@@ -40,7 +40,7 @@ GENFW_FLAGS =
 GENFW_FAMILY = GCC
 
 DLINK = /usr/bin/i686-w64-mingw32-ld
-DLINK_FLAGS = -nostdlib -n -q --gc-sections --script=$(EDK_TOOLS_PATH)/Scripts/gcc4.9-ld-script --entry $(IMAGE_ENTRY_POINT) -u $(IMAGE_ENTRY_POINT) -Map $(DEST_DIR_DEBUG)/$(BASE_NAME).map -m elf_i386 --oformat=elf32-i386
+DLINK_FLAGS = -nostdlib -n -q --gc-sections --script=$(EDK_TOOLS_PATH)/Scripts/gcc4.9-ld-script --entry $(IMAGE_ENTRY_POINT) -u $(IMAGE_ENTRY_POINT) -Map $(DEST_DIR_DEBUG)/$(BASE_NAME).map -m i386pe --oformat=elf32-i386
 DLINK_FAMILY = GCC
 
 SLINK = /usr/bin/i686-w64-mingw32-ar

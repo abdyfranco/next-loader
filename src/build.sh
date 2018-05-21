@@ -68,15 +68,15 @@ rm -rf "$BUILD_DIR/x64" >/dev/null 2>&1
 rm -rf "$BUILD_DIR/ia32" >/dev/null 2>&1
 
 # Create the build dir
-mkdir -p "$BUILD_DIR/x64/loader/uefi/MdeModulePkg"
-mkdir -p "$BUILD_DIR/x64/loader/uefi/DuetPkg"
 mkdir -p "$BUILD_DIR/x64/loader/drivers_x64"
+mkdir -p "$BUILD_DIR/x64/loader/uefi/MdeModulePkg"
+mkdir "$BUILD_DIR/x64/loader/uefi/DuetPkg"
 mkdir "$BUILD_DIR/x64/loader/tools_x64"
 mkdir "$BUILD_DIR/x64/loader/themes"
 
-mkdir -p "$BUILD_DIR/ia32/loader/uefi/MdeModulePkg"
-mkdir -p "$BUILD_DIR/ia32/loader/uefi/DuetPkg"
 mkdir -p "$BUILD_DIR/ia32/loader/drivers_ia32"
+mkdir -p "$BUILD_DIR/ia32/loader/uefi/MdeModulePkg"
+mkdir "$BUILD_DIR/ia32/loader/uefi/DuetPkg"
 mkdir "$BUILD_DIR/ia32/loader/tools_ia32"
 mkdir "$BUILD_DIR/ia32/loader/themes"
 
@@ -90,20 +90,21 @@ ln -s "$UDK2014_DIR" "/usr/local/UDK2014"
 
 export WORKSPACE="/usr/local/UDK2014/MyWorkSpace"
 export EDK_TOOLS_PATH="$WORKSPACE/BaseTools"
+export CONF_PATH="$WORKSPACE/Conf"
 
-(cd "$WORKSPACE" && make -C BaseTools CC=$GCC_COMPILER)
-(cd "$WORKSPACE" && source ./edksetup.sh)
+(cd "$UDK2014_DIR" && make -C BaseTools CC=$GCC_COMPILER)
+source $UDK2014_DIR/edksetup.sh
 
 # Compile UDK2014 packages
 echo "======================================"
 echo " => Compiling UDK2014 Packages"
 echo "======================================"
 
-(cd "$WORKSPACE" && ./BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE)
-(cd "$WORKSPACE" && ./BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE)
+$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE
+$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE
 
-(cd "$WORKSPACE" && ./BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE)
-(cd "$WORKSPACE" && ./BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE)
+$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE
+$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE
 
 # Compile Next Loader UEFI Application
 echo "======================================"
@@ -160,23 +161,24 @@ echo "======================================"
 
 export WORKSPACE="$UDK2018_DIR"
 export EDK_TOOLS_PATH="$UDK2018_DIR/BaseTools"
+export CONF_PATH="$UDK2018_DIR/Conf"
 
 (cd "$UDK2018_DIR" && make -C BaseTools CC=$GCC_COMPILER)
-(cd "$UDK2018_DIR" && source ./edksetup.sh)
+source $UDK2018_DIR/edksetup.sh
 
 # Compile UDK2018 packages
 echo "======================================"
 echo " => Compiling UDK2018 Packages"
 echo "======================================"
 
-(cd "$UDK2018_DIR" && ./BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE)
-(cd "$UDK2018_DIR" && ./BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE)
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE
 
-(cd "$UDK2018_DIR" && ./BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE)
-(cd "$UDK2018_DIR" && ./BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE)
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE
 
-(cd "$UDK2018_DIR" && ./BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgX64.dsc -t GCC49 -a X64)
-(cd "$UDK2018_DIR" && ./BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgIa32.dsc -t GCC49 -a IA32)
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgX64.dsc -t GCC49 -a X64
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgIa32.dsc -t GCC49 -a IA32
 
 # Add UDK2018 MdeModulePkg drivers
 echo "======================================"
