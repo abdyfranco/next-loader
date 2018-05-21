@@ -88,17 +88,17 @@
 // Define drivers directories
 //
 #if defined (EFIX64)
-  #define DRIVER_DIRS             L"drivers,drivers_x64"
+  #define DRIVER_DIRS             L"drivers,uefi,drivers_x64"
 #elif defined (EFIIPF)
-  #define DRIVER_DIRS             L"drivers,drivers_ia64"
+  #define DRIVER_DIRS             L"drivers,uefi,drivers_ia64"
 #elif defined (EFI32)
-  #define DRIVER_DIRS             L"drivers,drivers_ia32"
+  #define DRIVER_DIRS             L"drivers,uefi,drivers_ia32"
 #elif defined (EFIAARCH64)
-  #define DRIVER_DIRS             L"drivers,drivers_aa64"
+  #define DRIVER_DIRS             L"drivers,uefi,drivers_aa64"
 #elif defined (EFIARM)
-  #define DRIVER_DIRS             L"drivers,drivers_arm"
+  #define DRIVER_DIRS             L"drivers,uefi,drivers_arm"
 #else
-  #define DRIVER_DIRS             L"drivers"
+  #define DRIVER_DIRS             L"drivers,uefi"
 #endif
 
 // Following "global" constants are from EDK2's AutoGen.c....

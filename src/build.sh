@@ -69,14 +69,12 @@ rm -rf "$BUILD_DIR/ia32" >/dev/null 2>&1
 
 # Create the build dir
 mkdir -p "$BUILD_DIR/x64/loader/drivers_x64"
-mkdir -p "$BUILD_DIR/x64/loader/uefi/MdeModulePkg"
-mkdir "$BUILD_DIR/x64/loader/uefi/DuetPkg"
+mkdir "$BUILD_DIR/x64/loader/uefi"
 mkdir "$BUILD_DIR/x64/loader/tools_x64"
 mkdir "$BUILD_DIR/x64/loader/themes"
 
 mkdir -p "$BUILD_DIR/ia32/loader/drivers_ia32"
-mkdir -p "$BUILD_DIR/ia32/loader/uefi/MdeModulePkg"
-mkdir "$BUILD_DIR/ia32/loader/uefi/DuetPkg"
+mkdir "$BUILD_DIR/ia32/loader/uefi"
 mkdir "$BUILD_DIR/ia32/loader/tools_ia32"
 mkdir "$BUILD_DIR/ia32/loader/themes"
 
@@ -185,44 +183,40 @@ echo "======================================"
 echo " => Installing MdeModulePkg Package"
 echo "======================================"
 
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/CrScreenshotDxe.efi" "$BUILD_DIR/x64/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/GraphicsOutputDxe.efi" "$BUILD_DIR/x64/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/NvmExpressDxe.efi" "$BUILD_DIR/x64/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/Ps2KeyboardDxe.efi" "$BUILD_DIR/x64/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/Ps2MouseDxe.efi" "$BUILD_DIR/x64/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbKbDxe.efi" "$BUILD_DIR/x64/loader/uefi/MdeModulePkg" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbMassStorageDxe.efi" "$BUILD_DIR/x64/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbMouseDxe.efi" "$BUILD_DIR/x64/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/XhciDxe.efi" "$BUILD_DIR/x64/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/XhciPei.efi" "$BUILD_DIR/x64/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/CrScreenshotDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/GraphicsOutputDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/NvmExpressDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/Ps2KeyboardDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/Ps2MouseDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbKbDxe.efi" "$BUILD_DIR/x64/loader/uefi" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbMassStorageDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbMouseDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/XhciDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/CrScreenshotDxe.efi" "$BUILD_DIR/ia32/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/GraphicsOutputDxe.efi" "$BUILD_DIR/ia32/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/NvmExpressDxe.efi" "$BUILD_DIR/ia32/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/Ps2KeyboardDxe.efi" "$BUILD_DIR/ia32/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/Ps2MouseDxe.efi" "$BUILD_DIR/ia32/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/UsbKbDxe.efi" "$BUILD_DIR/ia32/loader/uefi/MdeModulePkg" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/UsbMassStorageDxe.efi" "$BUILD_DIR/ia32/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/UsbMouseDxe.efi" "$BUILD_DIR/ia32/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/XhciDxe.efi" "$BUILD_DIR/ia32/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/XhciPei.efi" "$BUILD_DIR/ia32/loader/uefi/MdeModulePkg/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/CrScreenshotDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/GraphicsOutputDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/NvmExpressDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/Ps2KeyboardDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/Ps2MouseDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/UsbKbDxe.efi" "$BUILD_DIR/ia32/loader/uefi" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/UsbMassStorageDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/UsbMouseDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/XhciDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 
 # Add UDK2018 DuetPkg drivers
 echo "======================================"
 echo " => Installing DuetPkgX64 Package"
 echo "======================================"
 
-cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/BiosVideo.efi" "$BUILD_DIR/x64/loader/uefi/DuetPkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/GraphicsConsoleDxe.efi" "$BUILD_DIR/x64/loader/uefi/DuetPkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/SataController.efi" "$BUILD_DIR/x64/loader/uefi/DuetPkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/VgaClassDxe.efi" "$BUILD_DIR/x64/loader/uefi/DuetPkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/VgaMiniPort.efi" "$BUILD_DIR/x64/loader/uefi/DuetPkg/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/BiosVideo.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/GraphicsConsoleDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/VgaClassDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/VgaMiniPort.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 
-cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/BiosVideo.efi" "$BUILD_DIR/ia32/loader/uefi/DuetPkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/GraphicsConsoleDxe.efi" "$BUILD_DIR/ia32/loader/uefi/DuetPkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/SataController.efi" "$BUILD_DIR/ia32/loader/uefi/DuetPkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/VgaClassDxe.efi" "$BUILD_DIR/ia32/loader/uefi/DuetPkg/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/VgaMiniPort.efi" "$BUILD_DIR/ia32/loader/uefi/DuetPkg/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/BiosVideo.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/GraphicsConsoleDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/VgaClassDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/VgaMiniPort.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 
 # Add prebuilt components to the build
 echo "======================================"
@@ -292,8 +286,8 @@ rm -rf "$UDK2014_DIR/Build"
 rm -rf "$UDK2018_DIR/Build"
 
 end_time=$(date +%s)
-run_time=$(($end_time-$start_time))
+run_time=$((($end_time-$start_time)/60))
 
 echo "======================================"
-echo " => The Next Loader compilation was completed in $run_time seconds."
+echo " => The Next Loader compilation was completed in $run_time minute(s)."
 echo "======================================"
