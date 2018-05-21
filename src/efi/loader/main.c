@@ -103,16 +103,17 @@
 //
 // Define tools directory
 //
+
 #if defined (EFIX64)
-  #define TOOLS_DIR             L"tools_x64"
+  #define TOOLS_DIR             L"tools" /* tools_x64 */
 #elif defined (EFIIPF)
-  #define TOOLS_DIR             L"tools_ia64"
+  #define TOOLS_DIR             L"tools" /* tools_ia64 */
 #elif defined (EFI32)
-  #define TOOLS_DIR             L"tools_ia32"
+  #define TOOLS_DIR             L"tools" /* tools_ia32 */
 #elif defined (EFIAARCH64)
-  #define TOOLS_DIR             L"tools_aa64"
+  #define TOOLS_DIR             L"tools" /* tools_aa64 */
 #elif defined (EFIARM)
-  #define TOOLS_DIR             L"tools_arm"
+  #define TOOLS_DIR             L"tools" /* tools_arm */
 #else
   #define TOOLS_DIR             L"tools"
 #endif
@@ -141,7 +142,7 @@
   #define SHELL_NAMES             PoolPrint(L"\\EFI\\tools\\shell.efi,\\EFI\\tools\\shell_ia32.efi,\\shell.efi,\\shellia32.efi,\\loader\\%s\\shell_ia32.efi", TOOLS_DIR)
   #define GPTSYNC_NAMES           PoolPrint(L"\\EFI\\tools\\gptsync.efi,\\EFI\\tools\\gptsync_ia32.efi,\\loader\\%s\\gptsync_ia32.efi", TOOLS_DIR)
   #define GDISK_NAMES             PoolPrint(L"\\EFI\\tools\\gdisk.efi,\\EFI\\tools\\gdisk_ia32.efi,\\loader\\%s\\gdisk_ia32.efi", TOOLS_DIR)
-  #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\loader\\%s\\ipxe_ia32.efi", TOOLS_DIR)
+  #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\EFI\\tools\\ipxe_ia32.efi,\\loader\\%s\\ipxe_ia32.efi", TOOLS_DIR)
   #define FTP_NAMES               PoolPrint(L"\\EFI\\tools\\ftp.efi,\\EFI\\tools\\ftp_ia32.efi,\\loader\\%s\\ftp_ia32.efi", TOOLS_DIR)
   #define HEXDUMP_NAMES           PoolPrint(L"\\EFI\\tools\\hexdump.efi,\\EFI\\tools\\hexdump_ia32.efi,\\loader\\%s\\hexdump_ia32.efi", TOOLS_DIR)
   #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\EFI\\tools\\boot2flappy_ia32.efi,\\loader\\%s\\boot2flappy_ia32.efi", TOOLS_DIR)
@@ -154,7 +155,7 @@
   #define SHELL_NAMES             PoolPrint(L"\\EFI\\tools\\shell.efi,\\EFI\\tools\\shell_aa64.efi,\\shell.efi,\\shellaa64.efi,\\loader\\%s\\shell_aa64.efi", TOOLS_DIR)
   #define GPTSYNC_NAMES           PoolPrint(L"\\EFI\\tools\\gptsync.efi,\\EFI\\tools\\gptsync_aa64.efi,\\loader\\%s\\gptsync_aa64.efi", TOOLS_DIR)
   #define GDISK_NAMES             PoolPrint(L"\\EFI\\tools\\gdisk.efi,\\EFI\\tools\\gdisk_aa64.efi,\\loader\\%s\\gdisk_aa64.efi", TOOLS_DIR)
-  #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\loader\\%s\\ipxe_aa64.efi", TOOLS_DIR)
+  #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\EFI\\tools\\ipxe_aa64.efi,\\loader\\%s\\ipxe_aa64.efi", TOOLS_DIR)
   #define FTP_NAMES               PoolPrint(L"\\EFI\\tools\\ftp.efi,\\EFI\\tools\\ftp_aa64.efi,\\loader\\%s\\ftp_aa64.efi", TOOLS_DIR)
   #define HEXDUMP_NAMES           PoolPrint(L"\\EFI\\tools\\hexdump.efi,\\EFI\\tools\\hexdump_aa64.efi,\\loader\\%s\\hexdump_aa64.efi", TOOLS_DIR)
   #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\EFI\\tools\\boot2flappy_aa64.efi,\\loader\\%s\\boot2flappy_aa64.efi", TOOLS_DIR)
@@ -167,7 +168,7 @@
   #define SHELL_NAMES             PoolPrint(L"\\EFI\\tools\\shell.efi,\\EFI\\tools\\shell_arm.efi,\\shell.efi,\\shellarm.efi,\\loader\\%s\\shell_arm.efi", TOOLS_DIR)
   #define GPTSYNC_NAMES           PoolPrint(L"\\EFI\\tools\\gptsync.efi,\\EFI\\tools\\gptsync_arm.efi,\\loader\\%s\\gptsync_arm.efi", TOOLS_DIR)
   #define GDISK_NAMES             PoolPrint(L"\\EFI\\tools\\gdisk.efi,\\EFI\\tools\\gdisk_arm.efi,\\loader\\%s\\gdisk_arm.efi", TOOLS_DIR)
-  #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\loader\\%s\\ipxe_arm.efi", TOOLS_DIR)
+  #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\EFI\\tools\\ipxe_arm.efi,\\loader\\%s\\ipxe_arm.efi", TOOLS_DIR)
   #define FTP_NAMES               PoolPrint(L"\\EFI\\tools\\ftp.efi,\\EFI\\tools\\ftp_arm.efi,\\loader\\%s\\ftp_arm.efi", TOOLS_DIR)
   #define HEXDUMP_NAMES           PoolPrint(L"\\EFI\\tools\\hexdump.efi,\\EFI\\tools\\hexdump_arm.efi,\\loader\\%s\\hexdump_arm.efi", TOOLS_DIR)
   #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\EFI\\tools\\boot2flappy_arm.efi,\\loader\\%s\\boot2flappy_arm.efi", TOOLS_DIR)
@@ -182,7 +183,7 @@
   #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\loader\\%s\\ipxe.efi", TOOLS_DIR)
   #define FTP_NAMES               PoolPrint(L"\\EFI\\tools\\ftp.efi,\\ftp_x64.efi,\\loader\\%s\\ftp.efi", TOOLS_DIR)
   #define HEXDUMP_NAMES           PoolPrint(L"\\EFI\\tools\\hexdump.efi,\\hexdump.efi,\\loader\\%s\\hexdump.efi", TOOLS_DIR)
-  #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\EFI\\tools\\boot2flappy.efi,\\loader\\%s\\boot2flappy.efi", TOOLS_DIR)
+  #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\loader\\%s\\boot2flappy.efi", TOOLS_DIR)
   #define MEMTEST_NAMES           L"memtest86.efi"
   #define DRIVER_DIRS             L"drivers"
   #define FALLBACK_FULLNAME       L"EFI\\BOOT\\boot.efi" /* Not really correct */

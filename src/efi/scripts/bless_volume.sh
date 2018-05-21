@@ -8,5 +8,5 @@ if [ ! "$EUID" == 0 ]
 fi
 
 bless --unbless "$BASEDIR/../"
-bless --folder "$BASEDIR/../loader" --file "$BASEDIR/../loader/loader_x64.efi" --label "More Options"
+bless --folder "$BASEDIR/../loader" --file "$BASEDIR/../loader/loader.efi" --label "More Options"
 bless --info "$BASEDIR/../"

@@ -69,14 +69,14 @@ rm -rf "$BUILD_DIR/x64" >/dev/null 2>&1
 rm -rf "$BUILD_DIR/ia32" >/dev/null 2>&1
 
 # Create the build dir
-mkdir -p "$BUILD_DIR/x64/loader/drivers_x64"
+mkdir -p "$BUILD_DIR/x64/loader/drivers"
 mkdir "$BUILD_DIR/x64/loader/uefi"
-mkdir "$BUILD_DIR/x64/loader/tools_x64"
+mkdir "$BUILD_DIR/x64/loader/tools"
 mkdir "$BUILD_DIR/x64/loader/themes"
 
-mkdir -p "$BUILD_DIR/ia32/loader/drivers_ia32"
+mkdir -p "$BUILD_DIR/ia32/loader/drivers"
 mkdir "$BUILD_DIR/ia32/loader/uefi"
-mkdir "$BUILD_DIR/ia32/loader/tools_ia32"
+mkdir "$BUILD_DIR/ia32/loader/tools"
 mkdir "$BUILD_DIR/ia32/loader/themes"
 
 # Set the UDK2014 environment
@@ -117,27 +117,27 @@ echo "======================================"
 (cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER ARCH=x86_64 --always-make)
 (cd "$EFI_DIR" && make gptsync CC=$GCC_IA32_COMPILER ARCH=ia32 --always-make)
 
-cp "$EFI_DIR/loader/loader_x64.efi" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
-cp "$EFI_DIR/loader/loader_ia32.efi" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
+cp "$EFI_DIR/loader/loader_x64.efi" "$BUILD_DIR/x64/loader/loader.efi" >/dev/null 2>&1
+cp "$EFI_DIR/loader/loader_ia32.efi" "$BUILD_DIR/ia32/loader/loader.efi" >/dev/null 2>&1
 
-cp "$EFI_DIR/filesystems/reiserfs_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/ntfs_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/iso9660_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/hfs_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/ext4_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/ext2_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/btrfs_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
+cp "$EFI_DIR/filesystems/reiserfs_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/filesystems/ntfs_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/filesystems/iso9660_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/filesystems/hfs_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/filesystems/ext4_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/filesystems/ext2_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/filesystems/btrfs_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
 
-cp "$EFI_DIR/filesystems/reiserfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers_ia32/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/ntfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers_ia32/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/iso9660_ia32.efi" "$BUILD_DIR/ia32/loader/drivers_ia32/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/hfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers_ia32/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/ext4_ia32.efi" "$BUILD_DIR/ia32/loader/drivers_ia32/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/ext2_ia32.efi" "$BUILD_DIR/ia32/loader/drivers_ia32/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/btrfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers_ia32/" >/dev/null 2>&1
+cp "$EFI_DIR/filesystems/reiserfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/filesystems/ntfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/filesystems/iso9660_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/filesystems/hfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/filesystems/ext4_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/filesystems/ext2_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/filesystems/btrfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
 
-cp "$EFI_DIR/gptsync/gptsync_x64.efi" "$BUILD_DIR/x64/loader/tools_x64" >/dev/null 2>&1
-cp "$EFI_DIR/gptsync/gptsync_ia32.efi" "$BUILD_DIR/ia32/loader/tools_ia32" >/dev/null 2>&1
+cp "$EFI_DIR/gptsync/gptsync_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/gptsync/gptsync_ia32.efi" "$BUILD_DIR/ia32/loader/tools/" >/dev/null 2>&1
 
 cp -r "$EFI_DIR/icons" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 cp -r "$EFI_DIR/keys" "$BUILD_DIR/x64/" >/dev/null 2>&1
@@ -170,6 +170,9 @@ echo "======================================"
 echo " => Compiling UDK2018 Packages"
 echo "======================================"
 
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p EmulatorPkg/EmulatorPkg.dsc -t GCC49 -a X64 -b RELEASE
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p EmulatorPkg/EmulatorPkg.dsc -t GCC49 -a IA32 -b RELEASE
+
 $UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE
 $UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE
 
@@ -179,13 +182,20 @@ $UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49
 $UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgX64.dsc -t GCC49 -a X64
 $UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgIa32.dsc -t GCC49 -a IA32
 
+# Add UDK2018 EmulatorPkg drivers
+echo "======================================"
+echo " => Installing EmulatorPkg Package"
+echo "======================================"
+cp "$UDK2018_DIR/Build/Emulator/RELEASE_GCC49/X64/EmuGopDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/Emulator/RELEASE_GCC49/IA32/EmuGopDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+
 # Add UDK2018 MdeModulePkg drivers
 echo "======================================"
 echo " => Installing MdeModulePkg Package"
 echo "======================================"
 
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/CrScreenshotDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/GraphicsOutputDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+#cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/GraphicsOutputDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/NvmExpressDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/Ps2KeyboardDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/Ps2MouseDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
@@ -195,7 +205,7 @@ cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbMouseDxe.efi" "$BUILD_DIR/
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/XhciDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/CrScreenshotDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/GraphicsOutputDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+#cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/GraphicsOutputDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/NvmExpressDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/Ps2KeyboardDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/Ps2MouseDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
@@ -220,62 +230,71 @@ cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/VgaClassDxe.efi" "$BUILD_DIR
 cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/VgaMiniPort.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 
 # Compile flappy bird
-#(cd "$BOOT2FLAPPY_DIR" && mkdir build)
-#(cd "$BOOT2FLAPPY_DIR/build" && cmake ..)
-#(cd "$BOOT2FLAPPY_DIR/build" && make)
+if [[ "$1" == "--flappy"* ]]; then
+    echo "======================================"
+    echo " => Compiling Flappy Bird"
+    echo "======================================"
 
-#mkdir -p "$BUILD_DIR/x64/EFI/BOOT/"
-#cp "$BOOT2FLAPPY_DIR/build/vm/hda-contents/EFI/BOOT/BOOTX64.EFI" "$BUILD_DIR/x64/loader/tools_x64/boot2flappy_x64.efi" >/dev/null 2>&1
-#cp "$BOOT2FLAPPY_DIR/build/vm/hda-contents/EFI/BOOT/SPRITES.BMP" "$BUILD_DIR/x64/EFI/BOOT/" >/dev/null 2>&1
+    (cd "$BOOT2FLAPPY_DIR" && mkdir build)
+    (cd "$BOOT2FLAPPY_DIR/build" && cmake ..)
+    (cd "$BOOT2FLAPPY_DIR/build" && make)
+
+    echo "======================================"
+    echo " => Installing Flappy Bird"
+    echo "======================================"
+
+    mkdir -p "$BUILD_DIR/x64/EFI/BOOT/"
+    cp "$BOOT2FLAPPY_DIR/build/vm/hda-contents/EFI/BOOT/BOOTX64.EFI" "$BUILD_DIR/x64/loader/tools/boot2flappy_x64.efi" >/dev/null 2>&1
+    cp "$BOOT2FLAPPY_DIR/build/vm/hda-contents/EFI/BOOT/SPRITES.BMP" "$BUILD_DIR/x64/EFI/BOOT/" >/dev/null 2>&1
+fi
 
 # Add prebuilt components to the build
 echo "======================================"
 echo " => Installing Pre-built Components"
 echo "======================================"
 
-cp "$EFI_DIR/prebuilt/drivers_x64/apfs_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/data_hub_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/fat_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/exfat_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/udf_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/hfs_plus_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/osx_fat_binary_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/pci_nvme_drv_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/zfs_x64.efi" "$BUILD_DIR/x64/loader/drivers_x64/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_x64/apfs_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_x64/data_hub_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_x64/fat_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_x64/exfat_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_x64/udf_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_x64/hfs_plus_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_x64/pci_nvme_drv_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_x64/zfs_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
 
-cp "$EFI_DIR/prebuilt/tools_x64/dbounce_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/dhclient_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/drawbox_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/dumpfv_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/dumpprot_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/ed_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/edit_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/ftp_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/gdisk_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/hexdump_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/hostname_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/ifconfig_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/loadarg_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/ping_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/pppd_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/route_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/shell_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/tcpipv4_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/textmode_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/which_x64.efi" "$BUILD_DIR/x64/loader/tools_x64/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/dbounce_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/dhclient_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/drawbox_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/dumpfv_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/dumpprot_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/ed_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/edit_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/ftp_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/gdisk_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/hexdump_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/hostname_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/ifconfig_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/loadarg_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/ping_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/pppd_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/route_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/shell_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/tcpipv4_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/textmode_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/tools_x64/which_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
 
-cp "$EFI_DIR/prebuilt/drivers_ia32/fat_ia32.efi" "$BUILD_DIR/ia32/loader/drivers_ia32/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_ia32/exfat_ia32.efi" "$BUILD_DIR/x64/loader/drivers_ia32/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_ia32/udf_ia32.efi" "$BUILD_DIR/x64/loader/drivers_ia32/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_ia32/hfs_plus_ia32.efi" "$BUILD_DIR/ia32/loader/drivers_ia32/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_ia32/zfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers_ia32/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_ia32/fat_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_ia32/exfat_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_ia32/udf_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_ia32/hfs_plus_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
+cp "$EFI_DIR/prebuilt/drivers_ia32/zfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
 
 # Delete uncompiled architectures
-if [ ! -e "$BUILD_DIR/x64/loader/loader_x64.efi" ]; then
+if [ ! -e "$BUILD_DIR/x64/loader/loader.efi" ]; then
     rm -rf "$BUILD_DIR/x64/"
 fi 
 
-if [ ! -e "$BUILD_DIR/ia32/loader/loader_ia32.efi" ]; then
+if [ ! -e "$BUILD_DIR/ia32/loader/loader.efi" ]; then
     rm -rf "$BUILD_DIR/ia32/"
 fi 
 
