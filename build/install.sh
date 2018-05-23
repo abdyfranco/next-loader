@@ -239,12 +239,12 @@ if [ "${install_action}" = "1" ]; then
             read reboot;
 
             # Validate reboot
-            until [ "${confirmation}" = "F" ] || [ "${confirmation}" = "R" ]; do
+            until [ "${reboot}" = "F" ] || [ "${reboot}" = "R" ]; do
                 echo "Please enter a valid option: ";
                 read reboot;
             done
 
-            if [ "${install_type}" = "2" ]; then
+            if [ "${reboot}" = "2" ]; then
                 shutdown -r now
             fi
         fi
