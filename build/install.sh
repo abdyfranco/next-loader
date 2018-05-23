@@ -212,7 +212,6 @@ if [ "${install_action}" = "1" ]; then
             echo "|                  ┌───────────────────────────┐  ┌────────────┐   |";
             echo "|                  │ [F] Finish Without Reboot │  │ [R] Reboot │   |";
             echo "|                  └───────────────────────────┘  └────────────┘   |";
-            echo "|                                                                  |";
         fi
 
         echo "|                                                                  |";
@@ -244,7 +243,7 @@ if [ "${install_action}" = "1" ]; then
                 read reboot;
             done
 
-            if [ "${reboot}" = "2" ]; then
+            if [ "${reboot}" = "R" ]; then
                 shutdown -r now
             fi
         fi
