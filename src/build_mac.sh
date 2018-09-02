@@ -7,39 +7,18 @@ if [ "$BASEDIR" == "." ]; then
    BASEDIR=$(pwd)
 fi
 
-# Check if the script has been executed using sudo
-if [ ! "$EUID" == 0 ]; then
-    echo "You must run this program as root or using sudo!"
-    exit
-fi
-
-# Check if the script has been executed in macOS
-if ! [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "You must run this program from macOS with Xcode!"
-    exit
-fi
-
 # Set application constants
 BUILD_DIR="$BASEDIR/../build"
 EFI_DIR="$BASEDIR/efi"
-BOOT_MANAGER_DIR="$BASEDIR/boot_manager"
 VOLUME_NAME="UEFI Boot Manager"
 UEFI_VOLUME="/Volumes/$VOLUME_NAME"
-UEFI_NAME="More Options"
+UEFI_NAME="UEFI Boot Manager"
 
 # Delete the previous build
 rm -rf "$BUILD_DIR/macos" >/dev/null 2>&1
 
 # Create a macOS build folder
 mkdir -p "$BUILD_DIR/macos"
-
-# Compile Boot Manager app
-xcode-select --install
-xcode-select -s /Applications/Xcode.app/Contents/Developer
-xcodebuild -project "$BOOT_MANAGER_DIR/Boot Manager.xcodeproj" -alltargets -configuration Release
-xcode-select --switch /Library/Developer/CommandLineTools
-
-cp -r "$BOOT_MANAGER_DIR/build/Release/Boot Manager.app" "$BUILD_DIR/macos/"
 
 #
 # TODO: Implement Next Loader Compilation for macOS.
@@ -89,8 +68,5 @@ if [ -e "$BUILD_DIR/ia32/loader/loader.efi" ]; then
 fi
 
 # Clean rules for build
-rm -rf "$BOOT_MANAGER_DIR/build/Boot Manager.build"
-rm -rf "$BOOT_MANAGER_DIR/build/Release"
-rm -rf "$BOOT_MANAGER_DIR/build/SharedPrecompiledHeaders"
 rm -rf "$BUILD_DIR/uefi_x64_tmp.dmg"
 rm -rf "$BUILD_DIR/uefi_ia32_tmp.dmg"

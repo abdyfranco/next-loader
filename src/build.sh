@@ -57,7 +57,6 @@ EFI_DIR="$BASEDIR/efi"
 BOOT_MANAGER_DIR="$BASEDIR/boot_manager"
 UDK2014_DIR="$BASEDIR/edk2/UDK2014/MyWorkSpace"
 UDK2018_DIR="$BASEDIR/edk2/UDK2018/MyWorkSpace"
-BOOT2FLAPPY_DIR="$BASEDIR/boot2flappy"
 
 # Set application compilers
 GCC_COMPILER='gcc-4.9'
@@ -195,21 +194,19 @@ echo " => Installing MdeModulePkg Package"
 echo "======================================"
 
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/CrScreenshotDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-#cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/GraphicsOutputDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/GraphicsOutputDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/NvmExpressDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/Ps2KeyboardDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/Ps2MouseDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbKbDxe.efi" "$BUILD_DIR/x64/loader/uefi" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbMassStorageDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbMouseDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/XhciDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/CrScreenshotDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-#cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/GraphicsOutputDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/GraphicsOutputDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/NvmExpressDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/Ps2KeyboardDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/Ps2MouseDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/UsbKbDxe.efi" "$BUILD_DIR/ia32/loader/uefi" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/UsbMassStorageDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/UsbMouseDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/XhciDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
@@ -228,25 +225,6 @@ cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/BiosVideo.efi" "$BUILD_DIR/i
 cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/GraphicsConsoleDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/VgaClassDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/VgaMiniPort.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-
-# Compile flappy bird
-if [[ "$1" == "--flappy"* ]]; then
-    echo "======================================"
-    echo " => Compiling Flappy Bird"
-    echo "======================================"
-
-    (cd "$BOOT2FLAPPY_DIR" && mkdir build)
-    (cd "$BOOT2FLAPPY_DIR/build" && cmake ..)
-    (cd "$BOOT2FLAPPY_DIR/build" && make)
-
-    echo "======================================"
-    echo " => Installing Flappy Bird"
-    echo "======================================"
-
-    mkdir -p "$BUILD_DIR/x64/EFI/BOOT/"
-    cp "$BOOT2FLAPPY_DIR/build/vm/hda-contents/EFI/BOOT/BOOTX64.EFI" "$BUILD_DIR/x64/loader/tools/boot2flappy_x64.efi" >/dev/null 2>&1
-    cp "$BOOT2FLAPPY_DIR/build/vm/hda-contents/EFI/BOOT/SPRITES.BMP" "$BUILD_DIR/x64/EFI/BOOT/" >/dev/null 2>&1
-fi
 
 # Add prebuilt components to the build
 echo "======================================"
