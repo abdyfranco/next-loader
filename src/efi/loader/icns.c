@@ -71,7 +71,6 @@ BUILTIN_ICON BuiltinIconTable[BUILTIN_ICON_COUNT] = {
    { NULL, L"tool_shell", ICON_SIZE_SMALL },
    { NULL, L"tool_ftp", ICON_SIZE_SMALL },
    { NULL, L"tool_hexdump", ICON_SIZE_SMALL },
-   { NULL, L"tool_flappy", ICON_SIZE_SMALL },
    { NULL, L"tool_part", ICON_SIZE_SMALL },
    { NULL, L"tool_rescue", ICON_SIZE_SMALL },
    { NULL, L"tool_apple_rescue", ICON_SIZE_SMALL },

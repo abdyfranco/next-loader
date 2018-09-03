@@ -14,7 +14,7 @@ VPATH = $(SRCDIR)
 
 LOCAL_GNUEFI_CFLAGS  = -I$(SRCDIR) -I$(SRCDIR)/../include
 
-OBJS            = screen.o image.o text.o load_bmp.o load_icns.o lodepng.o lodepng_xtra.o
+OBJS            = nanojpeg.o nanojpeg_xtra.o screen.o image.o text.o load_bmp.o load_icns.o lodepng.o lodepng_xtra.o
 TARGET          = libeg.a
 
 all: $(TARGET)
@@ -22,6 +22,6 @@ all: $(TARGET)
 include $(SRCDIR)/../Make.common
 
 clean:
-	rm -f $(TARGET) *~ *.so $(OBJS) *.efi *.obj loader_*.txt loader_*.dll *.lib
+	rm -f $(TARGET) *~ *.so $(OBJS) *.efi *.obj refind_*.txt refind_*.dll *.lib
 
 # EOF

@@ -25,7 +25,6 @@
 #include "icns.h"
 #include "../include/refit_call_wrapper.h"
 
-#ifndef EFI32
 EFI_HANDLE* APointerHandles = NULL;
 EFI_ABSOLUTE_POINTER_PROTOCOL** APointerProtocol = NULL;
 EFI_GUID APointerGuid = EFI_ABSOLUTE_POINTER_PROTOCOL_GUID;
@@ -41,7 +40,6 @@ BOOLEAN PointerAvailable = FALSE;
 UINTN LastXPos = 0, LastYPos = 0;
 EG_IMAGE* MouseImage = NULL;
 EG_IMAGE* Background = NULL;
-#endif
 
 POINTER_STATE State;
 
@@ -51,7 +49,6 @@ POINTER_STATE State;
 VOID pdInitialize() {
     pdCleanup(); // just in case
 
-#ifndef EFI32
     if (!(GlobalConfig.EnableMouse || GlobalConfig.EnableTouch)) return;
 
     // Get all handles that support absolute pointer protocol (usually touchscreens, but sometimes mice)
@@ -100,14 +97,12 @@ VOID pdInitialize() {
     if (PointerAvailable && GlobalConfig.EnableMouse) {
         MouseImage = BuiltinIcon(BUILTIN_ICON_MOUSE);
     }
-#endif
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Frees allocated memory and closes pointer protocols
 ////////////////////////////////////////////////////////////////////////////////
 VOID pdCleanup() {
-#ifndef EFI32
     PointerAvailable = FALSE;
     pdClear();
 
@@ -144,7 +139,6 @@ VOID pdCleanup() {
 
     LastXPos = UGAWidth / 2;
     LastYPos = UGAHeight / 2;
-#endif
 
     State.X = UGAWidth / 2;
     State.Y = UGAHeight / 2;
@@ -156,31 +150,20 @@ VOID pdCleanup() {
 // Returns whether or not any pointer devices are available
 ////////////////////////////////////////////////////////////////////////////////
 BOOLEAN pdAvailable() {
-#ifdef EFI32
-    return FALSE;
-#else
     return PointerAvailable;
-#endif
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Returns the number of pointer devices available
 ////////////////////////////////////////////////////////////////////////////////
 UINTN pdCount() {
-#ifdef EFI32
-    return 0;
-#else
     return NumAPointerDevices + NumSPointerDevices;
-#endif
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Returns a pointer device's WaitForInput event
 ////////////////////////////////////////////////////////////////////////////////
 EFI_EVENT pdWaitEvent(UINTN Index) {
-#ifdef EFI32
-    return NULL;
-#else
     if(!PointerAvailable || Index >= NumAPointerDevices + NumSPointerDevices) {
         return NULL;
     }
@@ -189,7 +172,6 @@ EFI_EVENT pdWaitEvent(UINTN Index) {
         return SPointerProtocol[Index - NumAPointerDevices]->WaitForInput;
     }
     return APointerProtocol[Index]->WaitForInput;
-#endif
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -197,7 +179,7 @@ EFI_EVENT pdWaitEvent(UINTN Index) {
 // the first available device's state
 ////////////////////////////////////////////////////////////////////////////////
 EFI_STATUS pdUpdateState() {
-#ifdef EFI32
+#if defined(EFI32) && defined(__MAKEWITH_GNUEFI)
     return EFI_NOT_READY;
 #else
     if(!PointerAvailable) {
@@ -215,8 +197,14 @@ EFI_STATUS pdUpdateState() {
         // if new state found and we haven't already found a new state
         if(!EFI_ERROR(PointerStatus) && EFI_ERROR(Status)) {
             Status = EFI_SUCCESS;
+
+#ifdef EFI32
+            State.X = (UINTN)DivU64x64Remainder(APointerState.CurrentX * UGAWidth, APointerProtocol[Index]->Mode->AbsoluteMaxX, NULL);
+            State.Y = (UINTN)DivU64x64Remainder(APointerState.CurrentY * UGAHeight, APointerProtocol[Index]->Mode->AbsoluteMaxY, NULL);
+#else
             State.X = (APointerState.CurrentX * UGAWidth) / APointerProtocol[Index]->Mode->AbsoluteMaxX;
             State.Y = (APointerState.CurrentY * UGAHeight) / APointerProtocol[Index]->Mode->AbsoluteMaxY;
+#endif
             State.Holding = (APointerState.ActiveButtons & EFI_ABSP_TouchActive);
         }
     }
@@ -226,22 +214,31 @@ EFI_STATUS pdUpdateState() {
         if(!EFI_ERROR(PointerStatus) && EFI_ERROR(Status)) {
             Status = EFI_SUCCESS;
 
-            INT32 TargetX = State.X + SPointerState.RelativeMovementX * GlobalConfig.MouseSpeed / SPointerProtocol[Index]->Mode->ResolutionX;
+            INTN TargetX = 0;
+            INTN TargetY = 0;
+
+#ifdef EFI32
+        TargetX = State.X + (INTN)DivS64x64Remainder(SPointerState.RelativeMovementX * GlobalConfig.MouseSpeed, SPointerProtocol[Index]->Mode->ResolutionX, NULL);
+            TargetY = State.Y + (INTN)DivS64x64Remainder(SPointerState.RelativeMovementY * GlobalConfig.MouseSpeed, SPointerProtocol[Index]->Mode->ResolutionY, NULL);
+#else
+            TargetX = State.X + SPointerState.RelativeMovementX * GlobalConfig.MouseSpeed / SPointerProtocol[Index]->Mode->ResolutionX;
+            TargetY = State.Y + SPointerState.RelativeMovementY * GlobalConfig.MouseSpeed / SPointerProtocol[Index]->Mode->ResolutionY;
+#endif
+
             if(TargetX < 0) {
                 State.X = 0;
             } else if(TargetX >= UGAWidth) {
                 State.X = UGAWidth - 1;
             } else {
-                State.X = TargetX;
+                State.X = (UINTN)TargetX;
             }
 
-            INT32 TargetY = State.Y + SPointerState.RelativeMovementY * GlobalConfig.MouseSpeed / SPointerProtocol[Index]->Mode->ResolutionY;
             if(TargetY < 0) {
                 State.Y = 0;
             } else if(TargetY >= UGAHeight) {
                 State.Y = UGAHeight - 1;
             } else { 
-                State.Y = TargetY;
+                State.Y = (UINTN)TargetY;
             }
 
             State.Holding = SPointerState.LeftButton;
@@ -265,7 +262,6 @@ POINTER_STATE pdGetState() {
 // Draw the mouse at the current coordinates
 ////////////////////////////////////////////////////////////////////////////////
 VOID pdDraw() {
-#ifndef EFI32
     if(Background) {
         egFreeImage(Background);
         Background = NULL;
@@ -288,18 +284,15 @@ VOID pdDraw() {
     }
     LastXPos = State.X;
     LastYPos = State.Y;
-#endif
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Restores the background at the position the mouse was last drawn
 ////////////////////////////////////////////////////////////////////////////////
 VOID pdClear() {
-#ifndef EFI32
     if (Background) {
         egDrawImage(Background, LastXPos, LastYPos);
         egFreeImage(Background);
         Background = NULL;
     }
-#endif
 }

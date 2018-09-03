@@ -507,7 +507,7 @@ CHAR16 * GuidAsString(EFI_GUID *GuidData) {
    CHAR16 *TheString;
 
    TheString = AllocateZeroPool(42 * sizeof(CHAR16));
-   if (TheString != 0) {
+   if (GuidData && (TheString != 0)) {
       SPrint (TheString, 82, L"%08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x",
               (UINTN)GuidData->Data1, (UINTN)GuidData->Data2, (UINTN)GuidData->Data3,
               (UINTN)GuidData->Data4[0], (UINTN)GuidData->Data4[1], (UINTN)GuidData->Data4[2],

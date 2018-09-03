@@ -90,8 +90,7 @@
 #define TAG_HIDDEN           (20)
 #define TAG_FTP              (21)
 #define TAG_HEXDUMP          (22)
-#define TAG_FLAPPY           (23)
-#define NUM_TOOLS            (24)
+#define NUM_TOOLS            (23)
 
 #define NUM_SCAN_OPTIONS 10
 
@@ -345,6 +344,8 @@ typedef struct {
    BOOLEAN          EnableTouch;
    BOOLEAN          HiddenTags;
    BOOLEAN          SwitchBadgeIcons;
+   BOOLEAN          UseNvram;
+   BOOLEAN          ShutdownAfterTimeout;
    UINTN            RequestedScreenWidth;
    UINTN            RequestedScreenHeight;
    UINTN            BannerBottomEdge;

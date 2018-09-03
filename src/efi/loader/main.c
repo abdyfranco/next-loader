@@ -132,7 +132,6 @@
   #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\EFI\\tools\\ipxe_x64.efi,\\loader\\%s\\ipxe_x64.efi", TOOLS_DIR)
   #define FTP_NAMES               PoolPrint(L"\\EFI\\tools\\ftp.efi,\\EFI\\tools\\ftp_x64.efi,\\loader\\%s\\ftp_x64.efi", TOOLS_DIR)
   #define HEXDUMP_NAMES           PoolPrint(L"\\EFI\\tools\\hexdump.efi,\\EFI\\tools\\hexdump_x64.efi,\\loader\\%s\\hexdump_x64.efi", TOOLS_DIR)
-  #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\EFI\\tools\\boot2flappy_x64.efi,\\loader\\%s\\boot2flappy_x64.efi", TOOLS_DIR)
   #define MEMTEST_NAMES           L"memtest86.efi,memtest86_x64.efi,memtest86x64.efi,bootx64.efi"
   #define FALLBACK_FULLNAME       L"EFI\\BOOT\\bootx64.efi"
   #define FALLBACK_BASENAME       L"bootx64.efi"
@@ -145,7 +144,6 @@
   #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\EFI\\tools\\ipxe_ia32.efi,\\loader\\%s\\ipxe_ia32.efi", TOOLS_DIR)
   #define FTP_NAMES               PoolPrint(L"\\EFI\\tools\\ftp.efi,\\EFI\\tools\\ftp_ia32.efi,\\loader\\%s\\ftp_ia32.efi", TOOLS_DIR)
   #define HEXDUMP_NAMES           PoolPrint(L"\\EFI\\tools\\hexdump.efi,\\EFI\\tools\\hexdump_ia32.efi,\\loader\\%s\\hexdump_ia32.efi", TOOLS_DIR)
-  #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\EFI\\tools\\boot2flappy_ia32.efi,\\loader\\%s\\boot2flappy_ia32.efi", TOOLS_DIR)
   #define MEMTEST_NAMES           L"memtest86.efi,memtest86_ia32.efi,memtest86ia32.efi,bootia32.efi"
   #define FALLBACK_FULLNAME       L"EFI\\BOOT\\bootia32.efi"
   #define FALLBACK_BASENAME       L"bootia32.efi"
@@ -158,7 +156,6 @@
   #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\EFI\\tools\\ipxe_aa64.efi,\\loader\\%s\\ipxe_aa64.efi", TOOLS_DIR)
   #define FTP_NAMES               PoolPrint(L"\\EFI\\tools\\ftp.efi,\\EFI\\tools\\ftp_aa64.efi,\\loader\\%s\\ftp_aa64.efi", TOOLS_DIR)
   #define HEXDUMP_NAMES           PoolPrint(L"\\EFI\\tools\\hexdump.efi,\\EFI\\tools\\hexdump_aa64.efi,\\loader\\%s\\hexdump_aa64.efi", TOOLS_DIR)
-  #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\EFI\\tools\\boot2flappy_aa64.efi,\\loader\\%s\\boot2flappy_aa64.efi", TOOLS_DIR)
   #define MEMTEST_NAMES           L"memtest86.efi,memtest86_aa64.efi,memtest86aa64.efi,bootaa64.efi"
   #define FALLBACK_FULLNAME       L"EFI\\BOOT\\bootaa64.efi"
   #define FALLBACK_BASENAME       L"bootaa64.efi"
@@ -171,7 +168,6 @@
   #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\EFI\\tools\\ipxe_arm.efi,\\loader\\%s\\ipxe_arm.efi", TOOLS_DIR)
   #define FTP_NAMES               PoolPrint(L"\\EFI\\tools\\ftp.efi,\\EFI\\tools\\ftp_arm.efi,\\loader\\%s\\ftp_arm.efi", TOOLS_DIR)
   #define HEXDUMP_NAMES           PoolPrint(L"\\EFI\\tools\\hexdump.efi,\\EFI\\tools\\hexdump_arm.efi,\\loader\\%s\\hexdump_arm.efi", TOOLS_DIR)
-  #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\EFI\\tools\\boot2flappy_arm.efi,\\loader\\%s\\boot2flappy_arm.efi", TOOLS_DIR)
   #define MEMTEST_NAMES           L"memtest86.efi,memtest86_arm.efi,memtest86arm.efi,bootarm.efi"
   #define FALLBACK_FULLNAME       L"EFI\\BOOT\\bootarm.efi"
   #define FALLBACK_BASENAME       L"bootarm.efi"
@@ -183,7 +179,6 @@
   #define NETBOOT_NAMES           PoolPrint(L"\\EFI\\tools\\ipxe.efi,\\loader\\%s\\ipxe.efi", TOOLS_DIR)
   #define FTP_NAMES               PoolPrint(L"\\EFI\\tools\\ftp.efi,\\ftp_x64.efi,\\loader\\%s\\ftp.efi", TOOLS_DIR)
   #define HEXDUMP_NAMES           PoolPrint(L"\\EFI\\tools\\hexdump.efi,\\hexdump.efi,\\loader\\%s\\hexdump.efi", TOOLS_DIR)
-  #define FLAPPY_NAMES            PoolPrint(L"\\EFI\\tools\\boot2flappy.efi,\\loader\\%s\\boot2flappy.efi", TOOLS_DIR)
   #define MEMTEST_NAMES           L"memtest86.efi"
   #define DRIVER_DIRS             L"drivers"
   #define FALLBACK_FULLNAME       L"EFI\\BOOT\\boot.efi" /* Not really correct */
@@ -226,6 +221,8 @@ REFIT_CONFIG GlobalConfig = { /* TextOnly = */ FALSE,
                               /* EnableMouse = */ FALSE,
                               /* EnableTouch = */ FALSE,
                               /* HiddenTags = */ TRUE,
+                              /* UseNvram = */ TRUE,
+                              /* ShutdownAfterTimeout = */ FALSE,
                               /* SwitchBadgeIcons = */ FALSE,
                               /* RequestedScreenWidth = */ 0,
                               /* RequestedScreenHeight = */ 0,
@@ -234,7 +231,7 @@ REFIT_CONFIG GlobalConfig = { /* TextOnly = */ FALSE,
                               /* Timeout = */ 20,
                               /* HideUIFlags = */ 0,
                               /* MaxTags = */ 0,
-                              /* GraphicsFor = */ { GRAPHICS_FOR_OSX, GRAPHICS_FOR_LINUX, GRAPHICS_FOR_WINDOWS },
+                              /* GraphicsFor = */ GRAPHICS_FOR_OSX,
                               /* LegacyType = */ LEGACY_TYPE_MAC,
                               /* ScanDelay = */ 0,
                               /* ScreensaverTime = */ 0,
@@ -654,7 +651,7 @@ static CHAR16 * FindInitrd(IN CHAR16 *LoaderPath, IN REFIT_VOLUME *Volume) {
                 KernelPostNum = MyStrStr(LoaderPath, KernelVersion);
                 InitrdPostNum = MyStrStr(CurrentInitrdName->Value, KernelVersion);
                 SharedChars = NumCharsInCommon(KernelPostNum, InitrdPostNum);
-                if (SharedChars > MaxSharedChars) {
+                if (SharedChars > MaxSharedChars || (SharedChars == MaxSharedChars && StrLen(CurrentInitrdName->Value) < StrLen(MaxSharedInitrd->Value))) {
                     MaxSharedChars = SharedChars;
                     MaxSharedInitrd = CurrentInitrdName;
                 } // if
@@ -2067,17 +2064,6 @@ static VOID ScanForTools(VOID) {
                 } // while
                 break;
 
-            case TAG_FLAPPY:
-                j = 0;
-                while ((FileName = FindCommaDelimited(FLAPPY_NAMES, j++)) != NULL) {
-                    if (IsValidTool(SelfVolume, FileName)) {
-                        AddToolEntry(SelfVolume, FileName, L"Flappy Bird", BuiltinIcon(BUILTIN_ICON_TOOL_FLAPPY),
-                                     'S', FALSE);
-                    }
-                MyFreePool(FileName);
-                } // while
-                break;
-
             case TAG_GPTSYNC:
                 j = 0;
                 while ((FileName = FindCommaDelimited(GPTSYNC_NAMES, j++)) != NULL) {
@@ -2266,6 +2252,33 @@ static VOID SetConfigFilename(EFI_HANDLE ImageHandle) {
     } // if
 } // VOID SetConfigFilename()
 
+// Adjust the GlobalConfig.DefaultSelection variable: Replace all "+" elements with the
+// Next Loader PreviousBoot variable, if it's available. If it's not available, delete that
+// element.
+VOID AdjustDefaultSelection() {
+    UINTN i = 0, j;
+    CHAR16 *Element = NULL, *NewCommaDelimited = NULL, *PreviousBoot = NULL;
+    EFI_STATUS Status;
+
+    while ((Element = FindCommaDelimited(GlobalConfig.DefaultSelection, i++)) != NULL) {
+        if (MyStriCmp(Element, L"+")) {
+            Status = EfivarGetRaw(&NextLoaderGuid, L"PreviousBoot", (CHAR8 **) &PreviousBoot, &j);
+            if (Status == EFI_SUCCESS) {
+                MyFreePool(Element);
+                Element = PreviousBoot;
+            } else {
+                Element = NULL;
+            }
+        } // if
+        if (Element && StrLen(Element)) {
+            MergeStrings(&NewCommaDelimited, Element, L',');
+        } // if
+        MyFreePool(Element);
+    } // while
+    MyFreePool(GlobalConfig.DefaultSelection);
+    GlobalConfig.DefaultSelection = NewCommaDelimited;
+} // AdjustDefaultSelection()
+
 //
 // main entry point
 //
@@ -2304,6 +2317,7 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
     if (LoadDrivers())
         ScanVolumes();
     ReadConfig(GlobalConfig.ConfigFilename);
+    AdjustDefaultSelection();
 
     if (GlobalConfig.SpoofOSXVersion && GlobalConfig.SpoofOSXVersion[0] != L'\0')
         SetAppleOSInfo();
@@ -2318,7 +2332,7 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
     // further bootstrap (now with config available)
     SetupScreen();
     SetVolumeIcons();
-    ScanForBootloaders(GlobalConfig.ScanDelay == 0);
+    ScanForBootloaders(FALSE);
     ScanForTools();
     // SetupScreen() clears the screen; but ScanForBootloaders() may display a
     // message that must be deleted, so do so
@@ -2330,12 +2344,15 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
           egDisplayMessage(L"Scanning disk drives...", &BGColor, CENTER);
        for (i = 0; i < GlobalConfig.ScanDelay; i++)
           refit_call1_wrapper(BS->Stall, 1000000);
-       BltClearScreen(TRUE);
        RescanAll(GlobalConfig.ScanDelay > 1);
+       BltClearScreen(TRUE);
     } // if
 
     if (GlobalConfig.DefaultSelection)
        SelectionName = StrDuplicate(GlobalConfig.DefaultSelection);
+
+    if (GlobalConfig.ShutdownAfterTimeout)
+        MainMenu.TimeoutText = L"Shutdown";
 
     while (MainLoopRunning) {
         MenuExit = RunMainMenu(&MainMenu, &SelectionName, &ChosenEntry);
@@ -2347,6 +2364,10 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
             continue;
         }
 
+        if ((MenuExit == MENU_EXIT_TIMEOUT) && GlobalConfig.ShutdownAfterTimeout) {
+            ChosenEntry->Tag = TAG_SHUTDOWN;
+        }
+        
         switch (ChosenEntry->Tag) {
 
             case TAG_REBOOT:    // Reboot
