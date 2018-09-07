@@ -1,6 +1,6 @@
 /*
  * libeg/nanojpeg_xtra.c
- * JPEG image handling functions -- rEFInd interface for NanoJPEG
+ * JPEG image handling functions -- Next Loader interface for NanoJPEG
  *
  * copyright (c) 2018 by by Roderick W. Smith, and distributed
  * under the terms of the GNU GPL v3, or (at your option) any
@@ -25,7 +25,7 @@
  */
 
 #include "global.h"
-#include "../refind/screen.h"
+#include "../loader/screen.h"
 // nanojpeg.c is weird; it doubles as both a header file and a .c file,
 // depending on whether _NJ_INCLUDE_HEADER_ONLY is defined....
 #define _NJ_INCLUDE_HEADER_ONLY

@@ -37,9 +37,7 @@ if [ -e "$BUILD_DIR/x64/loader/loader.efi" ]; then
     hdiutil resize -limits "$BUILD_DIR/uefi_x64.dmg"
     hdiutil resize -sectors 70000 "$BUILD_DIR/uefi_x64.dmg"
     hdiutil attach "$BUILD_DIR/uefi_x64.dmg"
-    
-    cp "$EFI_DIR/images/VolumeIcon.icns" "$UEFI_VOLUME/.VolumeIcon.icns"
-    
+        
     bless --unbless "$UEFI_VOLUME/"
     bless --folder "$UEFI_VOLUME/loader" --file "$UEFI_VOLUME/loader/loader.efi" --label "$UEFI_NAME"
     bless --info "$UEFI_VOLUME/"
@@ -56,9 +54,7 @@ if [ -e "$BUILD_DIR/ia32/loader/loader.efi" ]; then
     hdiutil resize -limits "$BUILD_DIR/uefi_ia32.dmg"
     hdiutil resize -sectors 70000 "$BUILD_DIR/uefi_ia32.dmg"
     hdiutil attach "$BUILD_DIR/uefi_ia32.dmg"
-    
-    cp "$EFI_DIR/images/VolumeIcon.icns" "$UEFI_VOLUME/.VolumeIcon.icns"
-    
+        
     bless --unbless "$UEFI_VOLUME/"
     bless --folder "$UEFI_VOLUME/loader" --file "$UEFI_VOLUME/loader/loader.efi" --label "$UEFI_NAME"
     bless --info "$UEFI_VOLUME/"

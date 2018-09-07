@@ -666,8 +666,6 @@ VOID ReadConfig(CHAR16 *FileName)
                   GlobalConfig.ShowTools[i - 1] = TAG_FTP;
                 } else if (MyStriCmp(FlagName, L"hexdump")) {
                   GlobalConfig.ShowTools[i - 1] = TAG_HEXDUMP;
-                } else if (MyStriCmp(FlagName, L"flappy")) {
-                  GlobalConfig.ShowTools[i - 1] = TAG_FLAPPY;
                 } else {
                    Print(L" unknown showtools flag: '%s'\n", FlagName);
                 }

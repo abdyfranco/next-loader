@@ -90,7 +90,7 @@ export WORKSPACE="/usr/local/UDK2014/MyWorkSpace"
 export EDK_TOOLS_PATH="$WORKSPACE/BaseTools"
 export CONF_PATH="$WORKSPACE/Conf"
 
-(cd "$UDK2014_DIR" && make -C BaseTools CC=$GCC_COMPILER)
+(cd "$UDK2014_DIR" && make -C BaseTools CC=$GCC_COMPILER) >/dev/null 2>&1
 source $UDK2014_DIR/edksetup.sh
 
 # Compile UDK2014 packages
@@ -98,11 +98,11 @@ echo "======================================"
 echo " => Compiling UDK2014 Packages"
 echo "======================================"
 
-$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE
-$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE
+$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE >/dev/null 2>&1
+$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE >/dev/null 2>&1
 
-$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE
-$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE
+$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE >/dev/null 2>&1
+$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE >/dev/null 2>&1
 
 # Compile Next Loader UEFI Application
 echo "======================================"
@@ -161,7 +161,7 @@ export WORKSPACE="$UDK2018_DIR"
 export EDK_TOOLS_PATH="$UDK2018_DIR/BaseTools"
 export CONF_PATH="$UDK2018_DIR/Conf"
 
-(cd "$UDK2018_DIR" && make -C BaseTools CC=$GCC_COMPILER)
+(cd "$UDK2018_DIR" && make -C BaseTools CC=$GCC_COMPILER) >/dev/null 2>&1
 source $UDK2018_DIR/edksetup.sh
 
 # Compile UDK2018 packages
@@ -169,22 +169,23 @@ echo "======================================"
 echo " => Compiling UDK2018 Packages"
 echo "======================================"
 
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p EmulatorPkg/EmulatorPkg.dsc -t GCC49 -a X64 -b RELEASE
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p EmulatorPkg/EmulatorPkg.dsc -t GCC49 -a IA32 -b RELEASE
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p EmulatorPkg/EmulatorPkg.dsc -t GCC49 -a X64 -b RELEASE >/dev/null 2>&1
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p EmulatorPkg/EmulatorPkg.dsc -t GCC49 -a IA32 -b RELEASE >/dev/null 2>&1
 
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE >/dev/null 2>&1
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE >/dev/null 2>&1
 
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE >/dev/null 2>&1
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE >/dev/null 2>&1
 
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgX64.dsc -t GCC49 -a X64
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgIa32.dsc -t GCC49 -a IA32
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgX64.dsc -t GCC49 -a X64 >/dev/null 2>&1
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgIa32.dsc -t GCC49 -a IA32 >/dev/null 2>&1
 
 # Add UDK2018 EmulatorPkg drivers
 echo "======================================"
 echo " => Installing EmulatorPkg Package"
 echo "======================================"
+
 cp "$UDK2018_DIR/Build/Emulator/RELEASE_GCC49/X64/EmuGopDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/Emulator/RELEASE_GCC49/IA32/EmuGopDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 
@@ -194,22 +195,12 @@ echo " => Installing MdeModulePkg Package"
 echo "======================================"
 
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/CrScreenshotDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/GraphicsOutputDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/NvmExpressDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/Ps2KeyboardDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/Ps2MouseDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbMassStorageDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbMouseDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/XhciDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/CrScreenshotDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/GraphicsOutputDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/NvmExpressDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/Ps2KeyboardDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/Ps2MouseDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/UsbMassStorageDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/UsbMouseDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/XhciDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 
 # Add UDK2018 DuetPkg drivers
 echo "======================================"
@@ -217,14 +208,7 @@ echo " => Installing DuetPkgX64 Package"
 echo "======================================"
 
 cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/BiosVideo.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/GraphicsConsoleDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/VgaClassDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/VgaMiniPort.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-
 cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/BiosVideo.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/GraphicsConsoleDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/VgaClassDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/VgaMiniPort.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 
 # Add prebuilt components to the build
 echo "======================================"
@@ -269,11 +253,11 @@ cp "$EFI_DIR/prebuilt/drivers_ia32/zfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers
 
 # Delete uncompiled architectures
 if [ ! -e "$BUILD_DIR/x64/loader/loader.efi" ]; then
-    rm -rf "$BUILD_DIR/x64/"
+    rm -rf "$BUILD_DIR/x64/" >/dev/null 2>&1
 fi 
 
 if [ ! -e "$BUILD_DIR/ia32/loader/loader.efi" ]; then
-    rm -rf "$BUILD_DIR/ia32/"
+    rm -rf "$BUILD_DIR/ia32/" >/dev/null 2>&1
 fi 
 
 # Change file permissions
@@ -284,13 +268,13 @@ echo "======================================"
 echo " => Cleaning Compilation Environment"
 echo "======================================"
 
-(cd "$EFI_DIR" && make clean)
-(cd "$UDK2014_DIR/BaseTools" && make clean)
-(cd "$UDK2018_DIR/BaseTools" && make clean)
-unlink "/usr/local/UDK2014/MyWorkSpace"
-rm -rf /usr/local/UDK2014/
-rm -rf "$UDK2014_DIR/Build"
-rm -rf "$UDK2018_DIR/Build"
+(cd "$EFI_DIR" && make clean) >/dev/null 2>&1
+(cd "$UDK2014_DIR/BaseTools" && make clean) >/dev/null 2>&1
+(cd "$UDK2018_DIR/BaseTools" && make clean) >/dev/null 2>&1
+unlink "/usr/local/UDK2014/MyWorkSpace" >/dev/null 2>&1
+rm -rf /usr/local/UDK2014/ >/dev/null 2>&1
+rm -rf "$UDK2014_DIR/Build" >/dev/null 2>&1
+rm -rf "$UDK2018_DIR/Build" >/dev/null 2>&1
 
 end_time=$(date +%s)
 run_time=$((($end_time-$start_time)/60))

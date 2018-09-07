@@ -8,5 +8,5 @@ if [ ! "$EUID" == 0 ]
 fi
 
 bless --unbless "$BASEDIR/../"
-bless --folder "$BASEDIR/../loader" --file "$BASEDIR/../loader/loader.efi" --label "More Options"
+bless --folder "$BASEDIR/../loader" --file "$BASEDIR/../loader/loader.efi" --label "UEFI Boot Manager"
 bless --info "$BASEDIR/../"
