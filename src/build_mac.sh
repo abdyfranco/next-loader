@@ -14,12 +14,6 @@ VOLUME_NAME="UEFI Boot Manager"
 UEFI_VOLUME="/Volumes/$VOLUME_NAME"
 UEFI_NAME="UEFI Boot Manager"
 
-# Delete the previous build
-rm -rf "$BUILD_DIR/macos" >/dev/null 2>&1
-
-# Create a macOS build folder
-mkdir -p "$BUILD_DIR/macos"
-
 #
 # TODO: Implement Next Loader Compilation for macOS.
 #

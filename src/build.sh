@@ -90,7 +90,7 @@ export WORKSPACE="/usr/local/UDK2014/MyWorkSpace"
 export EDK_TOOLS_PATH="$WORKSPACE/BaseTools"
 export CONF_PATH="$WORKSPACE/Conf"
 
-(cd "$UDK2014_DIR" && make -C BaseTools CC=$GCC_COMPILER) >/dev/null 2>&1
+(cd "$UDK2014_DIR" && make -C BaseTools CC=$GCC_COMPILER)
 source $UDK2014_DIR/edksetup.sh
 
 # Compile UDK2014 packages
@@ -98,11 +98,11 @@ echo "======================================"
 echo " => Compiling UDK2014 Packages"
 echo "======================================"
 
-$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE >/dev/null 2>&1
-$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE >/dev/null 2>&1
+$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE
+$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE
 
-$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE >/dev/null 2>&1
-$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE >/dev/null 2>&1
+$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE
+$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE
 
 # Compile Next Loader UEFI Application
 echo "======================================"
@@ -161,7 +161,7 @@ export WORKSPACE="$UDK2018_DIR"
 export EDK_TOOLS_PATH="$UDK2018_DIR/BaseTools"
 export CONF_PATH="$UDK2018_DIR/Conf"
 
-(cd "$UDK2018_DIR" && make -C BaseTools CC=$GCC_COMPILER) >/dev/null 2>&1
+(cd "$UDK2018_DIR" && make -C BaseTools CC=$GCC_COMPILER)
 source $UDK2018_DIR/edksetup.sh
 
 # Compile UDK2018 packages
@@ -169,17 +169,17 @@ echo "======================================"
 echo " => Compiling UDK2018 Packages"
 echo "======================================"
 
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p EmulatorPkg/EmulatorPkg.dsc -t GCC49 -a X64 -b RELEASE >/dev/null 2>&1
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p EmulatorPkg/EmulatorPkg.dsc -t GCC49 -a IA32 -b RELEASE >/dev/null 2>&1
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p EmulatorPkg/EmulatorPkg.dsc -t GCC49 -a X64 -b RELEASE
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p EmulatorPkg/EmulatorPkg.dsc -t GCC49 -a IA32 -b RELEASE
 
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE >/dev/null 2>&1
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE >/dev/null 2>&1
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE
 
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE >/dev/null 2>&1
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE >/dev/null 2>&1
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE
 
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgX64.dsc -t GCC49 -a X64 >/dev/null 2>&1
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgIa32.dsc -t GCC49 -a IA32 >/dev/null 2>&1
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgX64.dsc -t GCC49 -a X64
+$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgIa32.dsc -t GCC49 -a IA32
 
 # Add UDK2018 EmulatorPkg drivers
 echo "======================================"
