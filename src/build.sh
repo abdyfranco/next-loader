@@ -194,11 +194,11 @@ echo "======================================"
 echo " => Installing MdeModulePkg Package"
 echo "======================================"
 
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/CrScreenshotDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+#cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/CrScreenshotDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/NvmExpressDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbMassStorageDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/CrScreenshotDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
+#cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/CrScreenshotDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/NvmExpressDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/UsbMassStorageDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 
