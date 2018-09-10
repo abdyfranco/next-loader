@@ -159,7 +159,7 @@ VOID egDumpGOPVideoModes(VOID)
             Print(L"- Mode %d: %dx%d PixFmt = %s, PixPerScanLine = %d\n",
                       Mode, Info->HorizontalResolution, Info->VerticalResolution, PixelFormatDesc, Info->PixelsPerScanLine);
         } else {
-             Print(L"- Mode %d: %r\n", Mode, Status);
+            Print(L"- Mode %d: %r\n", Mode, Status);
         }
     }
 }
@@ -374,6 +374,7 @@ VOID egInitScreen(VOID) {
         egScreenWidth = GraphicsOutput->Mode->Info->HorizontalResolution;
         egScreenHeight = GraphicsOutput->Mode->Info->VerticalResolution;
         egHasGraphics = TRUE;
+        Print(L"Looks like you are using a GOP graphics card.\n");
     } else if (UgaDraw != NULL) {
         // is there anybody ever see UGA protocol???
         UINT32 Width, Height, Depth, RefreshRate;
@@ -429,7 +430,7 @@ BOOLEAN egSetScreenSize(IN OUT UINTN *ScreenWidth, IN OUT UINTN *ScreenHeight) {
         return FALSE;
 
     if (GraphicsOutput != NULL) { // GOP mode (UEFI)
-        // CurrentModeNum = GraphicsOutput->Mode->Mode;
+        CurrentModeNum = GraphicsOutput->Mode->Mode;
         if ( *ScreenHeight == 0) { // User specified a mode number (stored in *ScreenWidth); use it directly
             ModeNum = (UINT32) *ScreenWidth;
             if (egGetResFromMode(ScreenWidth, ScreenHeight) &&
@@ -483,9 +484,10 @@ BOOLEAN egSetScreenSize(IN OUT UINTN *ScreenWidth, IN OUT UINTN *ScreenHeight) {
             // TODO: Find a list of supported modes and display it.
             // NOTE: Below doesn't actually appear unless we explicitly switch to text mode.
             // This is just a placeholder until something better can be done....
-            Print(L"Error setting graphics mode %d x %d; unsupported mode!\n");
+            Print(L"Error setting graphics mode %d x %d; unsupported mode!\n", *ScreenWidth, *ScreenHeight);
         } // if/else
     } // if/else if UGA mode (EFI 1.x)
+
     return (ModeSet);
 } // BOOLEAN egSetScreenSize()
 
@@ -524,14 +526,16 @@ CHAR16 * egScreenDescription(VOID) {
 
     GraphicsInfo = AllocateZeroPool(256 * sizeof(CHAR16));
     if (GraphicsInfo == NULL)
-        return L"memory allocation error";
+        return L"Memory allocation error";
 
     if (egHasGraphics) {
-        if (GraphicsOutput != NULL) {
+    	if (GraphicsOutput != NULL && UgaDraw != NULL) {
+            SPrint(GraphicsInfo, 255, L"Apple Graphics Device Policy (Apple EFI 1.10), %dx%d", egScreenWidth, egScreenHeight);
+    	} else if (GraphicsOutput != NULL) {
             SPrint(GraphicsInfo, 255, L"Graphics Output Protocol (UEFI), %dx%d", egScreenWidth, egScreenHeight);
         } else if (UgaDraw != NULL) {
             GraphicsInfo = AllocateZeroPool(256 * sizeof(CHAR16));
-            SPrint(GraphicsInfo, 255, L"Universal Graphic Adapter Draw (EFI 1.10), %dx%d", egScreenWidth, egScreenHeight);
+            SPrint(GraphicsInfo, 255, L"Universal Graphic Adapter Draw (Intel EFI 1.10), %dx%d", egScreenWidth, egScreenHeight);
         } else {
             MyFreePool(GraphicsInfo);
             MyFreePool(TextInfo);
