@@ -16,7 +16,7 @@ fi
 # Set application constants
 VOLUME_NAME="UEFI Boot Manager"
 UEFI_VOLUME="/Volumes/$VOLUME_NAME"
-UEFI_NAME="More Options"
+UEFI_NAME="UEFI Boot Manager"
 
 # Check if the script has been executed using sudo
 if [ ! "$EUID" == 0 ]; then
