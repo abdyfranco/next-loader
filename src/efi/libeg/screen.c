@@ -802,7 +802,7 @@ VOID egScreenShot(VOID) {
     // Search for existing screen shot files; increment number to an unused value...
     ssNum = 001;
     do {
-        MsgLog(Filename, 80, L"screenshot_%03d.bmp", ssNum++);
+        Print(Filename, 80, L"screenshot_%03d.bmp", ssNum++);
     } while (FileExists(BaseDir, Filename));
 
     // save to file on the ESP
