@@ -9,7 +9,7 @@
 
 #include <global.h>
 #include <tiano_includes.h>
-#include <Library/MemLogLib.h>
+#include <MemLogLib.h>
 #include <Protocol/SimpleFileSystem.h>
 #include <Protocol/LoadedImage.h>
 #include <Guid/FileInfo.h>
