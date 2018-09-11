@@ -216,13 +216,7 @@ echo " => Installing Pre-built Components"
 echo "======================================"
 
 cp "$EFI_DIR/prebuilt/drivers_x64/apfs_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/data_hub_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/fat_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/exfat_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/udf_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/hfs_plus_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
 cp "$EFI_DIR/prebuilt/drivers_x64/pci_nvme_drv_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/zfs_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
 
 cp "$EFI_DIR/prebuilt/tools_x64/dbounce_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
 cp "$EFI_DIR/prebuilt/tools_x64/dhclient_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
@@ -247,9 +241,7 @@ cp "$EFI_DIR/prebuilt/tools_x64/which_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/
 
 cp "$EFI_DIR/prebuilt/drivers_ia32/fat_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
 cp "$EFI_DIR/prebuilt/drivers_ia32/exfat_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_ia32/udf_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
 cp "$EFI_DIR/prebuilt/drivers_ia32/hfs_plus_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_ia32/zfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
 
 # Delete uncompiled architectures
 if [ ! -e "$BUILD_DIR/x64/loader/loader.efi" ]; then
