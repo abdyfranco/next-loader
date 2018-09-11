@@ -126,7 +126,7 @@ VOID egDumpGOPVideoModes(VOID)
     // get dump
     MaxMode = GraphicsOutput->Mode->MaxMode;
     Mode = GraphicsOutput->Mode->Mode;
-    Print(L"Available graphics modes for refit.conf screen_resolution:\n");
+    Print(L"Available graphics modes for loader.conf screen_resolution:\n");
     Print(L"Curr. Mode = %d, Modes = %d, FB = %lx, FB size=0x%x\n",
            Mode, MaxMode, GraphicsOutput->Mode->FrameBufferBase, GraphicsOutput->Mode->FrameBufferSize);
 
@@ -378,7 +378,7 @@ VOID egInitScreen(VOID) {
     } else if (UgaDraw != NULL) {
         // is there anybody ever see UGA protocol???
         UINT32 Width, Height, Depth, RefreshRate;
-        Print(L"Looks like you are using a UGA graphics card, inform please to the Next Loader project!\n");
+        Print(L"Looks like you are using a UGA graphics card.\n");
         Status = UgaDraw->GetMode(UgaDraw, &Width, &Height, &Depth, &RefreshRate);
         if (EFI_ERROR(Status)) {
             UgaDraw = NULL; // Graphics not available
@@ -526,7 +526,7 @@ CHAR16 * egScreenDescription(VOID) {
 
     GraphicsInfo = AllocateZeroPool(256 * sizeof(CHAR16));
     if (GraphicsInfo == NULL)
-        return L"Memory allocation error";
+        return L"memory allocation error";
 
     if (egHasGraphics) {
     	if (GraphicsOutput != NULL && UgaDraw != NULL) {
