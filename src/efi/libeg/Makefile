@@ -14,7 +14,7 @@ VPATH = $(SRCDIR)
 
 LOCAL_GNUEFI_CFLAGS  = -I$(SRCDIR) -I$(SRCDIR)/../include
 
-OBJS            = BootLog.o MemLogLib.o nanojpeg.o nanojpeg_xtra.o screen.o image.o text.o load_bmp.o load_icns.o lodepng.o lodepng_xtra.o
+OBJS            = nanojpeg.o nanojpeg_xtra.o screen.o image.o text.o load_bmp.o load_icns.o lodepng.o lodepng_xtra.o
 TARGET          = libeg.a
 
 all: $(TARGET)

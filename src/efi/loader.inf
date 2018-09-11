@@ -58,8 +58,6 @@
   libeg/lodepng_xtra.c
   libeg/screen.c
   libeg/text.c
-  libeg/BootLog.c
-  libeg/MemLogLib.c
 
 [Packages]
   MdePkg/MdePkg.dec

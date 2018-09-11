@@ -126,8 +126,8 @@ VOID egDumpGOPVideoModes(VOID)
     // get dump
     MaxMode = GraphicsOutput->Mode->MaxMode;
     Mode = GraphicsOutput->Mode->Mode;
-    MsgLog("Available graphics modes for loader.conf screen_resolution:\n");
-    MsgLog("Curr. Mode = %d, Modes = %d, FB = %lx, FB size=0x%x\n",
+    Print(L"Available graphics modes for refit.conf screen_resolution:\n");
+    Print(L"Curr. Mode = %d, Modes = %d, FB = %lx, FB size=0x%x\n",
            Mode, MaxMode, GraphicsOutput->Mode->FrameBufferBase, GraphicsOutput->Mode->FrameBufferSize);
 
     for (Mode = 0; Mode < MaxMode; Mode++) {
@@ -156,10 +156,10 @@ VOID egDumpGOPVideoModes(VOID)
                     break;
             }
 
-            MsgLog("- Mode %d: %dx%d PixFmt = %s, PixPerScanLine = %d\n",
+            Print(L"- Mode %d: %dx%d PixFmt = %s, PixPerScanLine = %d\n",
                       Mode, Info->HorizontalResolution, Info->VerticalResolution, PixelFormatDesc, Info->PixelsPerScanLine);
         } else {
-            MsgLog("- Mode %d: %r\n", Mode, Status);
+            Print(L"- Mode %d: %r\n", Mode, Status);
         }
     }
 }
@@ -178,7 +178,7 @@ static EFI_STATUS GopSetModeAndReconnectTextOut(IN UINT32 ModeNumber)
     }
 
     Status = GraphicsOutput->SetMode(GraphicsOutput, ModeNumber);
-    MsgLog("Video mode change to mode #%d: %r\n", ModeNumber, Status);
+    Print(L"Video mode change to mode #%d: %r\n", ModeNumber, Status);
 
     if (!EFI_ERROR (Status)) { 
         // When we change mode on GOP, we need to reconnect the drivers which produce simple text out
@@ -229,10 +229,10 @@ EFI_STATUS egSetMode(INT32 Next)
     Mode = (Mode >= (INT32)MaxMode)?0:Mode;
     Mode = (Mode < 0)?((INT32)MaxMode - 1):Mode;
     Status = GraphicsOutput->QueryMode(GraphicsOutput, (UINT32)Mode, &SizeOfInfo, &Info);
-    MsgLog("QueryMode %d Status=%r\n", Mode, Status);
+    Print(L"QueryMode %d Status=%r\n", Mode, Status);
     if (Status == EFI_SUCCESS) {
       Status = GopSetModeAndReconnectTextOut((UINT32)Mode);
-      MsgLog("SetMode %d Status=%r\n", Mode, Status);
+      Print(L"SetMode %d Status=%r\n", Mode, Status);
       egScreenWidth = GraphicsOutput->Mode->Info->HorizontalResolution;
       egScreenHeight = GraphicsOutput->Mode->Info->VerticalResolution;
     }
@@ -259,7 +259,7 @@ EFI_STATUS egSetMaxResolution()
         return EFI_UNSUPPORTED;
     }
 
-    MsgLog("SetMaxResolution: ");
+    Print(L"SetMaxResolution: ");
 
     MaxMode = GraphicsOutput->Mode->MaxMode;
     for (Mode = 0; Mode < MaxMode; Mode++) {
@@ -277,11 +277,11 @@ EFI_STATUS egSetMaxResolution()
         }
     }
     
-    MsgLog("Found best mode %d: %dx%d\n", BestMode, Width, Height);
+    Print(L"Found best mode %d: %dx%d\n", BestMode, Width, Height);
     
     // check if requested mode is equal to current mode
     if (BestMode == GraphicsOutput->Mode->Mode) {
-        MsgLog(" - already set\n");
+        Print(L" - already set\n");
         egScreenWidth = GraphicsOutput->Mode->Info->HorizontalResolution;
         egScreenHeight = GraphicsOutput->Mode->Info->VerticalResolution;
         Status = EFI_SUCCESS;
@@ -291,10 +291,10 @@ EFI_STATUS egSetMaxResolution()
         if (Status == EFI_SUCCESS) {
           egScreenWidth = Width;
           egScreenHeight = Height;
-          MsgLog(" - set\n", Status);
+          Print(L" - set\n", Status);
         } else {
           // we can not set BestMode - search for first one that we can
-          MsgLog(" - %r\n", Status);
+          Print(L" - %r\n", Status);
           Status = egSetMode(1);
         }
     }
@@ -344,25 +344,25 @@ VOID egInitScreen(VOID) {
     Status = LibLocateProtocol(&ConsoleControlProtocolGuid, (VOID **) &ConsoleControl);
     if (EFI_ERROR(Status)) {
         ConsoleControl = NULL;
-        MsgLog("ConsoleControl !ok\n");
+        Print(L"ConsoleControl !ok\n");
     } else {
-        MsgLog("ConsoleControl ok\n");
+        Print(L"ConsoleControl ok\n");
     }
 
     Status = LibLocateProtocol(&UgaDrawProtocolGuid, (VOID **) &UgaDraw);
     if (EFI_ERROR(Status)) {
         UgaDraw = NULL;
-        MsgLog("UgaDraw !ok\n");
+        Print(L"UgaDraw !ok\n");
     } else {
-        MsgLog("UgaDraw ok\n");
+        Print(L"UgaDraw ok\n");
     }
 
     Status = LibLocateProtocol(&GraphicsOutputProtocolGuid, (VOID **) &GraphicsOutput);
     if (EFI_ERROR(Status)) {
         GraphicsOutput = NULL;
-        MsgLog("GraphicsOutput !ok\n");
+        Print(L"GraphicsOutput !ok\n");
     } else {
-        MsgLog("GraphicsOutput ok\n");
+        Print(L"GraphicsOutput ok\n");
     }
 
     // Get the screen size
@@ -374,11 +374,11 @@ VOID egInitScreen(VOID) {
         egScreenWidth = GraphicsOutput->Mode->Info->HorizontalResolution;
         egScreenHeight = GraphicsOutput->Mode->Info->VerticalResolution;
         egHasGraphics = TRUE;
-        MsgLog("Looks like you are using a GOP graphics card.\n");
+        Print(L"Looks like you are using a GOP graphics card.\n");
     } else if (UgaDraw != NULL) {
         // is there anybody ever see UGA protocol???
         UINT32 Width, Height, Depth, RefreshRate;
-        MsgLog("Looks like you are using a UGA graphics card, inform please to the Next Loader project!\n");
+        Print(L"Looks like you are using a UGA graphics card, inform please to the Next Loader project!\n");
         Status = UgaDraw->GetMode(UgaDraw, &Width, &Height, &Depth, &RefreshRate);
         if (EFI_ERROR(Status)) {
             UgaDraw = NULL; // Graphics not available
@@ -457,13 +457,13 @@ BOOLEAN egSetScreenSize(IN OUT UINTN *ScreenWidth, IN OUT UINTN *ScreenHeight) {
             egScreenHeight = *ScreenHeight;
         } else { // If unsuccessful, display an error message for the user....
             SwitchToText(FALSE);
-            MsgLog("Error setting graphics mode %d x %d; using default mode!\nAvailable modes are:\n", *ScreenWidth, *ScreenHeight);
+            Print(L"Error setting graphics mode %d x %d; using default mode!\nAvailable modes are:\n", *ScreenWidth, *ScreenHeight);
             ModeNum = 0;
             
             do {
                 Status = refit_call4_wrapper(GraphicsOutput->QueryMode, GraphicsOutput, ModeNum, &Size, &Info);
                 if ((Status == EFI_SUCCESS) && (Info != NULL)) {
-                   MsgLog("Mode %d: %d x %d\n", ModeNum, Info->HorizontalResolution, Info->VerticalResolution);
+                   Print(L"Mode %d: %d x %d\n", ModeNum, Info->HorizontalResolution, Info->VerticalResolution);
                 } // else
             } while (++ModeNum < GraphicsOutput->Mode->MaxMode);
             
@@ -484,7 +484,7 @@ BOOLEAN egSetScreenSize(IN OUT UINTN *ScreenWidth, IN OUT UINTN *ScreenHeight) {
             // TODO: Find a list of supported modes and display it.
             // NOTE: Below doesn't actually appear unless we explicitly switch to text mode.
             // This is just a placeholder until something better can be done....
-            MsgLog("Error setting graphics mode %d x %d; unsupported mode!\n", *ScreenWidth, *ScreenHeight);
+            Print(L"Error setting graphics mode %d x %d; unsupported mode!\n", *ScreenWidth, *ScreenHeight);
         } // if/else
     } // if/else if UGA mode (EFI 1.x)
 
@@ -506,13 +506,13 @@ BOOLEAN egSetTextMode(UINT32 RequestedMode) {
             ChangedIt = TRUE;
         } else {
             SwitchToText(FALSE);
-            MsgLog("\nError setting text mode %d; available modes are:\n", RequestedMode);
+            Print(L"\nError setting text mode %d; available modes are:\n", RequestedMode);
             do {
                 Status = refit_call4_wrapper(ST->ConOut->QueryMode, ST->ConOut, i, &Width, &Height);
                 if (Status == EFI_SUCCESS)
-                    MsgLog("Mode %d: %d x %d\n", i, Width, Height);
+                    Print(L"Mode %d: %d x %d\n", i, Width, Height);
             } while (++i < ST->ConOut->Mode->MaxMode);
-            MsgLog("Mode %d: Use default mode\n", DONT_CHANGE_TEXT_MODE);
+            Print(L"Mode %d: Use default mode\n", DONT_CHANGE_TEXT_MODE);
 
             PauseForKey();
             SwitchToGraphics();
@@ -526,7 +526,7 @@ CHAR16 * egScreenDescription(VOID) {
 
     GraphicsInfo = AllocateZeroPool(256 * sizeof(CHAR16));
     if (GraphicsInfo == NULL)
-        return L"memory allocation error";
+        return L"Memory allocation error";
 
     if (egHasGraphics) {
     	if (GraphicsOutput != NULL && UgaDraw != NULL) {
@@ -630,7 +630,7 @@ VOID egDrawImage(IN EG_IMAGE *Image, IN UINTN ScreenPosX, IN UINTN ScreenPosY) {
     } else {
         CompImage = egCropImage(GlobalConfig.ScreenBackground, ScreenPosX, ScreenPosY, Image->Width, Image->Height);
         if (CompImage == NULL) {
-            MsgLog("Error! Can't crop image in egDrawImage()!\n");
+            Print(L"Error! Can't crop image in egDrawImage()!\n");
             return;
         }
         egComposeImage(CompImage, Image, 0, 0);
@@ -783,7 +783,7 @@ VOID egScreenShot(VOID) {
 
     Image = egCopyScreen();
     if (Image == NULL) {
-        MsgLog("Error: Unable to take screen shot\n");
+        Print(L"Error: Unable to take screen shot\n");
         goto bailout_wait;
     }
 
@@ -791,7 +791,7 @@ VOID egScreenShot(VOID) {
     egEncodeBMP(Image, &FileData, &FileDataLength);
     egFreeImage(Image);
     if (FileData == NULL) {
-        MsgLog("Error egEncodeBMP returned NULL\n");
+        Print(L"Error egEncodeBMP returned NULL\n");
         goto bailout_wait;
     }
 
@@ -802,7 +802,7 @@ VOID egScreenShot(VOID) {
     // Search for existing screen shot files; increment number to an unused value...
     ssNum = 001;
     do {
-        Print(Filename, 80, L"screenshot_%03d.bmp", ssNum++);
+        SPrint(Filename, 80, L"screenshot_%03d.bmp", ssNum++);
     } while (FileExists(BaseDir, Filename));
 
     // save to file on the ESP

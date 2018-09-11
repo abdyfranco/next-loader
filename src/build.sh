@@ -61,22 +61,15 @@ UDK2018_DIR="$BASEDIR/edk2/UDK2018/MyWorkSpace"
 # Set application compilers
 GCC_COMPILER='gcc-4.9'
 GCC_X64_COMPILER='x86_64-w64-mingw32-gcc'
-GCC_IA32_COMPILER='i686-w64-mingw32-gcc'
 
 # Delete the previous build
 rm -rf "$BUILD_DIR/x64" >/dev/null 2>&1
-rm -rf "$BUILD_DIR/ia32" >/dev/null 2>&1
 
 # Create the build dir
 mkdir -p "$BUILD_DIR/x64/loader/drivers"
 mkdir "$BUILD_DIR/x64/loader/uefi"
 mkdir "$BUILD_DIR/x64/loader/tools"
 mkdir "$BUILD_DIR/x64/loader/themes"
-
-mkdir -p "$BUILD_DIR/ia32/loader/drivers"
-mkdir "$BUILD_DIR/ia32/loader/uefi"
-mkdir "$BUILD_DIR/ia32/loader/tools"
-mkdir "$BUILD_DIR/ia32/loader/themes"
 
 # Set the UDK2014 environment
 echo "======================================"
@@ -99,10 +92,7 @@ echo " => Compiling UDK2014 Packages"
 echo "======================================"
 
 $UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE
-$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE
-
 $UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE
-$UDK2014_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE
 
 # Compile Next Loader UEFI Application
 echo "======================================"
@@ -110,14 +100,10 @@ echo " => Compiling Next Loader Application"
 echo "======================================"
 
 (cd "$EFI_DIR" && make all CC=$GCC_COMPILER ARCH=x86_64)
-(cd "$EFI_DIR" && make all CC=$GCC_IA32_COMPILER ARCH=ia32)
 (cd "$EFI_DIR" && make fs CC=$GCC_COMPILER ARCH=x86_64)
-(cd "$EFI_DIR" && make fs CC=$GCC_IA32_COMPILER ARCH=ia32)
 (cd "$EFI_DIR" && make gptsync CC=$GCC_COMPILER ARCH=x86_64 --always-make)
-(cd "$EFI_DIR" && make gptsync CC=$GCC_IA32_COMPILER ARCH=ia32 --always-make)
 
 cp "$EFI_DIR/loader/loader_x64.efi" "$BUILD_DIR/x64/loader/loader.efi" >/dev/null 2>&1
-cp "$EFI_DIR/loader/loader_ia32.efi" "$BUILD_DIR/ia32/loader/loader.efi" >/dev/null 2>&1
 
 cp "$EFI_DIR/filesystems/reiserfs_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
 cp "$EFI_DIR/filesystems/ntfs_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
@@ -127,16 +113,7 @@ cp "$EFI_DIR/filesystems/ext4_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/nu
 cp "$EFI_DIR/filesystems/ext2_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
 cp "$EFI_DIR/filesystems/btrfs_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
 
-cp "$EFI_DIR/filesystems/reiserfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/ntfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/iso9660_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/hfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/ext4_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/ext2_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/filesystems/btrfs_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
-
 cp "$EFI_DIR/gptsync/gptsync_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/gptsync/gptsync_ia32.efi" "$BUILD_DIR/ia32/loader/tools/" >/dev/null 2>&1
 
 cp -r "$EFI_DIR/icons" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 cp -r "$EFI_DIR/keys" "$BUILD_DIR/x64/" >/dev/null 2>&1
@@ -144,13 +121,6 @@ cp -r "$EFI_DIR/scripts" "$BUILD_DIR/x64/" >/dev/null 2>&1
 cp "$EFI_DIR/images/font.png" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 cp "$EFI_DIR/loader.conf" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 cp "$EFI_DIR/stanzas.conf" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
-
-cp -r "$EFI_DIR/icons" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
-cp -r "$EFI_DIR/keys" "$BUILD_DIR/ia32/" >/dev/null 2>&1
-cp -r "$EFI_DIR/scripts" "$BUILD_DIR/ia32/" >/dev/null 2>&1
-cp "$EFI_DIR/images/font.png" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
-cp "$EFI_DIR/loader.conf" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
-cp "$EFI_DIR/stanzas.conf" "$BUILD_DIR/ia32/loader/" >/dev/null 2>&1
 
 # Set the UDK2018 environment
 echo "======================================"
@@ -170,16 +140,9 @@ echo " => Compiling UDK2018 Packages"
 echo "======================================"
 
 $UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p EmulatorPkg/EmulatorPkg.dsc -t GCC49 -a X64 -b RELEASE
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p EmulatorPkg/EmulatorPkg.dsc -t GCC49 -a IA32 -b RELEASE
-
 $UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a IA32 -b RELEASE
-
 $UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a IA32 -b RELEASE
-
 $UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgX64.dsc -t GCC49 -a X64
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgIa32.dsc -t GCC49 -a IA32
 
 # Add UDK2018 EmulatorPkg drivers
 echo "======================================"
@@ -187,7 +150,6 @@ echo " => Installing EmulatorPkg Package"
 echo "======================================"
 
 cp "$UDK2018_DIR/Build/Emulator/RELEASE_GCC49/X64/EmuGopDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/Emulator/RELEASE_GCC49/IA32/EmuGopDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 
 # Add UDK2018 MdeModulePkg drivers
 echo "======================================"
@@ -198,17 +160,12 @@ echo "======================================"
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/NvmExpressDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbMassStorageDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 
-#cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/CrScreenshotDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/NvmExpressDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/IA32/UsbMassStorageDxe.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
-
 # Add UDK2018 DuetPkg drivers
 echo "======================================"
 echo " => Installing DuetPkgX64 Package"
 echo "======================================"
 
 cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/BiosVideo.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/DuetPkgIA32/DEBUG_GCC49/IA32/BiosVideo.efi" "$BUILD_DIR/ia32/loader/uefi/" >/dev/null 2>&1
 
 # Add prebuilt components to the build
 echo "======================================"
@@ -239,17 +196,9 @@ cp "$EFI_DIR/prebuilt/tools_x64/tcpipv4_x64.efi" "$BUILD_DIR/x64/loader/tools/" 
 cp "$EFI_DIR/prebuilt/tools_x64/textmode_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
 cp "$EFI_DIR/prebuilt/tools_x64/which_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
 
-cp "$EFI_DIR/prebuilt/drivers_ia32/fat_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_ia32/exfat_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_ia32/hfs_plus_ia32.efi" "$BUILD_DIR/ia32/loader/drivers/" >/dev/null 2>&1
-
 # Delete uncompiled architectures
 if [ ! -e "$BUILD_DIR/x64/loader/loader.efi" ]; then
     rm -rf "$BUILD_DIR/x64/" >/dev/null 2>&1
-fi 
-
-if [ ! -e "$BUILD_DIR/ia32/loader/loader.efi" ]; then
-    rm -rf "$BUILD_DIR/ia32/" >/dev/null 2>&1
 fi 
 
 # Change file permissions
