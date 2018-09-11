@@ -10,7 +10,7 @@
 
 include ../Make.common
 
-SOURCE_NAMES     = image load_bmp load_icns lodepng lodepng_xtra nanojpeg nanojpeg_xtra screen text
+SOURCE_NAMES     = BootLog image load_bmp load_icns lodepng lodepng_xtra nanojpeg nanojpeg_xtra screen text
 OBJS             = $(SOURCE_NAMES:=.obj)
 
 all: $(AR_TARGET)
