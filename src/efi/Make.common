@@ -90,7 +90,9 @@ TIANO_INCLUDE_DIRS = -I $(TIANOBASE)/MdePkg \
                      -I ../loader \
                      -I ../libeg \
                      -I ../include \
-                     -I ../mok
+                     -I ../mok \
+                     -I ../Platform \
+                     -I ../Library/MemLogLibDefault
 #
 # Linker flags
 #
