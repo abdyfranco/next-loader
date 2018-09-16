@@ -122,79 +122,81 @@ cp "$EFI_DIR/images/font.png" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 cp "$EFI_DIR/loader.conf" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 cp "$EFI_DIR/stanzas.conf" "$BUILD_DIR/x64/loader/" >/dev/null 2>&1
 
-# Set the UDK2018 environment
-echo "======================================"
-echo " => Setting up the UDK2018 Environment"
-echo "======================================"
+if [ -e "$BUILD_DIR/x64/loader/loader.efi" ]; then
+	# Set the UDK2018 environment
+	echo "======================================"
+	echo " => Setting up the UDK2018 Environment"
+	echo "======================================"
 
-export WORKSPACE="$UDK2018_DIR"
-export EDK_TOOLS_PATH="$UDK2018_DIR/BaseTools"
-export CONF_PATH="$UDK2018_DIR/Conf"
+	export WORKSPACE="$UDK2018_DIR"
+	export EDK_TOOLS_PATH="$UDK2018_DIR/BaseTools"
+	export CONF_PATH="$UDK2018_DIR/Conf"
 
-(cd "$UDK2018_DIR" && make -C BaseTools CC=$GCC_COMPILER)
-source $UDK2018_DIR/edksetup.sh
+	(cd "$UDK2018_DIR" && make -C BaseTools CC=$GCC_COMPILER)
+	source $UDK2018_DIR/edksetup.sh
 
-# Compile UDK2018 packages
-echo "======================================"
-echo " => Compiling UDK2018 Packages"
-echo "======================================"
+	# Compile UDK2018 packages
+	echo "======================================"
+	echo " => Compiling UDK2018 Packages"
+	echo "======================================"
 
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p EmulatorPkg/EmulatorPkg.dsc -t GCC49 -a X64 -b RELEASE
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE
-$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgX64.dsc -t GCC49 -a X64
+	$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p EmulatorPkg/EmulatorPkg.dsc -t GCC49 -a X64 -b RELEASE
+	$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdeModulePkg/MdeModulePkg.dsc -t GCC49 -a X64 -b RELEASE
+	$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p MdePkg/MdePkg.dsc -t GCC49 -a X64 -b RELEASE
+	$UDK2018_DIR/BaseTools/BinWrappers/PosixLike/build -p DuetPkg/DuetPkgX64.dsc -t GCC49 -a X64
 
-# Add UDK2018 EmulatorPkg drivers
-echo "======================================"
-echo " => Installing EmulatorPkg Package"
-echo "======================================"
+	# Add UDK2018 EmulatorPkg drivers
+	echo "======================================"
+	echo " => Installing EmulatorPkg Package"
+	echo "======================================"
 
-cp "$UDK2018_DIR/Build/Emulator/RELEASE_GCC49/X64/EmuGopDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+	cp "$UDK2018_DIR/Build/Emulator/RELEASE_GCC49/X64/EmuGopDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 
-# Add UDK2018 MdeModulePkg drivers
-echo "======================================"
-echo " => Installing MdeModulePkg Package"
-echo "======================================"
+	# Add UDK2018 MdeModulePkg drivers
+	echo "======================================"
+	echo " => Installing MdeModulePkg Package"
+	echo "======================================"
 
-#cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/CrScreenshotDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/NvmExpressDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
-cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbMassStorageDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+	#cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/CrScreenshotDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+	cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/NvmExpressDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+	cp "$UDK2018_DIR/Build/MdeModule/RELEASE_GCC49/X64/UsbMassStorageDxe.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 
-# Add UDK2018 DuetPkg drivers
-echo "======================================"
-echo " => Installing DuetPkgX64 Package"
-echo "======================================"
+	# Add UDK2018 DuetPkg drivers
+	echo "======================================"
+	echo " => Installing DuetPkgX64 Package"
+	echo "======================================"
 
-cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/BiosVideo.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
+	cp "$UDK2018_DIR/Build/DuetPkgX64/DEBUG_GCC49/X64/BiosVideo.efi" "$BUILD_DIR/x64/loader/uefi/" >/dev/null 2>&1
 
-# Add prebuilt components to the build
-echo "======================================"
-echo " => Installing Pre-built Components"
-echo "======================================"
+	# Add prebuilt components to the build
+	echo "======================================"
+	echo " => Installing Pre-built Components"
+	echo "======================================"
 
-cp "$EFI_DIR/prebuilt/drivers_x64/apfs_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/drivers_x64/pci_nvme_drv_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/drivers_x64/apfs_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/drivers_x64/pci_nvme_drv_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
 
-cp "$EFI_DIR/prebuilt/tools_x64/dbounce_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/dhclient_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/drawbox_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/dumpfv_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/dumpprot_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/ed_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/edit_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/ftp_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/gdisk_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/hexdump_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/hostname_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/ifconfig_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/loadarg_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/ping_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/pppd_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/route_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/shell_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/tcpipv4_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/textmode_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-cp "$EFI_DIR/prebuilt/tools_x64/which_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/dbounce_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/dhclient_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/drawbox_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/dumpfv_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/dumpprot_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/ed_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/edit_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/ftp_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/gdisk_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/hexdump_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/hostname_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/ifconfig_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/loadarg_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/ping_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/pppd_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/route_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/shell_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/tcpipv4_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/textmode_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+	cp "$EFI_DIR/prebuilt/tools_x64/which_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+fi 
 
 # Delete uncompiled architectures
 if [ ! -e "$BUILD_DIR/x64/loader/loader.efi" ]; then
