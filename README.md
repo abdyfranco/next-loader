@@ -31,6 +31,32 @@ Mac do not support the installation of Linux or any other non-Windows operating 
 only way was to use Boot Camp. Now you can not only install Windows, but also any Linux distribution and
 have multiple booting options.
 
+## Contributing to the Project
+### Developers
+Next Loader is a open source project, where all developers are welcome to contribute to the project by
+solving problems or adding new features.
+
+If you are a developer who wants to contribute, you can make a fork of the main repository, where you
+can work an add your code and then open a pull request.
+
+### Beta Testers
+You can also contribute to the project as a Beta Tester, testing each new beta version or new features
+of the project and sharing your feedback with us to improve the development.
+
+### Donating to the Project
+If you don't have enough time, the equipment or enough knowledge to contribute in any of the ways
+mentioned above to the project, you can also donate hardware for our test bench build or donate any
+amount through PayPal or Bitcoin.
+
+##### Hardware we are looking for:
+- Sapphire Pulse Radeon RX 580
+- Nvidia GeForce GT 630 2GB (Flashed by MacVidCards)
+- HP EX900 M.2 120GB PCIe 3.0 x4 NVMe SSD (or similar)
+
+##### Donate any amount:
+ - [PayPal](https://www.paypal.me/abdyfranco)
+ - [Bitcoin](https://www.blockchain.com/btc/payment_request?address=1LMLf1JDouaeEwpUxsH6PpFptYM4LB7b9B) 
+
 ## Copyright
 - Copyright (c) 2017-2018 [Abdy Franco](http://abdyfran.co/)
 - Copyright (c) 2012-2017 [Roderick W. Smith](http://www.rodsbooks.com/)
