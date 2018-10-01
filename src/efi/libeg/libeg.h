@@ -76,7 +76,7 @@ typedef struct {
 #define EG_EICOMPMODE_RLE           (1)
 #define EG_EICOMPMODE_EFICOMPRESS   (2)
 
-#define ICON_EXTENSIONS L"png,icns,jpg,jpeg,bmp"
+#define ICON_EXTENSIONS L"png,icns"
 
 typedef struct {
     UINTN       Width;
@@ -150,7 +150,6 @@ VOID egScreenShot(VOID);
 BOOLEAN egSetTextMode(UINT32 RequestedMode);
 
 EG_IMAGE * egDecodePNG(IN UINT8 *FileData, IN UINTN FileDataLength, IN UINTN IconSize, IN BOOLEAN WantAlpha);
-EG_IMAGE * egDecodeJPEG(IN UINT8 *FileData, IN UINTN FileDataLength, IN UINTN IconSize, IN BOOLEAN WantAlpha);
 
 #endif /* __LIBEG_LIBEG_H__ */
 

@@ -221,8 +221,6 @@ REFIT_CONFIG GlobalConfig = { /* TextOnly = */ FALSE,
                               /* EnableMouse = */ FALSE,
                               /* EnableTouch = */ FALSE,
                               /* HiddenTags = */ TRUE,
-                              /* UseNvram = */ TRUE,
-                              /* ShutdownAfterTimeout = */ FALSE,
                               /* SwitchBadgeIcons = */ FALSE,
                               /* RequestedScreenWidth = */ 0,
                               /* RequestedScreenHeight = */ 0,
@@ -651,7 +649,7 @@ static CHAR16 * FindInitrd(IN CHAR16 *LoaderPath, IN REFIT_VOLUME *Volume) {
                 KernelPostNum = MyStrStr(LoaderPath, KernelVersion);
                 InitrdPostNum = MyStrStr(CurrentInitrdName->Value, KernelVersion);
                 SharedChars = NumCharsInCommon(KernelPostNum, InitrdPostNum);
-                if (SharedChars > MaxSharedChars || (SharedChars == MaxSharedChars && StrLen(CurrentInitrdName->Value) < StrLen(MaxSharedInitrd->Value))) {
+                if (SharedChars > MaxSharedChars) {
                     MaxSharedChars = SharedChars;
                     MaxSharedInitrd = CurrentInitrdName;
                 } // if
@@ -2252,33 +2250,6 @@ static VOID SetConfigFilename(EFI_HANDLE ImageHandle) {
     } // if
 } // VOID SetConfigFilename()
 
-// Adjust the GlobalConfig.DefaultSelection variable: Replace all "+" elements with the
-// Next Loader PreviousBoot variable, if it's available. If it's not available, delete that
-// element.
-VOID AdjustDefaultSelection() {
-    UINTN i = 0, j;
-    CHAR16 *Element = NULL, *NewCommaDelimited = NULL, *PreviousBoot = NULL;
-    EFI_STATUS Status;
-
-    while ((Element = FindCommaDelimited(GlobalConfig.DefaultSelection, i++)) != NULL) {
-        if (MyStriCmp(Element, L"+")) {
-            Status = EfivarGetRaw(&NextLoaderGuid, L"PreviousBoot", (CHAR8 **) &PreviousBoot, &j);
-            if (Status == EFI_SUCCESS) {
-                MyFreePool(Element);
-                Element = PreviousBoot;
-            } else {
-                Element = NULL;
-            }
-        } // if
-        if (Element && StrLen(Element)) {
-            MergeStrings(&NewCommaDelimited, Element, L',');
-        } // if
-        MyFreePool(Element);
-    } // while
-    MyFreePool(GlobalConfig.DefaultSelection);
-    GlobalConfig.DefaultSelection = NewCommaDelimited;
-} // AdjustDefaultSelection()
-
 //
 // main entry point
 //
@@ -2317,7 +2288,6 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
     if (LoadDrivers())
         ScanVolumes();
     ReadConfig(GlobalConfig.ConfigFilename);
-    AdjustDefaultSelection();
 
     if (GlobalConfig.SpoofOSXVersion && GlobalConfig.SpoofOSXVersion[0] != L'\0')
         SetAppleOSInfo();
@@ -2332,7 +2302,7 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
     // further bootstrap (now with config available)
     SetupScreen();
     SetVolumeIcons();
-    ScanForBootloaders(FALSE);
+    ScanForBootloaders(GlobalConfig.ScanDelay == 0);
     ScanForTools();
     // SetupScreen() clears the screen; but ScanForBootloaders() may display a
     // message that must be deleted, so do so
@@ -2344,15 +2314,12 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
           egDisplayMessage(L"Scanning disk drives...", &BGColor, CENTER);
        for (i = 0; i < GlobalConfig.ScanDelay; i++)
           refit_call1_wrapper(BS->Stall, 1000000);
-       RescanAll(GlobalConfig.ScanDelay > 1);
        BltClearScreen(TRUE);
+       RescanAll(GlobalConfig.ScanDelay > 1);
     } // if
 
     if (GlobalConfig.DefaultSelection)
        SelectionName = StrDuplicate(GlobalConfig.DefaultSelection);
-
-    if (GlobalConfig.ShutdownAfterTimeout)
-        MainMenu.TimeoutText = L"Shutdown";
 
     while (MainLoopRunning) {
         MenuExit = RunMainMenu(&MainMenu, &SelectionName, &ChosenEntry);
@@ -2364,10 +2331,6 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
             continue;
         }
 
-        if ((MenuExit == MENU_EXIT_TIMEOUT) && GlobalConfig.ShutdownAfterTimeout) {
-            ChosenEntry->Tag = TAG_SHUTDOWN;
-        }
-        
         switch (ChosenEntry->Tag) {
 
             case TAG_REBOOT:    // Reboot

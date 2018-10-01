@@ -292,6 +292,10 @@ UINTN ReadTokenLine(IN REFIT_FILE *File, OUT CHAR16 ***TokenList)
         Line = ReadLine(File);
         if (Line == NULL)
             return(0);
+        if (Line[0] == L'\0') {
+            MyFreePool(Line);
+            return(0);
+        } // if
 
         p = Line;
         LineFinished = FALSE;
@@ -346,8 +350,17 @@ static VOID HandleInt(IN CHAR16 **TokenList, IN UINTN TokenCount, OUT UINTN *Val
 // handle a parameter with a single string argument
 static VOID HandleString(IN CHAR16 **TokenList, IN UINTN TokenCount, OUT CHAR16 **Target) {
    if ((TokenCount == 2) && Target) {
-      MyFreePool(*Target);
-      *Target = StrDuplicate(TokenList[1]);
+      if ((StrLen(TokenList[1]) > 1) && (TokenList[1][0] == L'+') &&
+          ((TokenList[1][1] == L',') || (TokenList[1][1] == L' '))) {
+         if (*Target) {
+            MergeStrings(Target, TokenList[1] + 2, L',');
+         } else {
+            *Target = StrDuplicate(TokenList[1] + 2);
+         } // if/else
+      } else {
+         MyFreePool(*Target);
+         *Target = StrDuplicate(TokenList[1]);
+      } // if/else
    } // if
 } // static VOID HandleString()
 
@@ -499,6 +512,7 @@ VOID ReadConfig(CHAR16 *FileName)
     CHAR16          *FlagName;
     CHAR16          *TempStr = NULL;
     UINTN           TokenCount, i;
+    EFI_GUID        NextLoaderGuid = LOADER_GUID_VALUE;
 
     // Set a few defaults only if we're loading the default file.
     if (MyStriCmp(FileName, GlobalConfig.ConfigFilename)) {
@@ -525,8 +539,13 @@ VOID ReadConfig(CHAR16 *FileName)
        GlobalConfig.DontScanVolumes = StrDuplicate(DONT_SCAN_VOLUMES);
        GlobalConfig.WindowsRecoveryFiles = StrDuplicate(WINDOWS_RECOVERY_FILES);
        GlobalConfig.MacOSRecoveryFiles = StrDuplicate(MACOS_RECOVERY_FILES);
-       MyFreePool(GlobalConfig.DefaultSelection);
-       GlobalConfig.DefaultSelection = StrDuplicate(L"+");
+       if (GlobalConfig.DefaultSelection != NULL) {
+          MyFreePool(GlobalConfig.DefaultSelection);
+          GlobalConfig.DefaultSelection = NULL;
+       }
+       Status = EfivarGetRaw(&NextLoaderGuid, L"PreviousBoot", (CHAR8**) &(GlobalConfig.DefaultSelection), &i);
+       if (Status != EFI_SUCCESS)
+          GlobalConfig.DefaultSelection = NULL;
     } // if
 
     if (!FileExists(SelfDir, FileName)) {
@@ -549,8 +568,7 @@ VOID ReadConfig(CHAR16 *FileName)
 
         if (MyStriCmp(TokenList[0], L"timeout")) {
             HandleInt(TokenList, TokenCount, &(GlobalConfig.Timeout));
-        } else if (MyStriCmp(TokenList[0], L"shutdown_after_timeout")) {
-            GlobalConfig.ShutdownAfterTimeout = HandleBoolean(TokenList, TokenCount);
+
         } else if (MyStriCmp(TokenList[0], L"hideui")) {
             for (i = 1; i < TokenCount; i++) {
                 FlagName = TokenList[i];
@@ -589,9 +607,7 @@ VOID ReadConfig(CHAR16 *FileName)
               else
                  GlobalConfig.ScanFor[i] = ' ';
            }
-        } else if (MyStriCmp(TokenList[0], L"use_nvram")) {
-           GlobalConfig.UseNvram = HandleBoolean(TokenList, TokenCount);
-           
+
         } else if (MyStriCmp(TokenList[0], L"uefi_deep_legacy_scan")) {
            GlobalConfig.DeepLegacyScan = HandleBoolean(TokenList, TokenCount);
 

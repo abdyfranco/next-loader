@@ -344,8 +344,6 @@ typedef struct {
    BOOLEAN          EnableTouch;
    BOOLEAN          HiddenTags;
    BOOLEAN          SwitchBadgeIcons;
-   BOOLEAN          UseNvram;
-   BOOLEAN          ShutdownAfterTimeout;
    UINTN            RequestedScreenWidth;
    UINTN            RequestedScreenHeight;
    UINTN            BannerBottomEdge;
