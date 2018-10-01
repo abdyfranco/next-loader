@@ -58,8 +58,6 @@
   libeg/lodepng_xtra.c
   libeg/screen.c
   libeg/text.c
-  Platform/DataHubCpu.c
-  Platform/BootLog.c
   
 [Packages]
   MdePkg/MdePkg.dec
