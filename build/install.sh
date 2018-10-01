@@ -22,7 +22,7 @@ UEFI_NAME="UEFI Boot Manager"
 if [ ! "$EUID" == 0 ]; then
     clear;
     echo "o------------------------------------------------------------------o";
-    echo "| Next Loader Installer                                       v1.0 |";
+    echo "| Next Loader Installer                                       v1.1 |";
     echo "o------------------------------------------------------------------o";
     echo "|                                                                  |";
     echo "|   You must run this program as root or using sudo!               |";
@@ -31,10 +31,23 @@ if [ ! "$EUID" == 0 ]; then
     exit
 fi
 
+# Check if System Integrity Protection has been disabled
+if [[ "$(csrutil status)" != *"disabled"* ]]; then
+    clear;
+    echo "o------------------------------------------------------------------o";
+    echo "| Next Loader Installer                                       v1.1 |";
+    echo "o------------------------------------------------------------------o";
+    echo "|                                                                  |";
+    echo "|   You must disable System Integrity Protection!                  |";
+    echo "|                                                                  |";
+    echo "o------------------------------------------------------------------o";
+    exit
+fi
+
 # Main screen
 clear;
 echo "o------------------------------------------------------------------o";
-echo "| Next Loader Installer                                       v1.0 |";
+echo "| Next Loader Installer                                       v1.1 |";
 echo "o------------------------------------------------------------------o";
 echo "|                                                                  |";
 echo "|   How do you want to install Next Loader?                        |";
@@ -63,7 +76,7 @@ if [ "${install_action}" = "1" ]; then
     # Installation type screen
     clear;
     echo "o------------------------------------------------------------------o";
-    echo "| Next Loader Installer                                       v1.0 |";
+    echo "| Next Loader Installer                                       v1.1 |";
     echo "o------------------------------------------------------------------o";
     echo "|                                                                  |";
     echo "|   How do you want to install Next Loader?                        |";
@@ -74,12 +87,12 @@ if [ "${install_action}" = "1" ]; then
     echo "|   | [1] | Side by side with the Startup Manager.             |   |";
     echo "|   |     |----------------------------------------------------|   |";
     echo "|   |     | Next Loader will be installed as an alternative    |   |";
-    echo "|   |     | boot manager within the Startup manager.           |   |";
+    echo "|   |     | boot manager within the startup manager.           |   |";
     echo "|   ------------------------------------------------------------   |";
     echo "|   | [2] | As the default boot manager.                       |   |";
     echo "|   |     |----------------------------------------------------|   |";
     echo "|   |     | Next Loader will be installed as the default boot  |   |";
-    echo "|   |     | manager outside the Startup manager.               |   |";
+    echo "|   |     | manager outside the startup manager.               |   |";
     echo "|   ------------------------------------------------------------   |";
     echo "|                                                                  |";
     echo "o------------------------------------------------------------------o";
@@ -96,7 +109,7 @@ if [ "${install_action}" = "1" ]; then
     # Set the installation partition
     clear;
     echo "o------------------------------------------------------------------o";
-    echo "| Next Loader Installer                                       v1.0 |";
+    echo "| Next Loader Installer                                       v1.1 |";
     echo "o------------------------------------------------------------------o";
     echo "|                                                                  |";
     echo "|   Select the partition where you want to install Next Loader.    |";
@@ -117,7 +130,7 @@ if [ "${install_action}" = "1" ]; then
     # Installation confirmation screen
     clear;
     echo "o------------------------------------------------------------------o";
-    echo "| Next Loader Installer                                       v1.0 |";
+    echo "| Next Loader Installer                                       v1.1 |";
     echo "o------------------------------------------------------------------o";
     echo "|                                                                  |";
     echo "|   Are you sure you want to install Next Loader?                  |";
@@ -144,7 +157,7 @@ if [ "${install_action}" = "1" ]; then
     if [ "${confirmation}" = "C" ]; then
         clear;
         echo "o------------------------------------------------------------------o";
-        echo "| Next Loader Installer                                       v1.0 |";
+        echo "| Next Loader Installer                                       v1.1 |";
         echo "o------------------------------------------------------------------o";
         echo "|                                                                  |";
         echo "|   The installation process was cancelled.                        |";
@@ -157,7 +170,7 @@ if [ "${install_action}" = "1" ]; then
     if [ "${confirmation}" = "I" ]; then
         clear;
         echo "o------------------------------------------------------------------o";
-        echo "| Next Loader Installer                                       v1.0 |";
+        echo "| Next Loader Installer                                       v1.1 |";
         echo "o------------------------------------------------------------------o";
         echo "|                                                                  |";
         echo "|   Installing...                                                  |";
@@ -221,7 +234,7 @@ if [ "${install_action}" = "1" ]; then
         if [ "${install_type}" = "1" ]; then
             clear;
             echo "o------------------------------------------------------------------o";
-            echo "| Next Loader Installer                                       v1.0 |";
+            echo "| Next Loader Installer                                       v1.1 |";
             echo "o------------------------------------------------------------------o";
             echo "|                                                                  |";
             echo "|   The installation process is finished, now you can close this   |";
@@ -255,7 +268,7 @@ if [ "${install_action}" = "2" ]; then
     # Set the installation partition
     clear;
     echo "o------------------------------------------------------------------o";
-    echo "| Next Loader Uninstaller                                     v1.0 |";
+    echo "| Next Loader Uninstaller                                     v1.1 |";
     echo "o------------------------------------------------------------------o";
     echo "|                                                                  |";
     echo "|   Select the partition where Next Loader is installed.           |";
@@ -276,7 +289,7 @@ if [ "${install_action}" = "2" ]; then
     # Installation confirmation screen
     clear;
     echo "o------------------------------------------------------------------o";
-    echo "| Next Loader Uninstaller                                     v1.0 |";
+    echo "| Next Loader Uninstaller                                     v1.1 |";
     echo "o------------------------------------------------------------------o";
     echo "|                                                                  |";
     echo "|   Are you sure you want to uninstall Next Loader?                |";
@@ -303,7 +316,7 @@ if [ "${install_action}" = "2" ]; then
     if [ "${confirmation}" = "C" ]; then
         clear;
         echo "o------------------------------------------------------------------o";
-        echo "| Next Loader Uninstaller                                     v1.0 |";
+        echo "| Next Loader Uninstaller                                     v1.1 |";
         echo "o------------------------------------------------------------------o";
         echo "|                                                                  |";
         echo "|   The uninstallation process was cancelled.                      |";
@@ -316,7 +329,7 @@ if [ "${install_action}" = "2" ]; then
     if [ "${confirmation}" = "U" ]; then
         clear;
         echo "o------------------------------------------------------------------o";
-        echo "| Next Loader Uninstaller                                     v1.0 |";
+        echo "| Next Loader Uninstaller                                     v1.1 |";
         echo "o------------------------------------------------------------------o";
         echo "|                                                                  |";
         echo "|   Uninstalling...                                                |";
@@ -331,7 +344,7 @@ if [ "${install_action}" = "2" ]; then
         # Show the finish screen
         clear;
         echo "o------------------------------------------------------------------o";
-        echo "| Next Loader Uninstaller                                     v1.0 |";
+        echo "| Next Loader Uninstaller                                     v1.1 |";
         echo "o------------------------------------------------------------------o";
         echo "|                                                                  |";
         echo "|   The uninstallation process is finished, now you can close      |";
