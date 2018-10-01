@@ -113,7 +113,6 @@ REFIT_VOLUME     *SelfVolume = NULL;
 REFIT_VOLUME     **Volumes = NULL;
 UINTN            VolumesCount = 0;
 extern GPT_DATA *gPartitions;
-extern EFI_GUID NextLoaderGuid;
 
 // Maximum size for disk sectors
 #define SECTOR_SIZE 4096
@@ -359,58 +358,37 @@ EFI_STATUS ReinitRefitLib(VOID)
 // EFI variable read and write functions
 //
 
-// Retrieve a raw EFI variable, either from NVRAM or from a disk file under
-// NextLoader's "vars" subdirectory, depending on GlobalConfig.UseNvram.
+// From gummiboot: Retrieve a raw EFI variable.
 // Returns EFI status
 EFI_STATUS EfivarGetRaw(EFI_GUID *vendor, CHAR16 *name, CHAR8 **buffer, UINTN *size) {
-    UINT8 *buf = NULL;
-    UINTN l;
-    EFI_STATUS Status;
-    EFI_FILE *VarsDir = NULL;
+   CHAR8 *buf;
+   UINTN l;
+   EFI_STATUS err;
 
-    if ((GlobalConfig.UseNvram == FALSE) && GuidsAreEqual(vendor, &NextLoaderGuid)) {
-        Status = refit_call5_wrapper(SelfDir->Open, SelfDir, &VarsDir, L"vars",
-                                  EFI_FILE_MODE_READ | EFI_FILE_MODE_WRITE, EFI_FILE_DIRECTORY);
-        if (Status == EFI_SUCCESS)
-            Status = egLoadFile(VarsDir, name, &buf, size);
-    } else {
-        l = sizeof(CHAR16 *) * EFI_MAXIMUM_VARIABLE_SIZE;
-        buf = AllocatePool(l);
-        if (!buf)
-            return EFI_OUT_OF_RESOURCES;
-        Status = refit_call5_wrapper(RT->GetVariable, name, vendor, NULL, &l, buf);
-    }
-    if (EFI_ERROR(Status) == EFI_SUCCESS) {
-        *buffer = (CHAR8*) buf;
-        if (size)
-            *size = l;
-    } else
-        MyFreePool(buf);
-    return Status;
+   l = sizeof(CHAR16 *) * EFI_MAXIMUM_VARIABLE_SIZE;
+   buf = AllocatePool(l);
+   if (!buf)
+      return EFI_OUT_OF_RESOURCES;
+
+   err = refit_call5_wrapper(RT->GetVariable, name, vendor, NULL, &l, buf);
+   if (EFI_ERROR(err) == EFI_SUCCESS) {
+      *buffer = buf;
+      if (size)
+         *size = l;
+   } else
+      MyFreePool(buf);
+   return err;
 } // EFI_STATUS EfivarGetRaw()
 
-// Set an EFI variable, either to NVRAM or to a disk file under Next Loader's
-// "vars" subdirectory, depending on GlobalConfig.UseNvram.
-// Returns EFI status
+// From gummiboot: Set an EFI variable
 EFI_STATUS EfivarSetRaw(EFI_GUID *vendor, CHAR16 *name, CHAR8 *buf, UINTN size, BOOLEAN persistent) {
-    UINT32 flags;
-    EFI_FILE *VarsDir = NULL;
-    EFI_STATUS Status;
+   UINT32 flags;
 
-    if ((GlobalConfig.UseNvram == FALSE) && GuidsAreEqual(vendor, &NextLoaderGuid)) {
-        Status = refit_call5_wrapper(SelfDir->Open, SelfDir, &VarsDir, L"vars",
-                                 EFI_FILE_MODE_READ | EFI_FILE_MODE_WRITE | EFI_FILE_MODE_CREATE, EFI_FILE_DIRECTORY);
-        if (Status == EFI_SUCCESS) {
-            Status = egSaveFile(VarsDir, name, (UINT8 *) buf, size);
-        }
-    } else {
-        flags = EFI_VARIABLE_BOOTSERVICE_ACCESS|EFI_VARIABLE_RUNTIME_ACCESS;
-        if (persistent)
-            flags |= EFI_VARIABLE_NON_VOLATILE;
+   flags = EFI_VARIABLE_BOOTSERVICE_ACCESS|EFI_VARIABLE_RUNTIME_ACCESS;
+   if (persistent)
+      flags |= EFI_VARIABLE_NON_VOLATILE;
 
-        Status = refit_call5_wrapper(RT->SetVariable, name, vendor, flags, size, buf);
-    }
-    return Status;
+   return refit_call5_wrapper(RT->SetVariable, name, vendor, flags, size, buf);
 } // EFI_STATUS EfivarSetRaw()
 
 //
@@ -978,6 +956,7 @@ VOID ScanVolume(REFIT_VOLUME *Volume)
         }
         if (DevicePathType(DevicePath) == MESSAGING_DEVICE_PATH && DevicePathSubType(DevicePath) == MSG_1394_DP) {
             Volume->DiskKind = DISK_KIND_FIREWIRE; // USB/FireWire/FC device -> external
+            Bootable = TRUE;
         }
         if (DevicePathType(DevicePath) == MESSAGING_DEVICE_PATH && DevicePathSubType(DevicePath) == MSG_FIBRECHANNEL_DP) {
             Volume->DiskKind = DISK_KIND_FIBRECHANNEL; // FC device -> external
