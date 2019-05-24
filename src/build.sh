@@ -174,7 +174,8 @@ if [ -e "$BUILD_DIR/x64/loader/loader.efi" ]; then
 	echo "======================================"
 
 	cp "$EFI_DIR/prebuilt/drivers_x64/apfs_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
-	cp "$EFI_DIR/prebuilt/drivers_x64/pci_nvme_drv_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+    cp "$EFI_DIR/prebuilt/drivers_x64/pci_nvme_drv_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
+    cp "$EFI_DIR/prebuilt/drivers_x64/polaris_x64.efi" "$BUILD_DIR/x64/loader/drivers/" >/dev/null 2>&1
 
 	cp "$EFI_DIR/prebuilt/tools_x64/dbounce_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
 	cp "$EFI_DIR/prebuilt/tools_x64/dhclient_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
@@ -195,8 +196,10 @@ if [ -e "$BUILD_DIR/x64/loader/loader.efi" ]; then
 	cp "$EFI_DIR/prebuilt/tools_x64/shell_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
 	cp "$EFI_DIR/prebuilt/tools_x64/tcpipv4_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
 	cp "$EFI_DIR/prebuilt/tools_x64/textmode_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-	cp "$EFI_DIR/prebuilt/tools_x64/which_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
-fi 
+    cp "$EFI_DIR/prebuilt/tools_x64/which_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+    cp "$EFI_DIR/prebuilt/tools_x64/screenmodes_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+    cp "$EFI_DIR/prebuilt/tools_x64/showpcix_x64.efi" "$BUILD_DIR/x64/loader/tools/" >/dev/null 2>&1
+fi
 
 # Delete uncompiled architectures
 if [ ! -e "$BUILD_DIR/x64/loader/loader.efi" ]; then
