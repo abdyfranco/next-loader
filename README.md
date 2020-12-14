@@ -2,6 +2,8 @@
 
 # Next Loader
 
+> This project has been abandoned. Use OpenCore instead.
+
 **Next Loader** – Next Loader is a next generation EFI-Based Boot Manager based on rEFInd tailored
 and designed for Intel Macs in mind, meaning that it presents a menu of options to the user when
 the computer first starts up, as shown in the image above.
